@@ -31,7 +31,7 @@
       "id": "godot",
       "label": "Godot",
       "emoji": "\ud83c\udfae",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "summary": "Scene transforms, BoxMesh geometry and independent Godot structural verification",
       "prerequisites": [
         "Godot 4.7.2 is prepared automatically by a compatible Harness on Apple Silicon; export templates are separate and not needed for the qualified structural task"
@@ -44,7 +44,7 @@
       "id": "cad",
       "label": "CAD",
       "emoji": "\ud83d\udcd0",
-      "version": "1.1.4-pack.8",
+      "version": "1.1.4-pack.9",
       "summary": "FreeCAD parametric modelling, geometry verification and OCCT CAD viewer",
       "prerequisites": [
         "FreeCAD 1.1.4 is prepared automatically on Apple Silicon"

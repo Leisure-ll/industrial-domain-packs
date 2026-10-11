@@ -21,7 +21,7 @@ const {
 } = s;
 const { edit } = require("./edit.cjs");
 const { ID, verify } = require("./verifier.cjs");
-const VERSION = "0.2.1";
+const VERSION = '0.2.3';
 const guides = {
   "godot.scene.edit": {
     inputs: {
