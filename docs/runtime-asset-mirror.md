@@ -17,14 +17,21 @@ release 资产）。上游撤档或国内直连不可达都会让用户在"域�
    脚本逐个下载所有 pack 声明的 `runtimeAssets`，校验钉住的 sha256，落到
    `dist/runtime-assets/<id>-<version>/<file>` 并生成 `manifest.json`。
 
-2. **上传到组织 MinIO/静态存储**（目标 bucket 必须允许**匿名 GET**——pack-manager
-   禁止 URL 带凭据）：
+2. **上传到组织 Harbor（OCI artifact，blob 即原文件）**：
 
    ```sh
-   mc cp --recursive dist/runtime-assets/ <alias>/industrial-runtime-assets/
-   # 或 aws s3 sync dist/runtime-assets/ s3://industrial-runtime-assets/ --endpoint-url https://<minio-host>
-   mc anonymous set download <alias>/industrial-runtime-assets
+   oras push --username <robot> --password-stdin --disable-path-validation \
+     harbor.pvg2.zhiman.tech/industrial-runtime-assets/<name>:<version> \
+     dist/runtime-assets/<id>-<version>/<file>:application/octet-stream
    ```
+
+   Harbor 对公开项目也要求 Bearer token；pack-manager 已支持匿名 token 握手
+   （harness PR #123）。`application/octet-stream` 不压缩——blob digest 即文件
+   sha256，因此资产 URL 自带校验：
+
+   `https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/<name>/blobs/sha256:<pin>`
+
+   bucket 侧要求：项目 `industrial-runtime-assets` 保持 **public**（匿名 pull）。
 
 3. **验证**（任意网络）：
 
