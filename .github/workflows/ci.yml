@@ -13,6 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check scaffold
+        run: |
+          test -f README.md
+          test -f README.zh-CN.md
+          test -f AGENTS.md
+          test -f CLAUDE.md
+          test -f CONTRIBUTING.md
+          test -f packs/AGENTS.md
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
