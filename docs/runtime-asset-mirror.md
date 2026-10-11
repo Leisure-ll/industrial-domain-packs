@@ -63,3 +63,15 @@ release 资产）。上游撤档或国内直连不可达都会让用户在"域�
 - 镜像源本身是单点：MinIO 挂了 = 新用户首装失败（已装用户不受影响，资产在本地 pack store）；
   可在 runtimeAssets 引入 fallbackUrls（需要 pack-manager 扩展）作为后续加固。
 - KiCad 10.0.6 是全链路行为钉（native.py/verifier/容器 apt pin），与镜像源问题正交。
+
+## 已知事故（2026-10-11，待 Harbor 侧修复）
+
+**KiCad 10.0.6 DMG（1,404,303,659B）在该 Harbor 实例上无法持久化**，证据链：
+
+1. 第一次上传后 blob 出现"元数据在、内容无"的僵尸态：HEAD 返回 200（oras 因此跳过重传），GET 返回 400 DIGEST_INVALID，跨仓库 HEAD 404（存在性按仓库记录），API blob DELETE 返回 400，删除仓库不清除 blob 元数据；
+2. 换新仓库重传（绕开僵尸）：blob 上传会话真实执行，最终 `PUT …/blobs/uploads/<id>?digest=…` 返回 **201 Created**（registry 协议此时已完成服务端内容摘要校验），数分钟后同一 blob HEAD 又变 404；
+3. 同尺寸/相近尺寸的合成随机文件（1.2GiB 与 1.31GiB）在同一实例上传后均字节级校验通过；godot（177MB）/freecad（624MB）资产正常。
+
+结论：大体积真实文件 PUT 验证通过后服务端丢失内容——指向该 Harbor 实例的存储后端（磁盘空间/S3 multipart/GC）或前置代理问题，与客户端无关。修复前 KiCad 资产暂留 GitHub 上游 URL（#18 已拆分：godot/freecad 切 Harbor，kicad 待修后切换）。
+
+**Plan B（如 Harbor 短期难修）**：同一 nginx 上加一个静态目录 location（如 `/assets/`）直接伺服 DMG 文件——pack-manager 对纯 https 直链本就无需 token 握手。
