@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "2d2b9768607fa93519f443407c7e4a2b1999499a67c90260198d1d8543f35598",
+  "contentSha256": "cda945e6cd712bf8476bb3d80fc7bf7281f7ed00f7da3a1be5564f113ef895e0",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "f1bb459998a40f1ec8e4392fe31adb6ecdf991ffe145d2f5bc7ec2420e5d0781",
     "lib/container.cjs": "d77ba68d399bbc6add9129dd9d4f338f9aedce66bd6385062531dc1880dfe819",
     "lib/index.cjs": "6d769ef97ae4ed3672ba929efcfa8421314c554933fe5a1ddaa1e121636458e8",
     "lib/resources.cjs": "aa4e069d70cafecf5d84216436d4d42a913f4c68ca8ca562b3bd85c9c3854965",
+    "packs/AGENTS.md": "5af2d9b19b14ff901fd926de53781b23adcceac94fd276d8acdabf513bba1c3c",
     "packs/cad/PROVENANCE.md": "6a35ea81875b21744a4cb98cd8e119d1287a445d3861f185c7c6cd19a052a747",
     "packs/cad/README.md": "cc967b5d6fda158d6813e2cfc53dff260700e217c9abacb025b6d2db6a29bc96",
     "packs/cad/harness-pack.json": "9637aaaf60b12f9884fef809db255f4cedd04f6b90725a3b8092bebf65638d3b",
