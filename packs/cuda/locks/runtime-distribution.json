@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "image": "harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+  "imageId": "sha256:f40cdcaaa64645e95e7896eedbcb1b8e13c2fcb4830a8000ff37fed44dfdf1be",
+  "platform": "linux/amd64",
+  "visibility": "private",
+  "authentication": "administrator-docker-config",
+  "installedSize": 13502414848,
+  "manifestSize": 10146,
+  "downloadSize": 10099942854,
+  "peakDiskBytes": 23602357702,
+  "embeddedBuildCommit": "473025c8af7878e928525138b5cb327d6bcdf9dd"
+}

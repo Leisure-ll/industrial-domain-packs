@@ -114,3 +114,17 @@ in normal Settings. It does not claim a local macOS CUDA service or automatic GP
 provisioning. The administrator must provide both authenticated endpoints and exact
 reviewed identities in trusted host settings; candidate inputs never carry their
 credentials. Public release pinning remains a separate consumer integration gate.
+
+The final Harbor acquisition snapshot `26e020c947604b9a818d94d2b95cf7064b277c34330d320bf2648863348e790c` repeated the
+complete macOS Harness flow successfully, producing accepted State
+`718f2230-ab47-46bf-9d35-5cc790fb9a65`. Speedup was `0.968978102189781`; `targetMet`
+remained false. A transient SSH/HTTP fetch failure before a native request reached
+the durable store was preserved; a new operator qualification run used new Action
+IDs and completed. No cancelled or failed native Action was silently retried.
+
+Administrator acquisition authenticated to the private immutable Harbor manifest
+`sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d`,
+verified config/platform/RepoDigest, then prepared the same protected square task
+image without a private source checkout. The real Docker pull reused existing
+layers; this is not a cold-cache download claim. Independent full-layer registry
+readback evidence belongs to the Harbor publication record.

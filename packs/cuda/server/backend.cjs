@@ -24,6 +24,7 @@ function execute(command, args, input, { signal, timeout = 900000, limit = 32 * 
     if (signal?.aborted) return reject(Error('CUDA operation cancelled.'));
     const child = spawn(command, args, { stdio: ['pipe', 'pipe', 'pipe'], env: {
       PATH: process.env.PATH, HOME: process.env.HOME, LANG: 'C.UTF-8',
+      ...(process.env.DOCKER_CONFIG ? { DOCKER_CONFIG: process.env.DOCKER_CONFIG } : {}),
     } });
     let stdout = [], bytes = 0, stderr = '', failure;
     const cancel = () => { failure = Error('CUDA operation cancelled.'); child.kill('SIGKILL'); };

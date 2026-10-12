@@ -14,6 +14,9 @@ async function prepareProject(config, { run = execute } = {}) {
   const docker = config.docker || '/usr/bin/docker';
   const baseTag = 'industrial-cuda-runtime-base:' + require('node:crypto').randomUUID();
   try {
+    const distribution = require('../locks/runtime-distribution.json');
+    if (distribution.imageId !== imageLock.imageId) throw Error('CUDA distribution differs from its qualified base.');
+    await require('./runtime-image.cjs').ensureRuntimeImage(distribution, { docker, run });
     const baseId = (await run(docker, ['image', 'inspect', '--format', '{{.Id}}', imageLock.imageId], undefined, { timeout: 10000 })).trim();
     if (baseId !== imageLock.imageId) throw Error('Locked CUDA runtime base is unavailable.');
     await run(docker, ['tag', imageLock.imageId, baseTag], undefined, { timeout: 10000 });

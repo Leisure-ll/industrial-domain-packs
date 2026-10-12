@@ -84,7 +84,11 @@ AXPBY recipe and upstream checkout for historical integrations.
 
 The remote client installs the Pack and connects to the paired service. It needs
 no CUDA toolkit, local image build, registry credentials or GPU. Only the trusted
-administrator preparing the service needs private Harbor access. Image preparation
+administrator preparing the service needs private Harbor access. Preparation
+automatically pulls the immutable ref in `locks/runtime-distribution.json` when
+absent and verifies its config, manifest and platform before offline task layering.
+Administrator Docker login or `DOCKER_CONFIG` stays on the service host; those
+credentials are never copied into worker containers, MCP arguments or receipts. Image preparation
 and authenticated endpoint provisioning remain administrator responsibilities.
 
 Run `node packs/cuda/server/mcp.cjs /absolute/config.json --identity` to verify and

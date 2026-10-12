@@ -26,6 +26,8 @@ test('administrator preparation layers only project files over locked runtime an
   const directory = fixture(t), commands = [];
   const config = await prepareProject({ taskProjectDir: directory }, { run: async (command, args) => {
     commands.push(args);
+    if (args[0] === 'image' && args[1] === 'inspect' && args.at(-1).startsWith('harbor.'))
+      return JSON.stringify([{ Id: imageLock.imageId, Os: 'linux', Architecture: 'amd64', RepoDigests: [args.at(-1)] }]);
     if (args[0] === 'build') {
       const root = args.at(-1), dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
       assert.ok(dockerfile.startsWith('FROM industrial-cuda-runtime-base:')); 
@@ -60,4 +62,19 @@ test('packaged project allocation preserves CPU/GPU and filesystem isolation wit
   }
   assert.equal(recipe.services.compiler.healthcheck.retries, 30);
   assert.equal(recipe.services.evaluator.healthcheck.retries, 30);
+});
+
+test('administrator Harbor acquisition pulls a missing runtime and rejects incorrect immutable identity', async () => {
+  const { ensureRuntimeImage } = require('../packs/cuda/scripts/runtime-image.cjs');
+  const distribution = { image: 'harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:' + 'a'.repeat(64), imageId: imageLock.imageId, platform: 'linux/amd64' };
+  let installed = false, pulls = 0;
+  const run = async (_docker, args) => {
+    if (args[0] === 'pull') { installed = true; pulls++; return ''; }
+    if (!installed) throw Error('image absent');
+    return JSON.stringify([{ Id: distribution.imageId, Os: 'linux', Architecture: 'amd64', RepoDigests: [distribution.image] }]);
+  };
+  assert.equal(await ensureRuntimeImage(distribution, { run }), imageLock.imageId);
+  assert.equal(await ensureRuntimeImage(distribution, { run }), imageLock.imageId);
+  assert.equal(pulls, 1);
+  await assert.rejects(ensureRuntimeImage(distribution, { run: async (_docker, args) => args[0] === 'pull' ? '' : JSON.stringify([{ Id: 'sha256:' + 'b'.repeat(64), Os: 'linux', Architecture: 'amd64', RepoDigests: [distribution.image] }]) }), /identity mismatch/);
 });
