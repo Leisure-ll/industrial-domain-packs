@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import stat
 import sys
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -44,6 +45,10 @@ def prepare(source, work):
     Project.model_validate(config)
     destination = work / "project"
     shutil.copytree(source, destination)
+    # Snapshot permissions are read-only. Only this owned working copy may be
+    # edited by the non-root Linux container user; /inputs stays immutable.
+    for entry in [destination, *destination.rglob("*")]:
+        entry.chmod(stat.S_IMODE(entry.stat().st_mode) | stat.S_IWUSR)
     (destination / "eda.yaml").write_text(yaml.safe_dump(config, sort_keys=False))
     return destination, config
 

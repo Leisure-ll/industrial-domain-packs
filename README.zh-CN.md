@@ -12,7 +12,7 @@
 
 | Pack | 当前实现 | 使用边界 |
 | --- | --- | --- |
-| Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | Harbor 运行镜像；需要 Docker；物理流程需要用户工艺输入 |
+| Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | Harbor 运行镜像，已验收 macOS ARM64 和 Linux x64；需要 Docker；物理流程需要用户工艺输入 |
 | Godot | 类型化场景编辑、原生导入、独立场景回读与逐帧检查 | Harbor 自动准备 Godot 4.7.2；macOS Apple Silicon；结构流程 |
 | PCB | 88 项独立原理图/PCB 设计工具、器件资源与原生检查 | Harbor 运行镜像及 KiCad 10.0.6；需要 Docker；macOS Apple Silicon 桌面 |
 | CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | Harbor FreeCAD 与 DXF 镜像；DXF 需要 Docker；按明确几何要求校验 |
@@ -31,7 +31,7 @@ Chip 本地和沙箱使用同一套 EDA semantic.prepare / semantic.observe；�
 
 本仓库负责领域实现；Harness 继续负责 canonical 合约、Runtime、Broker、Agent、CLI、Desktop、Viewer 框架；私有 remote 仓库负责认证、文件快照、授权、有限调度和沙箱生命周期。工作负载不获得 Docker socket 或 Kubernetes 权限。
 
-原始实现与已导入的 Harness 源码采用 MIT，保留 [第三方与来源说明](THIRD_PARTY_NOTICES.md)。原生工具保留自身许可。仓库不包含客户数据、凭据、私有部署地址、PDK、私有 PCB actor、二进制或历史运行产物。
+原始实现与已导入的 Harness 源码采用 MIT，保留 [第三方与来源说明](THIRD_PARTY_NOTICES.md)。固定版本的 PCB actor 与工程 references 已随包携带，其预构建运行镜像按用户要求从自有 Harbor 提供正常产品分发，支持匿名获取。这不为 actor 新授予 MIT 或其他开源许可证；见 [PCB 来源与分发记录](packs/pcb/PROVENANCE.md)。原生工具和其他第三方组件保留自身许可。仓库不包含客户数据、凭据、私有部署地址、PDK、二进制或历史运行产物。
 
 ## Harness 消费发行
 

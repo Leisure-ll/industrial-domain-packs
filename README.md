@@ -12,7 +12,7 @@ A compatible Harness prepares native applications and prebuilt tool runtimes fro
 
 | Pack | Included implementation | Execution boundary |
 | --- | --- | --- |
-| Chip | Managed structured EDA, RTL assertions/VCD, synthesis, Skills and native reports | Harbor runtime; Docker; physical flows need project-owned technology inputs |
+| Chip | Managed structured EDA, RTL assertions/VCD, synthesis, Skills and native reports | Harbor runtime for macOS ARM64 and Linux x64; Docker; physical flows need project-owned technology inputs |
 | Godot | Typed scene edits, native import, independent scene readback and frame checks | Harbor-prepared Godot 4.7.2 on macOS Apple Silicon; structural workflow |
 | PCB | 88 independent schematic/PCB design tools, component resources and native checks | Harbor runtime and KiCad 10.0.6; Docker; macOS Apple Silicon desktop |
 | CAD / FreeCAD | Parametric solids and managed DXF create/inspect/verify in one CAD runtime | Harbor FreeCAD and DXF image; Docker for DXF; explicit geometric expectations |
@@ -56,7 +56,7 @@ Build a committed **source-only** archive for any Pack with `python3 scripts/pac
 
 This repository owns domain code. [Industrial Agent Harness](https://github.com/Zhiman-BJ/industrial-agent-harness) owns canonical contracts, generic Runtime, Broker, Kimi integration, CLI, Desktop and Viewer framework. The private remote service owns authentication, snapshots, grants, bounded scheduling and sandbox lifecycle. Workloads receive no Docker socket or Kubernetes credentials. Process success never substitutes for canonical verification.
 
-Original contributions and imported Harness contributions use MIT; preserve [notices](THIRD_PARTY_NOTICES.md) and `licenses/industrial-agent-harness.MIT`. Native tools retain their own terms. Customer projects, credentials, deployment endpoints, PDKs, private PCB actor source, native binaries and archived runs are outside this public source repository.
+Original contributions and imported Harness contributions use MIT; preserve [notices](THIRD_PARTY_NOTICES.md) and `licenses/industrial-agent-harness.MIT`. The pinned PCB actor and engineering references are vendored, and its prebuilt runtime is available for anonymous acquisition from the project Harbor as requested for normal product distribution. This does not grant the actor a new MIT or other open-source license; see its [provenance and distribution record](packs/pcb/PROVENANCE.md). Native tools and other third-party components retain their own terms. Customer projects, credentials, deployment endpoints, PDKs, native binaries and archived runs are outside this public source repository.
 
 See [architecture](docs/architecture.md), [release identity](docs/release-format.md), and [migration](docs/migration.md).
 

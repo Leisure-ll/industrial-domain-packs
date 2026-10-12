@@ -69,6 +69,12 @@ test("dependency metadata preserves platform limits, managed EDA/DXF and the con
     domains.find((d) => d.id === "cuda").prerequisites.join(" "),
     /Remote clients need no local GPU/,
   );
+  const chip = host.find(pack => pack.domain === "chip");
+  const chipPlatforms = ["darwin-arm64", "linux-x64"];
+  assert.deepEqual(domains.find(d => d.id === "chip").qualifiedBundlePlatforms, chipPlatforms);
+  assert.deepEqual(owner.getPack(chip.id).nativePlatforms, chipPlatforms);
+  assert.deepEqual(chip.runtimeAssets[0].platforms, chipPlatforms);
+  assert.equal(chip.runtimeAssets[0].imagePlatform, "linux/amd64");
   const dxf = cad.runtimeAssets.find(a => a.id === 'cad-dxf');
   assert.equal(dxf.type, 'docker-image');
   assert.match(dxf.image, /^harbor\.pvg2\.zhiman\.tech\/industrial-runtime-assets\/.+@sha256:[a-f0-9]{64}$/);

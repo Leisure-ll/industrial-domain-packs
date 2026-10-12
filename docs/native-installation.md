@@ -1,6 +1,6 @@
 # Managed native dependency declarations
 
-Consumer release 0.6.0 provides Harbor-hosted native applications and immutable prebuilt domain runtimes for qualified macOS Apple Silicon clients. A compatible Harness Pack Manager consumes these trusted declarations; this repository does not own installation UI, download execution, canonical readiness state or a second installer. The developer `setup-native.cjs` scripts remain optional diagnostic entry points.
+Consumer release 0.6.0 provides Harbor-hosted native applications and immutable prebuilt domain runtimes for qualified macOS Apple Silicon clients; the managed Chip profile is also qualified on Linux x64. A compatible Harness Pack Manager consumes these trusted declarations; this repository does not own installation UI, download execution, canonical readiness state or a second installer. The developer `setup-native.cjs` scripts remain optional diagnostic entry points.
 
 | Domain | Native archive | Download bytes | App payload bytes | Required executables |
 | --- | --- | ---: | ---: | --- |
@@ -30,8 +30,12 @@ The qualified GPU profile remains RTX 4090. Godot export templates, AutoCAD and
 project-owned PDK/technology inputs are outside automatic installation.
 
 The compatible Harness installer was exercised with real Harbor downloads,
-archive/image identity checks, signature/version probes and ready receipts. Cold
-native probes permit 120 seconds while retaining process cancellation/cleanup.
+archive/image identity checks, signature/version probes and ready receipts. Godot completed a real cold Harbor download. KiCad and FreeCAD Harbor bytes were
+fully hash-verified, while this installation run used those raw archive caches;
+it still copied, verified and probed the applications in fresh stores. CUDA Docker
+preparation reused local layers. These results do not claim every cold network
+installation path. Cold native probes permit 120 seconds while retaining process
+cancellation/cleanup.
 See [managed qualification](managed-domain-runtime-validation.md),
 [PCB qualification](pcb-product-validation.md) and
 [CUDA qualification](../packs/cuda/QUALIFICATION.md) for actual engineering scope.

@@ -1,5 +1,14 @@
 # PCB bridge provenance
 
+## Current product distribution (2026-10-12)
+
+- The Pack vendors the original `pcb-agent/**` actor (101 files) and `skills/pcb-design-e2e/**` engineering resources (11 files) from PCB-bench commit `8c35250e32392f75920570e9e34839b06ad401c4`. Their original bytes and individual SHA-256 hashes remain recorded in `runtime/bench-upstream.json`.
+- The user requested reuse of these tools, Skills and runtime in normal product workflows and distribution from the project's own Harbor. The prebuilt gateway image is published in `harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway` and supports anonymous acquisition. Its immutable manifest/config identity, complete byte verification and source identity are recorded in [the distribution lock](../../provenance/runtime-distribution.json). KiCad's original vendor archive is mirrored in the same project.
+- This records the requested product distribution and its actual access scope. It does not grant a new MIT or other open-source license to the imported actor, establish additional copyright permissions, or replace any required public-distribution review. No repository-level LICENSE was present in the upstream checkout examined for the initial bridge. Imported notices and third-party licenses remain applicable; the public bridge's MIT license does not relicense the actor, KiCad, libraries or solvers.
+- The external-checkout and private-only descriptions below record earlier integration stages. They do not describe the current vendored source or anonymously accessible Harbor runtime.
+
+## Historical external bridge (2026-09-29)
+
 - 核对时间：2026-09-29。
 - 外部来源：`https://github.com/Zhiman-BJ/PCB-bench`，commit `f64692bcfdd74ac6d95051df1adac598cf21105a`。
 - 公开工具 registry：上游 `pcb-agent/tools/workspace.py` 和 `agent_session.py`；服务入口 `kimi_mcp.py`。
@@ -13,13 +22,13 @@
   若后续要 vendor/公开分发原始工具或 Skill，需要分别确认相应许可和来源范围。
 - KiCad、标准库、solver 与其各自许可证继续由上游镜像/版本锁负责；本桥接不会重新声明这些第三方许可证。
 
-The public bridge, locks and metadata are now maintained here. See ../../provenance/domain-migration.json for exact imports. The private actor remains external; its registered hashes do not redistribute its source. Preserve ../../licenses/industrial-agent-harness.MIT.
+At this historical stage, the public bridge, locks and metadata were maintained here, while the private actor remained external and its registered hashes did not redistribute its source. See ../../provenance/domain-migration.json for exact imports. Preserve ../../licenses/industrial-agent-harness.MIT.
 
 ## Public professional runtime contribution (2026-10-08)
 
 The new runtime/, typed tools, Verifiers and examples are original public MIT contributions maintained in this repository. They use separately installed official native executables under their original licenses. The mechanical board and structural scene examples are self-authored source inputs, contain no customer data, private actor code, licensed artwork or third-party assets. Exact maintained source hashes are in content-lock.json and harness-pack.json. Legacy import provenance remains historical evidence; it does not describe the new public acceptance path. See ../../docs/professional-runtime.md for qualified scope and native dependency archive locks.
 
-## Bench surface alignment (2026-10-10)
+## Historical bench surface alignment (2026-10-10)
 
 决定（维护方拍板）：本 Pack 的声明层与 PCB-bench 的模型侧 Skill + 工具面保持一致。
 
@@ -37,7 +46,7 @@ The new runtime/, typed tools, Verifiers and examples are original public MIT co
   容器网关接线（bridge 通电、docker 派发、r10 冒烟）在后续 PR 完成。工具 schema 不在本包复制，
   运行期由网关对活体服务指纹校验（`toolSchemaSha256`）。
 
-## 容器派发接线（2026-10-10，PR2）
+## 历史阶段：容器派发接线（2026-10-10，PR2）
 
 - `runtime/bench-gateway.cjs`：每个绑定的 project 维持一个网关进程（`bridge/pcb-gateway.py`，MCP stdio），
   网关进程持有 pinned Linux 容器的生命周期；本模块只做 JSON-RPC，不直接调用 docker。
@@ -53,7 +62,7 @@ The new runtime/, typed tools, Verifiers and examples are original public MIT co
   环境旋钮：`INDUSTRIAL_HARNESS_PCB_DOCKER`、`_REQUIREMENTS`（须在可写工程之外）、
   `_DEV_IMAGE_ID`、`_IMAGE_INPUT=1`（投递 view_design 渲染）。
 
-## Actor 源码入包（2026-10-10，chip 式集成，用户拍板）
+## 历史阶段：Actor 源码入包（2026-10-10，chip 式集成，用户拍板）
 
 - 决定：pack 对标 chip 集成模式——actor 源码（`pcb-agent/**`，101 个文件，2.0 MiB）随包分发，
   运行时容器镜像由包内源码构建（`Dockerfile.local-dev`，构建上下文即 pack 目录）。

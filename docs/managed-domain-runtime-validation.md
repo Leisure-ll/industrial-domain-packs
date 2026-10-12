@@ -22,12 +22,21 @@ maintained EDA implementation, runs offline in a bounded container and exports
 actual native artifacts. It does not expose arbitrary command/image/host-mount
 choices. Historical standalone MCP remains available separately.
 
-Real execution on macOS arm64 with Docker linux/amd64 exercised project discovery,
+Real execution on macOS ARM64 and Linux x64 with Docker linux/amd64 exercised project discovery,
 environment checks, Verilator RTL assertions and VCD, and Yosys synthesis hierarchy
 and connectivity checks. Canonical Harness integration exercised a deliberately
 incorrect testbench assertion, active native cancellation and recovery after restoring the source. The native
 example is `packs/chip/examples/managed-rtl`; lint targets the DUT while simulation
 targets the timed testbench. No testbench is silently removed to pass lint.
+
+Linux qualification used a fresh managed image store and the real signed installed
+Pack. It exercised installation, RTL/VCD and synthesis, a failing assertion,
+cancellation after native execution started, recovery, restart and same-version
+repair. Runtime image 1.0.1 makes only the container-owned working copy writable
+for its non-root user; the mounted input snapshot remains read-only. The same
+immutable image passed the macOS native regression. Exact source/image identities
+and reports are in the [distribution evidence](../provenance/runtime-distribution-evidence/chip-linux-managed-native.txt)
+and [installed qualification](../provenance/runtime-distribution-evidence/chip-linux-installed-native.txt).
 
 The image excludes bundled PDKs, sample designs, old run stores and credentials.
 Physical implementation still requires project-owned technology inputs. Installed
@@ -46,6 +55,13 @@ plane geometry. The verifier rejects mismatched reports, cancelled/changed input
 and unsupported plane assumptions. Saved-file readback uses ezdxf itself, not an
 independent CAD implementation. The exposed authoring recipe covers bounded lines,
 circles, polylines and text; DWG/PDF conversion is not claimed by this profile.
+
+The real Harness factory also verified that DXF inputs stay tracked when generic
+workspace ignore/input rules exclude their directory: editing a verified drawing
+makes its state stale. Hidden, dependency and evidence paths are rejected;
+symlinks, excessive depth and input-inventory failures cannot produce acceptance.
+Removing the invalid input and re-running restores normal verification. These
+checks use the same published DXF image and the final CAD source adapter.
 
 The Harbor-prepared FreeCAD binary also passed canonical box creation and independent
 FCStd/STEP/BREP geometry readback. The expected 600 mm³ volume passed; an explicit

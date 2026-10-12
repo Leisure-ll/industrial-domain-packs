@@ -59,5 +59,9 @@
   "releaseVersion": "0.7.0",
   "externalDependencies": [
     "Docker; the compatible Harness downloads the pinned EDA image from Harbor. Physical implementation additionally requires project-owned technology/PDK inputs."
+  ],
+  "nativePlatforms": [
+    "darwin-arm64",
+    "linux-x64"
   ]
 }

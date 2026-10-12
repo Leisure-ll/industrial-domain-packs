@@ -13,7 +13,8 @@
         "Physical design requires project-owned PDK/technology inputs; these are not redistributed in the runtime"
       ],
       "qualifiedBundlePlatforms": [
-        "darwin-arm64"
+        "darwin-arm64",
+        "linux-x64"
       ]
     },
     {

@@ -94,12 +94,12 @@
       "runtime/bridge.py": "3e627610b810042dd4e5ff082d91738f267ab36cab313b8fc2c4ff1b320b13ae",
       "runtime/export.py": "715f33bd0658eda7bf0bacd716e7b9881fbf45cec30f5d1c7838790f7a579369",
       "runtime/index.cjs": "be21c42c9e5022f8029266fa6411136ab63feb274902806aa7bf42b9389331ae",
-      "runtime/managed-native.py": "b65605085b476b52b6f0a18032f63632cd41fe22f1b4ef26e4cf2caced430dff",
+      "runtime/managed-native.py": "02ce775ec77e89cb5d6072be03ad50ec4c5a016879c7689a74d53fe4a537ea98",
       "runtime/managed.cjs": "4f23247380134e987301e8b3f513e06d4bdf43826ecccb3dc77747a6c6d4f1a8",
       "runtime/native-profile.py": "72a581ffc3e9ea28add739a3b6ff435985ed0e03dfcf38c10694916332c776f1",
       "runtime/verifier.cjs": "d8b94be8d0da62862da4b1a3de75f08e73a7120312a73876c5d66b09377c1e5b"
     },
-    "sourceSha256": "e852be1b3ca54ae34b50663bb09277a1bf498c37072e9d91aced81e13c8b77de"
+    "sourceSha256": "06e88f16318f19c441a6d16dbe7d52bcc2cbcedfd61bfe9aa255a3be4501a827"
   },
   "capabilities": [
     {
@@ -174,16 +174,20 @@
     {
       "id": "chip-eda",
       "label": "Chip design runtime",
-      "version": "0.7.0",
+      "version": "1.0.1",
       "type": "docker-image",
       "platform": "darwin-arm64",
-      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746",
-      "imageId": "sha256:2f78970ee36f3b6b16386fe2d2669a1c567610a7e8ba9b037accdc232fc38e64",
-      "sha256": "2f78970ee36f3b6b16386fe2d2669a1c567610a7e8ba9b037accdc232fc38e64",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:80925a7398169e1404d3cf372f217e1743a2e105e986e11f5743bb5eda32d8f2",
+      "imageId": "sha256:896580b33a6be28e84128ae7671257729d678119b7a45bd0c0aecaf847783774",
+      "sha256": "896580b33a6be28e84128ae7671257729d678119b7a45bd0c0aecaf847783774",
       "imagePlatform": "linux/amd64",
-      "size": 1248461941,
+      "size": 1248464890,
       "installedSize": 4162985984,
-      "environment": "INDUSTRIAL_HARNESS_EDA_IMAGE"
+      "environment": "INDUSTRIAL_HARNESS_EDA_IMAGE",
+      "platforms": [
+        "darwin-arm64",
+        "linux-x64"
+      ]
     }
   ]
 }
