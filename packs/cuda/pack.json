@@ -36,7 +36,7 @@
     "profile": "rtx4090-sm89",
     "native": "qualified-rtx4090-project-square-and-legacy-axpby",
     "harnessConsumer": "pending-release-pin",
-    "harnessRuntime": "qualified-developer-canonical-path",
+    "harnessRuntime": "qualified-macos-arm64-canonical-remote-client",
     "record": "QUALIFICATION.md",
     "projectBinding": "qualified-independent-square-reference-mutation-cancellation-recovery"
   }

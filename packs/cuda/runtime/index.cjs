@@ -67,6 +67,7 @@ function createRuntimePlugin({ environment = process.env } = {}) {
   }
   return {
     available: Boolean(configs.compiler),
+    workspaceInputs: require('../harness-pack.json').workspaceInputs,
     matchesProject: dir => fs.existsSync(path.join(dir, 'model_new.py')) && fs.existsSync(path.join(dir, 'model.py')),
     protectedPaths: [path.resolve(__dirname, '..')],
     workspaceProtectedPaths: dir => ['.cuda', 'cuda.project.json', 'model.py', 'binding.cpp', 'binding_registry.h', 'utils', 'CAPABILITIES.json'].map(name => path.join(dir, name)),

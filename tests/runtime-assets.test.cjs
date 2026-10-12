@@ -39,7 +39,7 @@ test("installed professional Packs export the exact qualified native downloads a
   });
 });
 
-test("dependency metadata preserves platform limits and declares managed EDA and DXF", () => {
+test("dependency metadata preserves platform limits, managed EDA/DXF and the configured remote GPU client", () => {
   const domains = owner.consumerMetadata().domains;
   const host = owner.hostPacks();
   const cad = host.find((pack) => pack.domain === "cad");
@@ -57,7 +57,7 @@ test("dependency metadata preserves platform limits and declares managed EDA and
   }
   assert.deepEqual(
     domains.find((d) => d.id === "cuda").qualifiedBundlePlatforms,
-    [],
+    ["darwin-arm64"],
   );
   for (const id of ["cuda"])
     assert.equal(host.find((pack) => pack.domain === id).runtimeAssets, undefined);

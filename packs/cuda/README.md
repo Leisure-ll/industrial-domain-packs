@@ -10,8 +10,9 @@ resource pinned in `locks/upstream.json`.
 
 Independent projects supply their protected reference, bindings and measurement
 settings. The qualified hardware remains Linux amd64 / RTX 4090 SM 8.9 with driver
-595.71.05. The original AXPBY allocation remains a compatibility profile. This release is an explicitly configured developer integration, not
-a general GPU service or an automatically installed desktop bundle. `pack.json`
+595.71.05. The original AXPBY allocation remains a compatibility profile. The macOS Apple Silicon client is installable through the normal Pack catalog.
+It connects to an administrator-configured paired GPU service; it does not install
+a local GPU service. `pack.json`
 records qualification separately from source delivery.
 
 ## Client
@@ -53,8 +54,7 @@ use `--remote-client` and require no local NVIDIA GPU.
 
 The installation UI should distinguish local service preparation from connection
 to a remote service, show the detected devices and actionable mismatch status,
-and bind the selected evaluator by stable UUID. The automatic local installer/UI
-is not yet supplied by this developer release.
+and bind the selected evaluator by stable UUID. The automatic local GPU service installer/UI is not supplied.
 
 Create a private configuration with `projectId`, the locked base `imageId`,
 `gpuUuid`, `allocation`, absolute `taskProjectDir`, absolute `stateDirectory`,

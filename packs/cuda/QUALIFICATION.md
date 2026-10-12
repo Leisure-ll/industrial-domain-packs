@@ -60,8 +60,8 @@ check, not additional native GPU or desktop-installer qualification.
 No H200, other GPU/driver, task corpus, generic GPU coordinator profile, desktop
 bundle or real-model optimization trajectory is claimed. Harbor/OpenCode trajectory
 validation is a separate protocol and is not synthesized from Harness MCP receipts.
-`qualifiedBundlePlatforms: []` keeps CUDA out of automatically advertised desktop
-bundles. The qualification allocation is temporary and is removed after checks;
+At version 0.1.0, `qualifiedBundlePlatforms: []` kept CUDA out of desktop bundles;
+the macOS remote client qualification below supersedes that client restriction. The qualification allocation is temporary and is removed after checks;
 a reviewed administrator deployment must provision and configure the paired service.
 
 ## Independent project qualification — 2026-10-12
@@ -94,3 +94,23 @@ Private full receipts and logs are retained in the local qualification workspace
 The project path is constrained by the unchanged positive API, compiler IR and
 native verification contracts. This extends task binding, not the GPU/driver
 qualification scope. Other GPUs and unrestricted Python programs are not claimed.
+
+## macOS remote client qualification — 2026-10-12
+
+macOS Apple Silicon ran the actual shared Harness `createProjectRuntime`,
+`IndustrialRuntime`, deterministic Broker and canonical SQLite/artifact store
+against the authenticated paired remote service over an SSH loopback tunnel.
+Harness implementation commit `ad248a4` consumed CUDA resource snapshot
+`ebb31af8139a79a18a2ceeaedde64af1540f87a41903a1623a58ff1cde3617d7`.
+Both identity checks, baseline, CPU compile, five-input correctness and exclusive
+profile completed. Speedup `0.9672727272727273` did not meet `1.05`. Canonical
+accepted State `fb89390b-4ccb-4288-9b9d-602f3b4e71d7` remained verified with the
+same input hashes after a further read-only evaluator check; changing derived
+`.cuda` receipts did not make real engineering inputs stale. Owned remote workers
+and volumes and the temporary tunnel were removed after the check.
+
+`qualifiedBundlePlatforms: ["darwin-arm64"]` advertises the installed remote client
+in normal Settings. It does not claim a local macOS CUDA service or automatic GPU
+provisioning. The administrator must provide both authenticated endpoints and exact
+reviewed identities in trusted host settings; candidate inputs never carry their
+credentials. Public release pinning remains a separate consumer integration gate.

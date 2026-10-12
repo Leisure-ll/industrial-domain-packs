@@ -26,7 +26,7 @@
       "backend/recipe.cjs": "8d164517bec0110f6ca2f1853b641bff08a019a59dbdaa90559b42adecd053c8",
       "locks/rtx4090-image.json": "cca7222767f24d83a799297410fe849f4ad2b76bc5765725be9786ff76c1f5af",
       "locks/upstream.json": "4c88d9f18fb6d328d973b4e047f42a11ff7fabb783a11a732ec9245ad905842f",
-      "runtime/index.cjs": "d92bb299901af0836d7d05d809c30a2260ca8ab0fadf39836297c7673333639e",
+      "runtime/index.cjs": "e3d9b49870eef6d4cc8c6fa066ec76831477d31cf1c5fbcb5d91d83076e95d41",
       "runtime/project.cjs": "c25a4196a39b15f7f046e4f26790296b32e9386796b7d1bbaf2bf97a76955125",
       "runtime/protocol.cjs": "93dbe80cdaa94806ca4cf3484903006debce0972c895dffa94cb982c97250173",
       "runtime/verifier.cjs": "44838a1ac2e4c81ccc7c7a7a0a6dfccd7ff12e9b2f6928c6a4dbb0e0e8c074ec",
@@ -40,7 +40,7 @@
       "server/native.py": "c164a50744ca1fd387d0d90afb38f1c4852c6d85e0367a3558d0bc5250094857",
       "server/store.cjs": "f8a737cefba4c80a6089792219b968b8af22eae7e4010886e8eb9dece2052152"
     },
-    "sourceSha256": "625b5235510cc114b2532caa34c4a954b4ae561a99075d4aa0c5c2feaa2560f8",
+    "sourceSha256": "ebb31af8139a79a18a2ceeaedde64af1540f87a41903a1623a58ff1cde3617d7",
     "tools": [
       {
         "id": "cuda.compiler.check",
