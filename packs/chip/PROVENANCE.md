@@ -11,3 +11,7 @@ The import selects source modules, locks, Skill, source tests, the Core adapter,
 Future shared domain changes are maintained in this repository. The bootstrap file hashes are historical provenance; a new release records the current content separately. Existing Harness or remote-service copies are not automatically replaced by this import.
 
 The maintained migration refreshes selected public source to Harness 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e; see ../../provenance/domain-migration.json. The original bootstrap record is preserved. New shared rtl-cpu entry, recipe and Verifier are identified by content-lock.json.
+
+## Managed distribution (2026-10-12)
+
+The managed EDA adapter and prebuilt runtime reuse the maintained EDA source. The public runtime excludes project inputs, bundled PDKs, historical run stores and deployment credentials. Native tools retain their embedded licenses; the immutable distribution lock records the actual image and build recipe.

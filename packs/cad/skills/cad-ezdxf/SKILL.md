@@ -5,6 +5,22 @@ description: Direct 2D DXF authoring and verification with ezdxf — the default
 
 # ezdxf: direct 2D DXF authoring (operating traits)
 
+## Managed drawing tools
+
+In an installed Harness project, discover and use `cad.dxf.create`,
+`cad.dxf.inspect` and `cad.dxf.verify`. The CAD runtime installs pinned Python and
+ezdxf from Harbor; Docker must be running. No host pip installation or benchmark
+task is required. Create accepts a bounded millimetre recipe of lines, circles,
+polylines and text. Use `expectedSha256: null` for a new file and its actual current
+hash before replacement. Supply explicit units/counts/circle geometry expectations.
+Readback and audit use ezdxf, so acceptance covers those requested checks and does
+not establish an independent CAD or manufacturing verification.
+
+The operating notes below describe wider ezdxf capabilities. Dimensions, PDF and
+DWG conversion are not exposed by this bounded managed tool profile. AutoCAD is
+an optional separately installed application for the DWG/live-session path.
+
+
 The default route for 2D drawing files: author the DXF directly from the
 spec instead of driving a CAD app. The workflow (spec → artifact → absorb →
 verify) is defined in cad-intent-loop; this file carries the ezdxf-specific

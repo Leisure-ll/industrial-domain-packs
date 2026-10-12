@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "id": "godot-pack",
   "domain": "godot",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "provider": {
     "id": "godot.local",
     "title": "Godot structural Runtime",
     "domain": "godot",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "transport": "runtime",
     "packDirectory": "godot",
     "packId": "godot-pack",
-    "sourceSha256": "da5ac7d58f309913dc6834226ccbeb80d075b58f7fd9a954adb96875097be180",
+    "sourceSha256": "1f17b80417d6df1e3973133a2713e97fc887cc43c68825dcae3627b5836568b8",
     "resourceRoots": [
       "runtime"
     ],
@@ -19,7 +19,7 @@
       "runtime/diagnostics.cjs": "2fbc151510d6be8932d9b2456f1709d5e0de57c17ed79525b539c26e1289a18d",
       "runtime/edit.cjs": "b38cca5a03452e73afa5df1852f5f6a98de61b2c938f1c65836f47cc3bc8ba93",
       "runtime/index.cjs": "51f3923dd36d9b7aad925dbc0c9ea1d309587e694dd627d5d2722ba612e85f21",
-      "runtime/native-dependency.json": "465561b1cc768ad1bd2f3f6cc3ddb66cb544dd1f81ae237fe8c110eef8989323",
+      "runtime/native-dependency.json": "1d292ec23f118265e571ece4001cead768584e2a9992cc38689fee33f0cbb649",
       "runtime/readback.gd": "d54074f2a851c22f6395da895bc59a430dbe94361f65c32640551865c2b197b7",
       "runtime/setup-native.cjs": "9c78c10560e0d651fefd3eb8722681aa995047ce2792ce192523a48bd3890457",
       "runtime/support.cjs": "27c8c2b8b7472677c007a4c7fa6e1d42651a8ef0579fc58c85878a3e986e60cc",
@@ -63,14 +63,14 @@
         "scene",
         "game",
         "animation",
-        "\u6e38\u620f",
-        "\u573a\u666f",
-        "\u52a8\u753b",
+        "游戏",
+        "场景",
+        "动画",
         "edit",
         "modify",
-        "\u5c3a\u5bf8",
-        "\u4fee\u6539",
-        "\u9a8c\u8bc1"
+        "尺寸",
+        "修改",
+        "验证"
       ],
       "skills": [
         {
@@ -114,7 +114,7 @@
       "version": "4.7.2",
       "type": "macos-app-zip",
       "platform": "darwin-arm64",
-      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/godot/blobs/sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
       "sha256": "c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
       "size": 170622178,
       "installedSize": 353682925,
@@ -125,7 +125,8 @@
       "versionArgs": [
         "--version"
       ],
-      "versionText": "4.7.2.stable.official."
+      "versionText": "4.7.2.stable.official.",
+      "upstreamUrl": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip"
     }
   ]
 }

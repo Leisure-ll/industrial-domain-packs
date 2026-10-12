@@ -39,7 +39,7 @@ test("installed professional Packs export the exact qualified native downloads a
   });
 });
 
-test("dependency metadata does not qualify extra platforms, GPU services or complete EDA installs", () => {
+test("dependency metadata preserves platform limits and declares managed EDA and DXF", () => {
   const domains = owner.consumerMetadata().domains;
   const host = owner.hostPacks();
   const cad = host.find((pack) => pack.domain === "cad");
@@ -59,16 +59,20 @@ test("dependency metadata does not qualify extra platforms, GPU services or comp
     domains.find((d) => d.id === "cuda").qualifiedBundlePlatforms,
     [],
   );
-  for (const id of ["chip", "cuda"])
+  for (const id of ["cuda"])
     assert.equal(host.find((pack) => pack.domain === id).runtimeAssets, undefined);
   assert.match(
     domains.find((d) => d.id === "chip").prerequisites.join(" "),
-    /does not install the complete EDA environment/,
+    /project-owned PDK/,
   );
   assert.match(
     domains.find((d) => d.id === "cuda").prerequisites.join(" "),
     /Remote clients need no local GPU/,
   );
+  const dxf = cad.runtimeAssets.find(a => a.id === 'cad-dxf');
+  assert.equal(dxf.type, 'docker-image');
+  assert.match(dxf.image, /^harbor\.pvg2\.zhiman\.tech\/industrial-runtime-assets\/.+@sha256:[a-f0-9]{64}$/);
+  assert.equal(dxf.imageId, 'sha256:' + dxf.sha256);
   // A consumer may edit its display copy without changing the next install recipe.
   cad.runtimeAssets[0].installedSize = 1;
   assert.equal(

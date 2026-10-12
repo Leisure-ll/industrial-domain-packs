@@ -24,3 +24,14 @@ The 1.1.4-pack.5 production path declares model/export/preview relationships and
 Distribution 1.1.4-pack.7 combines these result declarations with the managed native installation recipe and measured footprint from pack.6. The Runtime sources remain identical to pack.5; installation metadata does not change geometry or verification semantics.
 
 Distribution 1.1.4-pack.8 makes the user-path containment check case-insensitive on macOS, where the default filesystem resolves directory names in any casing while `realpath` keeps the caller's spelling. Registered project paths whose case differs from the on-disk entry no longer fail every action with "FreeCAD user paths escaped the Action directory". Linux comparisons stay exact, and genuine escapes (including through symlinks) remain rejected.
+
+## Managed FreeCAD and DXF installation
+
+The compatible Harness prepares FreeCAD 1.1.4 and the pinned DXF container from
+Harbor. Docker is required for `cad.dxf.create`, `cad.dxf.inspect` and
+`cad.dxf.verify`; no host Python/ezdxf installation is needed. The single CAD
+runtime exposes these alongside the existing FreeCAD tools. Create supports
+bounded lines, circles, polylines and text in millimetres, and hash-checks any
+replacement. Verification checks the saved drawing against explicit expectations.
+The ezdxf readback is not an independent CAD engine. AutoCAD remains optional for
+DWG and live desktop sessions; it is not part of this managed prerequisite set.

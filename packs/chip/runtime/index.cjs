@@ -13,7 +13,9 @@ function runtimeEnvironment(environment) {
   );
 }
 
-function createRuntimePlugin({ environment = process.env } = {}) {
+function createRuntimePlugin({ environment = process.env, managed = false, runtimeApi } = {}) {
+  if (managed || environment.INDUSTRIAL_HARNESS_EDA_IMAGE)
+    return require('./managed.cjs').createManagedPlugin({ environment, runtimeApi });
   const python =
     environment.INDUSTRIAL_HARNESS_EDA_PYTHON ||
     path.join(__dirname, '../eda-harness/.venv/bin/python');

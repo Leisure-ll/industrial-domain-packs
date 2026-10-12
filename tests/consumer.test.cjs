@@ -33,14 +33,14 @@ test("host consumers resolve canonical Pack identities and verified maintained r
     "utf8",
   );
   assert.equal(
-    chip.provider.version,
+    packs.getPack(chip.id).sourceVersion,
     sourceProject.match(/^version = "([^"]+)"/m)[1],
   );
   assert.equal(
     metadata.domains.find((item) => item.id === "chip").version,
-    "0.6.2",
+    "0.7.0",
   );
-  assert.equal(freecad.version, "1.1.4-pack.8");
+  assert.equal(freecad.version, "1.1.4-pack.10");
   assert.equal(freecad.version, packs.getPack(freecad.id).releaseVersion);
   assert.equal(
     freecad.version,

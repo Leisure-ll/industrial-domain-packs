@@ -1,40 +1,34 @@
 ---
 name: chip-eda-operate
-description: Use the registered Chip Pack MCP to inspect, initialize and operate the active EDA project, recover persisted context, and evaluate evidence after engineering runs.
+description: Operate the managed Chip design runtime through structured EDA actions and native evidence.
 ---
 
-The Harness binds this MCP gateway to the current project. Do not supply another project_path.
-Start with domain_tool_list to discover the current allowed canonical IDs. Use domain_tool_describe
-for the selected tool schema, then domain_tool_call with its canonical toolId and arguments.
-Upstream names such as run_action map to eda.harness.run_action. Only listed tools are available;
-a missing operation requires a new task/capability scope, not a shell bypass.
+Use the installed project-bound tools discovered through domain_tool_list,
+domain_tool_describe and domain_tool_call. Start with chip.project.describe for
+supported operations and their structured parameter schemas, then
+chip.environment.check for the selected action. chip.rtl.verify runs the RTL
+simulation declared in eda.yaml. chip.eda.execute runs a declared canonical
+operation and its dependencies, for example rtl.lint or logic.synthesize.
 
-First read eda.harness.get_tool_guide, then eda.harness.get_operational_context. For an uninitialized
-project, check eda.harness.check_environment before eda.harness.initialize_project. Missing Docker,
-image, PDK or inputs are separate from MCP connectivity. Do not install software, pull images, or
-switch to local execution during diagnosis. Initialize only a user-intended dedicated project.
+Docker must be running. The compatible Harness installs the immutable EDA image
+from Harbor, including Python and the native tools. A missing runtime is repaired
+in Settings → Domains. Do not install host Python, fetch upstream images or launch
+unmanaged tool processes. Physical flows require the user's technology/PDK inputs;
+the runtime does not supply a process library or imply foundry qualification.
 
-Recover existing goals, baselines, working-copy hashes and active runs from persisted EDA context.
-Submit computation through eda.harness.run_action or eda.harness.run_until. Their returned run ID
-identifies an asynchronous run; inspect eda.harness.get_run and acceptance evidence afterwards.
-The MCP transport can close while an EDA run continues. On submission timeout, inspect existing
-runs before retrying; the gateway never automatically retries mutations.
+Read and edit the user's project and eda.yaml through canonical file tools. Use
+structured action parameters; project command, script, image, resource and output
+path overrides are not accepted by the managed profile. Describe operations to
+learn their supported input references. No benchmark task or evaluator is needed.
 
-The patched runtime defaults to one managed action per Docker daemon and build_jobs: 1.
-Do not launch raw EDA tools or Docker containers in shell to bypass that boundary.
-After failures, inspect report.execution and log.tool. Error 247 alone does not establish
-OOM. A cleanup_pending run retains its container and budget; restore Docker and recover_runs
-before resubmitting. Do not skip CTS repair, LEC, memory modeling or failed partitions to
-claim PASS. Structured equivalence supports mapped memories, real functional models,
-bounded single-worker EQY and complete proof; native-memory SMT requires a separately
-verified custom flow. Query the actual server schema before configuring an action.
+Each invocation snapshots the design and runs inside a protected offline container.
+Harness owns its limits, cancellation, reports and durable Action/Run records.
+Inspect the resulting artifacts after execution. A native process exit or tool
+response is not engineering acceptance: retain native verification, assertions,
+waveforms and explicit expectations. Missing evidence remains insufficient_evidence.
+Source edits invalidate previous acceptance. Never skip failed proof partitions,
+CTS, LEC or missing PDK evidence to claim PASS.
 
-Use metrics, diagnostics and artifact IDs from that project's EDA state. read_artifact supports
-bounded pagination. Large gateway responses are retained in a session-local response cache and
-returned as paged text; use domain_tool_result_read with the returned responseId and offset.
-Never infer engineering PASS from a Viewer, a process exit code, Core file observations, or a
-successful MCP response. Verify the configured checks and current-working-copy acceptance.
-
-Goal creation, checkout, decisions, initialization, submission, recovery, cancellation and external
-viewer launch are mutating operations. They use the normal Kimi MCP approval path; the CLI's
-approval policy applies. A direct EDA worker remains responsible for execution and verification.
+The preserved standalone EDA MCP remains a developer integration with its own
+installation and scoped operations; its eda.harness.* IDs are not aliases of the
+installed canonical tools. Do not substitute that service for a missing managed tool.

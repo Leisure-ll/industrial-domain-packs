@@ -7,3 +7,7 @@ Native executables and licensed project assets are installed separately and reta
 ## Public professional runtime contribution (2026-10-08)
 
 The new runtime/, typed tools, Verifiers and examples are original public MIT contributions maintained in this repository. They use separately installed official native executables under their original licenses. The mechanical board and structural scene examples are self-authored source inputs, contain no customer data, private actor code, licensed artwork or third-party assets. Exact maintained source hashes are in content-lock.json and harness-pack.json. Legacy import provenance remains historical evidence; it does not describe the new public acceptance path. See ../../docs/professional-runtime.md for qualified scope and native dependency archive locks.
+
+## Managed distribution (2026-10-12)
+
+The official Godot archive is distributed byte-for-byte through the project Harbor. Its original release URL is retained as provenance; the installed default no longer downloads from the upstream release host.

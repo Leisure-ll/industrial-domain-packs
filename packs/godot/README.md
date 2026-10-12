@@ -28,3 +28,11 @@ Each prints environment variables and saves provenance. Set `INDUSTRIAL_HARNESS_
 Projects are bounded to 128 MiB, 16 MiB per input/output, 10,000 scan entries and depth 24. Symlinks, hardlinks, escaping paths, stale/cross-project scopes and undeclared tools fail closed. The reserved top-level `runtime-identity` input namespace cannot be shadowed. Native actions use a 1..120000 ms timeout per phase (default 60000); multi-phase verification may take several phase budgets. Input snapshots are immutable, writable native caches/output stay under the action run directory, and network access is denied.
 
 The frozen `legacy-harness-pack.json` and bridge/src files remain standalone transport diagnostic references. They are not disclosed or loaded by the integrated host. Native engineering acceptance is tested through the canonical Runtime.
+
+## Managed distribution
+
+The compatible Harness downloads the pinned Godot 4.7.2 archive from the project
+Harbor, checks its SHA-256 and prepares the native executable automatically. The
+upstream release URL is provenance only. Ordinary scene work uses this independent
+runtime and user-owned projects; no benchmark harness is required. Export
+templates and unqualified game-engine workflows remain outside this profile.

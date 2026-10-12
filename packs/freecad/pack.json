@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "freecad-pack",
   "domain": "cad",
-  "sourceVersion": "1.1.4-pack.8",
+  "sourceVersion": "1.1.4-pack.10",
   "status": "maintained-source",
   "skills": [
     "skills/cad-freecad-headless/SKILL.md"
@@ -12,7 +12,7 @@
     "entry": "runtime/index.cjs"
   },
   "externalDependencies": [
-    "Official FreeCAD 1.1.4 app; prepared by a compatible Harness Pack Manager on macOS Apple Silicon"
+    "FreeCAD 1.1.4 is prepared from Harbor on macOS Apple Silicon; Docker is required for the managed DXF runtime."
   ],
   "qualification": {
     "inherited": "macOS arm64 Harness 2482114 verified source; new consumer packaging requires its own acceptance",
@@ -20,5 +20,5 @@
     "windows": "not-qualified"
   },
   "remoteStatus": "not-qualified",
-  "releaseVersion": "1.1.4-pack.8"
+  "releaseVersion": "1.1.4-pack.10"
 }

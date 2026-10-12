@@ -2,941 +2,188 @@
   "schemaVersion": 1,
   "id": "chip-pack",
   "domain": "chip",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "provider": {
-    "id": "chip-pack.eda",
-    "title": "Chip Pack \u00b7 EDA Harness 0.6.1",
+    "id": "chip-pack.runtime",
+    "title": "Chip design runtime",
     "domain": "chip",
-    "version": "0.6.1",
-    "transport": "gateway",
+    "version": "0.7.0",
+    "transport": "runtime",
     "packDirectory": "chip",
-    "directoryEnv": "INDUSTRIAL_HARNESS_CHIP_PACK_DIR",
-    "pythonEnv": "INDUSTRIAL_HARNESS_EDA_PYTHON",
-    "package": "eda-harness",
-    "module": "eda_harness.cli",
-    "mcpVersion": "1.29.1",
+    "packId": "chip-pack",
+    "resourceRoots": [
+      "runtime",
+      "eda-harness/src"
+    ],
     "tools": [
       {
-        "id": "eda.harness.get_server_info",
-        "name": "get_server_info",
-        "risk": "read-only",
-        "summary": "get server info"
-      },
-      {
-        "id": "eda.harness.check_environment",
-        "name": "check_environment",
-        "risk": "read-only",
-        "summary": "check environment"
-      },
-      {
-        "id": "eda.harness.tool_capabilities",
-        "name": "tool_capabilities",
-        "risk": "read-only",
-        "summary": "tool capabilities"
-      },
-      {
-        "id": "eda.harness.viewer_capabilities",
-        "name": "viewer_capabilities",
-        "risk": "read-only",
-        "summary": "viewer capabilities"
-      },
-      {
-        "id": "eda.harness.preflight",
-        "name": "preflight",
-        "risk": "read-only",
-        "summary": "preflight"
-      },
-      {
-        "id": "eda.harness.inspect_project",
-        "name": "inspect_project",
-        "risk": "read-only",
-        "summary": "inspect project"
-      },
-      {
-        "id": "eda.harness.get_operational_context",
-        "name": "get_operational_context",
-        "risk": "read-only",
-        "summary": "get operational context"
-      },
-      {
-        "id": "eda.harness.workspace_status",
-        "name": "workspace_status",
-        "risk": "read-only",
-        "summary": "workspace status"
-      },
-      {
-        "id": "eda.harness.list_actions",
-        "name": "list_actions",
-        "risk": "read-only",
-        "summary": "list actions"
-      },
-      {
-        "id": "eda.harness.get_run",
-        "name": "get_run",
-        "risk": "read-only",
-        "summary": "get run"
-      },
-      {
-        "id": "eda.harness.get_metrics",
-        "name": "get_metrics",
-        "risk": "read-only",
-        "summary": "get metrics"
-      },
-      {
-        "id": "eda.harness.get_diagnostics",
-        "name": "get_diagnostics",
-        "risk": "read-only",
-        "summary": "get diagnostics"
-      },
-      {
-        "id": "eda.harness.get_artifacts",
-        "name": "get_artifacts",
-        "risk": "read-only",
-        "summary": "get artifacts"
-      },
-      {
-        "id": "eda.harness.read_artifact",
-        "name": "read_artifact",
-        "risk": "read-only",
-        "summary": "read artifact"
-      },
-      {
-        "id": "eda.harness.compare_states",
-        "name": "compare_states",
-        "risk": "read-only",
-        "summary": "compare states"
-      },
-      {
-        "id": "eda.harness.get_tool_guide",
-        "name": "get_tool_guide",
-        "risk": "read-only",
-        "summary": "get tool guide"
-      },
-      {
-        "id": "eda.harness.initialize_project",
-        "name": "initialize_project",
+        "id": "chip.rtl.verify",
+        "name": "rtl_verify",
+        "operation": "execute",
+        "action": "rtl.simulate",
         "risk": "mutating",
-        "summary": "initialize project",
         "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
+          "chip.rtl.assertions"
+        ],
+        "summary": "Run real RTL simulation and assertion checks in the managed EDA environment."
       },
       {
-        "id": "eda.harness.open_viewer",
-        "name": "open_viewer",
-        "risk": "mutating",
-        "summary": "open viewer",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
+        "id": "chip.environment.check",
+        "name": "environment_check",
+        "operation": "environment",
+        "risk": "read-only",
+        "verification": [],
+        "summary": "Inspect the managed EDA tool environment for a project action."
       },
       {
-        "id": "eda.harness.run_action",
-        "name": "run_action",
-        "risk": "mutating",
-        "summary": "run action",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
+        "id": "chip.project.describe",
+        "name": "project_describe",
+        "operation": "inspect",
+        "risk": "read-only",
+        "verification": [],
+        "summary": "Read supported structured EDA operations, parameter schemas and project actions."
       },
       {
-        "id": "eda.harness.run_until",
-        "name": "run_until",
+        "id": "chip.eda.execute",
+        "name": "eda_execute",
+        "operation": "execute",
         "risk": "mutating",
-        "summary": "run until",
         "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
-      },
-      {
-        "id": "eda.harness.cancel_run",
-        "name": "cancel_run",
-        "risk": "mutating",
-        "summary": "cancel run",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
-      },
-      {
-        "id": "eda.harness.recover_runs",
-        "name": "recover_runs",
-        "risk": "mutating",
-        "summary": "recover runs",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
-      },
-      {
-        "id": "eda.harness.checkout_state",
-        "name": "checkout_state",
-        "risk": "mutating",
-        "summary": "checkout state",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
-      },
-      {
-        "id": "eda.harness.create_goal",
-        "name": "create_goal",
-        "risk": "mutating",
-        "summary": "create goal",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
-      },
-      {
-        "id": "eda.harness.record_decision",
-        "name": "record_decision",
-        "risk": "mutating",
-        "summary": "record decision",
-        "verification": [
-          "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-        ]
+          "chip.eda.native.v1"
+        ],
+        "summary": "Run a declared structured EDA action and its dependencies; preserve native reports and their actual verdict."
       }
     ],
-    "sourceSha256": "95448c85231f7e8abb6ccbfb8facde03e77350fb2a19f84f50a07a3b93e0044d",
-    "packId": "chip-pack"
+    "sourceFiles": {
+      "eda-harness/src/eda_harness/__init__.py": "7f207da0d4b41a14765e56bd061b9a6d924d60a773ee0330ba7e2494f27007d9",
+      "eda-harness/src/eda_harness/cli.py": "4fab783b642857399a68fd8e0b4aa683270e40674cc8718ba079f4763a2cb454",
+      "eda-harness/src/eda_harness/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eda-harness/src/eda_harness/core/acceptance.py": "d0dd52b886a8bdc7c8d740ef34677feca1d70a05849351338cb21eac163355ea",
+      "eda-harness/src/eda_harness/core/context.py": "e9a684bc61fa65bca487e4575841b997d0c9e9eb6c4f8253c88794c3263e7912",
+      "eda-harness/src/eda_harness/core/environment.py": "e8f2082932b085d819491a74d8170265d06ded9835443bda13557d9091675ddc",
+      "eda-harness/src/eda_harness/core/initialization.py": "1fe12f5a9bc6ce62acb26dc61d98fc87d63b1f6b21d19701727a5fc83a5f307a",
+      "eda-harness/src/eda_harness/core/models.py": "9e97d81522df461fa73272bf4f1819385e12946ec483e1ec18449badcad36544",
+      "eda-harness/src/eda_harness/core/parameters.py": "0d8a00f90f2c970437d3562e914a5b9dc611a5b35aac1e5c1815066bb1de913b",
+      "eda-harness/src/eda_harness/core/service.py": "c6cdaf77089704d53b18baf02cafb80cbee163a133367c76447aa57fe3e9e178",
+      "eda-harness/src/eda_harness/core/store.py": "9dbd924036d6ba4b48d1656e1017b64d4d5047aa696718e8154970aa49761c4e",
+      "eda-harness/src/eda_harness/core/workflow.py": "b3685de140a4dedce62b249f62a768a51df40ebe635ee742bffe29a1ff31485d",
+      "eda-harness/src/eda_harness/core/workspace.py": "334304c967448643434cffdecb72f3cc39602c6d1a19faa27728513713380d80",
+      "eda-harness/src/eda_harness/dependency_locks/build.txt": "f414ac60a696061f1080ee2b0e2f067dcadb3314ff5dbaee2489bd14c225ab8d",
+      "eda-harness/src/eda_harness/dependency_locks/runtime.txt": "7490b29ab361c86a1565d1d6bfd9443dd4eacbc3a74b5869e846d938b48fb051",
+      "eda-harness/src/eda_harness/netlist_viewer.py": "cbedfa79585ad2dd806298fdc3eb3cd92d8d07713df9364c6d995b0f376e2b5d",
+      "eda-harness/src/eda_harness/plugins/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eda-harness/src/eda_harness/plugins/advanced.py": "7b406399f076519af08b64c7ae4a3d13d2fa1ed25293e76d17e9316bdb5849fa",
+      "eda-harness/src/eda_harness/plugins/equivalence.py": "027b5a570d6224a45c23d4209081808c2fed1ca503e862fc37845662b7d9c63f",
+      "eda-harness/src/eda_harness/plugins/klayout_streamout.py": "536fe0cd75daae19d8bf121fba4cd947f37edbbb1340a9aa3283682f6263004c",
+      "eda-harness/src/eda_harness/plugins/semantic.py": "4094a79c1592026b8a333aecfa3071662351eefac26cbbc059f740eb6a0524ea",
+      "eda-harness/src/eda_harness/plugins/spice_reference.py": "3c5a77bb81419dbfa92597b441679e263238f8f0df658b1de3dbd51e8d223e2f",
+      "eda-harness/src/eda_harness/plugins/tools.py": "22ce1e721f47abaadeafdcf04f85e6d3a3e207f661764d465bbe73fd01e8c83e",
+      "eda-harness/src/eda_harness/runtimes/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eda-harness/src/eda_harness/runtimes/capabilities.py": "8d66c047ecef010534ce5d4fc7db3f74a5a6af356f18dbe8e4126a423144b52d",
+      "eda-harness/src/eda_harness/runtimes/diagnostics.py": "8abe8fb72032e2ce5a38401228fdda7392d54e3b0df73fc595cfd9c29a54d2e6",
+      "eda-harness/src/eda_harness/runtimes/execution.py": "6ebda3b0a669b38abf5da8a3ee759ab18befac79f7a55903351095aacc6c088d",
+      "eda-harness/src/eda_harness/runtimes/resources.py": "b829a779d8e6f4b5601d2f3dc6535962d26c3a4e21bcefab7c83f69d0299213f",
+      "eda-harness/src/eda_harness/server/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "eda-harness/src/eda_harness/server/identity.py": "906155302f57d4182fe9a27f85dffc385afc3bc2d590fa82a1dfbd27fcb63e93",
+      "eda-harness/src/eda_harness/server/mcp.py": "90ff72b186909361379fd3a485ba08e529340b9ef5468373c395b12ce5273dad",
+      "eda-harness/src/eda_harness/server/tool-guide.md": "093e5d3f6cc76bf0344d0d9da9db2c56378071f9a7b1f2fe03237fe0d0ea83da",
+      "eda-harness/src/eda_harness/tool_inventory.py": "82612b8b6fadcc98ad2ea78c173b94324330293d33049b52e653e9ea00688d48",
+      "eda-harness/src/eda_harness/viewers.py": "c4b768c713ec3c3402c004a425eb3345c914adba6b59b825364a6a76ef098b22",
+      "eda-harness/src/eda_harness/worker.py": "150ad18818dc6ed5384b02475709dafd1cdcbbd97d14e80c6b76d47b3ec1884d",
+      "eda-harness/src/eda_harness/yosys_viewer.py": "67664a2c9bec456cc67457f470d8a912dd9c89d42d6b46eb4855dcac20b9ab3e",
+      "runtime/bridge.py": "3e627610b810042dd4e5ff082d91738f267ab36cab313b8fc2c4ff1b320b13ae",
+      "runtime/export.py": "715f33bd0658eda7bf0bacd716e7b9881fbf45cec30f5d1c7838790f7a579369",
+      "runtime/index.cjs": "be21c42c9e5022f8029266fa6411136ab63feb274902806aa7bf42b9389331ae",
+      "runtime/managed-native.py": "b65605085b476b52b6f0a18032f63632cd41fe22f1b4ef26e4cf2caced430dff",
+      "runtime/managed.cjs": "1627c25695f906179b61907b73f93e2a6158cb61192b522e5d507b8263f64f4c",
+      "runtime/native-profile.py": "72a581ffc3e9ea28add739a3b6ff435985ed0e03dfcf38c10694916332c776f1",
+      "runtime/verifier.cjs": "d8b94be8d0da62862da4b1a3de75f08e73a7120312a73876c5d66b09377c1e5b"
+    },
+    "sourceSha256": "13515d5d291abe63cff637660bf6a610651f92058cbbcc12536a8ada531cbbe8"
   },
   "capabilities": [
     {
-      "id": "chip.eda.inspect",
-      "title": "Inspect EDA project and environment",
+      "id": "chip.eda.managed",
+      "title": "Chip design and verification",
       "domain": "chip",
-      "stages": ["engineering"],
-      "priority": 20,
+      "stages": [],
+      "priority": 110,
       "keywords": [
-        "eda",
-        "chip pack",
-        "chippack",
-        "\u5de5\u7a0b\u72b6\u6001",
-        "\u9879\u76ee\u72b6\u6001",
-        "\u68c0\u67e5\u73af\u5883",
-        "\u73af\u5883\u68c0\u67e5",
-        "project status",
-        "check environment",
-        "get_operational_context",
-        "get_server_info",
-        "\u8bca\u65ad",
-        "metrics",
-        "acceptance",
-        "artifact evidence"
-      ],
-      "skills": [
-        {
-          "id": "chip.eda.operate",
-          "summary": "Operate the project-bound EDA Harness through scoped discovery, describe and call. Recover persisted context and distinguish execution from acceptance."
-        }
-      ],
-      "tools": [
-        {
-          "id": "eda.harness.get_server_info",
-          "name": "get_server_info",
-          "risk": "read-only",
-          "summary": "get server info"
-        },
-        {
-          "id": "eda.harness.check_environment",
-          "name": "check_environment",
-          "risk": "read-only",
-          "summary": "check environment"
-        },
-        {
-          "id": "eda.harness.tool_capabilities",
-          "name": "tool_capabilities",
-          "risk": "read-only",
-          "summary": "tool capabilities"
-        },
-        {
-          "id": "eda.harness.viewer_capabilities",
-          "name": "viewer_capabilities",
-          "risk": "read-only",
-          "summary": "viewer capabilities"
-        },
-        {
-          "id": "eda.harness.preflight",
-          "name": "preflight",
-          "risk": "read-only",
-          "summary": "preflight"
-        },
-        {
-          "id": "eda.harness.inspect_project",
-          "name": "inspect_project",
-          "risk": "read-only",
-          "summary": "inspect project"
-        },
-        {
-          "id": "eda.harness.get_operational_context",
-          "name": "get_operational_context",
-          "risk": "read-only",
-          "summary": "get operational context"
-        },
-        {
-          "id": "eda.harness.workspace_status",
-          "name": "workspace_status",
-          "risk": "read-only",
-          "summary": "workspace status"
-        },
-        {
-          "id": "eda.harness.list_actions",
-          "name": "list_actions",
-          "risk": "read-only",
-          "summary": "list actions"
-        },
-        {
-          "id": "eda.harness.get_run",
-          "name": "get_run",
-          "risk": "read-only",
-          "summary": "get run"
-        },
-        {
-          "id": "eda.harness.get_metrics",
-          "name": "get_metrics",
-          "risk": "read-only",
-          "summary": "get metrics"
-        },
-        {
-          "id": "eda.harness.get_diagnostics",
-          "name": "get_diagnostics",
-          "risk": "read-only",
-          "summary": "get diagnostics"
-        },
-        {
-          "id": "eda.harness.get_artifacts",
-          "name": "get_artifacts",
-          "risk": "read-only",
-          "summary": "get artifacts"
-        },
-        {
-          "id": "eda.harness.read_artifact",
-          "name": "read_artifact",
-          "risk": "read-only",
-          "summary": "read artifact"
-        },
-        {
-          "id": "eda.harness.compare_states",
-          "name": "compare_states",
-          "risk": "read-only",
-          "summary": "compare states"
-        },
-        {
-          "id": "eda.harness.get_tool_guide",
-          "name": "get_tool_guide",
-          "risk": "read-only",
-          "summary": "get tool guide"
-        }
-      ],
-      "verification": [
-        "Use persisted EDA context and acceptance evidence; Core file observations remain not_run."
-      ]
-    },
-    {
-      "id": "chip.eda.setup",
-      "title": "Initialize an EDA project",
-      "domain": "chip",
-      "stages": ["engineering"],
-      "priority": 20,
-      "keywords": [
-        "initialize project",
-        "\u521d\u59cb\u5316\u5de5\u7a0b",
-        "\u521d\u59cb\u5316\u82af\u7247",
-        "eda setup"
-      ],
-      "skills": [
-        {
-          "id": "chip.eda.operate",
-          "summary": "Operate the project-bound EDA Harness through scoped discovery, describe and call. Recover persisted context and distinguish execution from acceptance."
-        }
-      ],
-      "tools": [
-        {
-          "id": "eda.harness.get_server_info",
-          "name": "get_server_info",
-          "risk": "read-only",
-          "summary": "get server info"
-        },
-        {
-          "id": "eda.harness.check_environment",
-          "name": "check_environment",
-          "risk": "read-only",
-          "summary": "check environment"
-        },
-        {
-          "id": "eda.harness.tool_capabilities",
-          "name": "tool_capabilities",
-          "risk": "read-only",
-          "summary": "tool capabilities"
-        },
-        {
-          "id": "eda.harness.viewer_capabilities",
-          "name": "viewer_capabilities",
-          "risk": "read-only",
-          "summary": "viewer capabilities"
-        },
-        {
-          "id": "eda.harness.preflight",
-          "name": "preflight",
-          "risk": "read-only",
-          "summary": "preflight"
-        },
-        {
-          "id": "eda.harness.inspect_project",
-          "name": "inspect_project",
-          "risk": "read-only",
-          "summary": "inspect project"
-        },
-        {
-          "id": "eda.harness.get_operational_context",
-          "name": "get_operational_context",
-          "risk": "read-only",
-          "summary": "get operational context"
-        },
-        {
-          "id": "eda.harness.workspace_status",
-          "name": "workspace_status",
-          "risk": "read-only",
-          "summary": "workspace status"
-        },
-        {
-          "id": "eda.harness.list_actions",
-          "name": "list_actions",
-          "risk": "read-only",
-          "summary": "list actions"
-        },
-        {
-          "id": "eda.harness.get_run",
-          "name": "get_run",
-          "risk": "read-only",
-          "summary": "get run"
-        },
-        {
-          "id": "eda.harness.get_metrics",
-          "name": "get_metrics",
-          "risk": "read-only",
-          "summary": "get metrics"
-        },
-        {
-          "id": "eda.harness.get_diagnostics",
-          "name": "get_diagnostics",
-          "risk": "read-only",
-          "summary": "get diagnostics"
-        },
-        {
-          "id": "eda.harness.get_artifacts",
-          "name": "get_artifacts",
-          "risk": "read-only",
-          "summary": "get artifacts"
-        },
-        {
-          "id": "eda.harness.read_artifact",
-          "name": "read_artifact",
-          "risk": "read-only",
-          "summary": "read artifact"
-        },
-        {
-          "id": "eda.harness.compare_states",
-          "name": "compare_states",
-          "risk": "read-only",
-          "summary": "compare states"
-        },
-        {
-          "id": "eda.harness.get_tool_guide",
-          "name": "get_tool_guide",
-          "risk": "read-only",
-          "summary": "get tool guide"
-        },
-        {
-          "id": "eda.harness.initialize_project",
-          "name": "initialize_project",
-          "risk": "mutating",
-          "summary": "initialize project",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        }
-      ],
-      "verification": [
-        "Use persisted EDA context and acceptance evidence; Core file observations remain not_run."
-      ]
-    },
-    {
-      "id": "chip.eda.run",
-      "title": "Run EDA actions",
-      "domain": "chip",
-      "stages": ["engineering"],
-      "priority": 20,
-      "keywords": [
-        "run_action",
-        "run_until",
-        "eda run",
-        "\u82af\u7247\u8bbe\u8ba1",
-        "lint",
+        "chip",
+        "rtl",
         "synthesis",
-        "\u7efc\u5408",
-        "\u4eff\u771f\u4efb\u52a1",
-        "\u8fd0\u884c\u4eff\u771f",
-        "simulate",
-        "simulation run",
-        "formal",
-        "\u5f62\u5f0f\u9a8c\u8bc1",
-        "placement",
-        "\u5e03\u7ebf\u4efb\u52a1",
-        "cancel run",
-        "\u6062\u590d\u8fd0\u884c",
-        "\u8fd0\u884c\u4efb\u52a1"
+        "verification",
+        "芯片",
+        "仿真",
+        "综合"
       ],
       "skills": [
         {
           "id": "chip.eda.operate",
-          "summary": "Operate the project-bound EDA Harness through scoped discovery, describe and call. Recover persisted context and distinguish execution from acceptance."
+          "summary": "Managed EDA tools, structured project actions and native verification."
         }
       ],
       "tools": [
         {
-          "id": "eda.harness.get_server_info",
-          "name": "get_server_info",
-          "risk": "read-only",
-          "summary": "get server info"
-        },
-        {
-          "id": "eda.harness.check_environment",
-          "name": "check_environment",
-          "risk": "read-only",
-          "summary": "check environment"
-        },
-        {
-          "id": "eda.harness.tool_capabilities",
-          "name": "tool_capabilities",
-          "risk": "read-only",
-          "summary": "tool capabilities"
-        },
-        {
-          "id": "eda.harness.viewer_capabilities",
-          "name": "viewer_capabilities",
-          "risk": "read-only",
-          "summary": "viewer capabilities"
-        },
-        {
-          "id": "eda.harness.preflight",
-          "name": "preflight",
-          "risk": "read-only",
-          "summary": "preflight"
-        },
-        {
-          "id": "eda.harness.inspect_project",
-          "name": "inspect_project",
-          "risk": "read-only",
-          "summary": "inspect project"
-        },
-        {
-          "id": "eda.harness.get_operational_context",
-          "name": "get_operational_context",
-          "risk": "read-only",
-          "summary": "get operational context"
-        },
-        {
-          "id": "eda.harness.workspace_status",
-          "name": "workspace_status",
-          "risk": "read-only",
-          "summary": "workspace status"
-        },
-        {
-          "id": "eda.harness.list_actions",
-          "name": "list_actions",
-          "risk": "read-only",
-          "summary": "list actions"
-        },
-        {
-          "id": "eda.harness.get_run",
-          "name": "get_run",
-          "risk": "read-only",
-          "summary": "get run"
-        },
-        {
-          "id": "eda.harness.get_metrics",
-          "name": "get_metrics",
-          "risk": "read-only",
-          "summary": "get metrics"
-        },
-        {
-          "id": "eda.harness.get_diagnostics",
-          "name": "get_diagnostics",
-          "risk": "read-only",
-          "summary": "get diagnostics"
-        },
-        {
-          "id": "eda.harness.get_artifacts",
-          "name": "get_artifacts",
-          "risk": "read-only",
-          "summary": "get artifacts"
-        },
-        {
-          "id": "eda.harness.read_artifact",
-          "name": "read_artifact",
-          "risk": "read-only",
-          "summary": "read artifact"
-        },
-        {
-          "id": "eda.harness.compare_states",
-          "name": "compare_states",
-          "risk": "read-only",
-          "summary": "compare states"
-        },
-        {
-          "id": "eda.harness.get_tool_guide",
-          "name": "get_tool_guide",
-          "risk": "read-only",
-          "summary": "get tool guide"
-        },
-        {
-          "id": "eda.harness.run_action",
-          "name": "run_action",
+          "id": "chip.rtl.verify",
+          "name": "rtl_verify",
+          "operation": "execute",
+          "action": "rtl.simulate",
           "risk": "mutating",
-          "summary": "run action",
           "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
+            "chip.rtl.assertions"
+          ],
+          "summary": "Run real RTL simulation and assertion checks in the managed EDA environment."
         },
         {
-          "id": "eda.harness.run_until",
-          "name": "run_until",
-          "risk": "mutating",
-          "summary": "run until",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
+          "id": "chip.environment.check",
+          "name": "environment_check",
+          "operation": "environment",
+          "risk": "read-only",
+          "verification": [],
+          "summary": "Inspect the managed EDA tool environment for a project action."
         },
         {
-          "id": "eda.harness.cancel_run",
-          "name": "cancel_run",
-          "risk": "mutating",
-          "summary": "cancel run",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
+          "id": "chip.project.describe",
+          "name": "project_describe",
+          "operation": "inspect",
+          "risk": "read-only",
+          "verification": [],
+          "summary": "Read supported structured EDA operations, parameter schemas and project actions."
         },
         {
-          "id": "eda.harness.recover_runs",
-          "name": "recover_runs",
+          "id": "chip.eda.execute",
+          "name": "eda_execute",
+          "operation": "execute",
           "risk": "mutating",
-          "summary": "recover runs",
           "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        },
-        {
-          "id": "eda.harness.initialize_project",
-          "name": "initialize_project",
-          "risk": "mutating",
-          "summary": "initialize project",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        },
-        {
-          "id": "eda.harness.create_goal",
-          "name": "create_goal",
-          "risk": "mutating",
-          "summary": "create goal",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        },
-        {
-          "id": "eda.harness.record_decision",
-          "name": "record_decision",
-          "risk": "mutating",
-          "summary": "record decision",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
+            "chip.eda.native.v1"
+          ],
+          "summary": "Run a declared structured EDA action and its dependencies; preserve native reports and their actual verdict."
         }
       ],
       "verification": [
-        "Use persisted EDA context and acceptance evidence; Core file observations remain not_run."
-      ]
-    },
-    {
-      "id": "chip.eda.history",
-      "title": "Manage EDA goals and historical states",
-      "domain": "chip",
-      "stages": ["engineering"],
-      "priority": 20,
-      "keywords": [
-        "checkout state",
-        "\u56de\u9000\u72b6\u6001",
-        "create_goal",
-        "record_decision",
-        "compare_states",
-        "\u5b9e\u9a8c\u8bb0\u5f55",
-        "\u5de5\u7a0b\u76ee\u6807",
-        "ppa comparison",
-        "\u6bd4\u8f83\u72b6\u6001"
-      ],
-      "skills": [
-        {
-          "id": "chip.eda.operate",
-          "summary": "Operate the project-bound EDA Harness through scoped discovery, describe and call. Recover persisted context and distinguish execution from acceptance."
-        }
-      ],
-      "tools": [
-        {
-          "id": "eda.harness.get_server_info",
-          "name": "get_server_info",
-          "risk": "read-only",
-          "summary": "get server info"
-        },
-        {
-          "id": "eda.harness.check_environment",
-          "name": "check_environment",
-          "risk": "read-only",
-          "summary": "check environment"
-        },
-        {
-          "id": "eda.harness.tool_capabilities",
-          "name": "tool_capabilities",
-          "risk": "read-only",
-          "summary": "tool capabilities"
-        },
-        {
-          "id": "eda.harness.viewer_capabilities",
-          "name": "viewer_capabilities",
-          "risk": "read-only",
-          "summary": "viewer capabilities"
-        },
-        {
-          "id": "eda.harness.preflight",
-          "name": "preflight",
-          "risk": "read-only",
-          "summary": "preflight"
-        },
-        {
-          "id": "eda.harness.inspect_project",
-          "name": "inspect_project",
-          "risk": "read-only",
-          "summary": "inspect project"
-        },
-        {
-          "id": "eda.harness.get_operational_context",
-          "name": "get_operational_context",
-          "risk": "read-only",
-          "summary": "get operational context"
-        },
-        {
-          "id": "eda.harness.workspace_status",
-          "name": "workspace_status",
-          "risk": "read-only",
-          "summary": "workspace status"
-        },
-        {
-          "id": "eda.harness.list_actions",
-          "name": "list_actions",
-          "risk": "read-only",
-          "summary": "list actions"
-        },
-        {
-          "id": "eda.harness.get_run",
-          "name": "get_run",
-          "risk": "read-only",
-          "summary": "get run"
-        },
-        {
-          "id": "eda.harness.get_metrics",
-          "name": "get_metrics",
-          "risk": "read-only",
-          "summary": "get metrics"
-        },
-        {
-          "id": "eda.harness.get_diagnostics",
-          "name": "get_diagnostics",
-          "risk": "read-only",
-          "summary": "get diagnostics"
-        },
-        {
-          "id": "eda.harness.get_artifacts",
-          "name": "get_artifacts",
-          "risk": "read-only",
-          "summary": "get artifacts"
-        },
-        {
-          "id": "eda.harness.read_artifact",
-          "name": "read_artifact",
-          "risk": "read-only",
-          "summary": "read artifact"
-        },
-        {
-          "id": "eda.harness.compare_states",
-          "name": "compare_states",
-          "risk": "read-only",
-          "summary": "compare states"
-        },
-        {
-          "id": "eda.harness.get_tool_guide",
-          "name": "get_tool_guide",
-          "risk": "read-only",
-          "summary": "get tool guide"
-        },
-        {
-          "id": "eda.harness.checkout_state",
-          "name": "checkout_state",
-          "risk": "mutating",
-          "summary": "checkout state",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        },
-        {
-          "id": "eda.harness.create_goal",
-          "name": "create_goal",
-          "risk": "mutating",
-          "summary": "create goal",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        },
-        {
-          "id": "eda.harness.record_decision",
-          "name": "record_decision",
-          "risk": "mutating",
-          "summary": "record decision",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        }
-      ],
-      "verification": [
-        "Use persisted EDA context and acceptance evidence; Core file observations remain not_run."
-      ]
-    },
-    {
-      "id": "chip.eda.viewer",
-      "title": "Launch EDA external viewer",
-      "domain": "chip",
-      "stages": ["engineering"],
-      "priority": 20,
-      "keywords": [
-        "open_viewer",
-        "launch viewer",
-        "\u6253\u5f00\u5916\u90e8\u67e5\u770b\u5668"
-      ],
-      "skills": [
-        {
-          "id": "chip.eda.operate",
-          "summary": "Operate the project-bound EDA Harness through scoped discovery, describe and call. Recover persisted context and distinguish execution from acceptance."
-        }
-      ],
-      "tools": [
-        {
-          "id": "eda.harness.get_server_info",
-          "name": "get_server_info",
-          "risk": "read-only",
-          "summary": "get server info"
-        },
-        {
-          "id": "eda.harness.check_environment",
-          "name": "check_environment",
-          "risk": "read-only",
-          "summary": "check environment"
-        },
-        {
-          "id": "eda.harness.tool_capabilities",
-          "name": "tool_capabilities",
-          "risk": "read-only",
-          "summary": "tool capabilities"
-        },
-        {
-          "id": "eda.harness.viewer_capabilities",
-          "name": "viewer_capabilities",
-          "risk": "read-only",
-          "summary": "viewer capabilities"
-        },
-        {
-          "id": "eda.harness.preflight",
-          "name": "preflight",
-          "risk": "read-only",
-          "summary": "preflight"
-        },
-        {
-          "id": "eda.harness.inspect_project",
-          "name": "inspect_project",
-          "risk": "read-only",
-          "summary": "inspect project"
-        },
-        {
-          "id": "eda.harness.get_operational_context",
-          "name": "get_operational_context",
-          "risk": "read-only",
-          "summary": "get operational context"
-        },
-        {
-          "id": "eda.harness.workspace_status",
-          "name": "workspace_status",
-          "risk": "read-only",
-          "summary": "workspace status"
-        },
-        {
-          "id": "eda.harness.list_actions",
-          "name": "list_actions",
-          "risk": "read-only",
-          "summary": "list actions"
-        },
-        {
-          "id": "eda.harness.get_run",
-          "name": "get_run",
-          "risk": "read-only",
-          "summary": "get run"
-        },
-        {
-          "id": "eda.harness.get_metrics",
-          "name": "get_metrics",
-          "risk": "read-only",
-          "summary": "get metrics"
-        },
-        {
-          "id": "eda.harness.get_diagnostics",
-          "name": "get_diagnostics",
-          "risk": "read-only",
-          "summary": "get diagnostics"
-        },
-        {
-          "id": "eda.harness.get_artifacts",
-          "name": "get_artifacts",
-          "risk": "read-only",
-          "summary": "get artifacts"
-        },
-        {
-          "id": "eda.harness.read_artifact",
-          "name": "read_artifact",
-          "risk": "read-only",
-          "summary": "read artifact"
-        },
-        {
-          "id": "eda.harness.compare_states",
-          "name": "compare_states",
-          "risk": "read-only",
-          "summary": "compare states"
-        },
-        {
-          "id": "eda.harness.get_tool_guide",
-          "name": "get_tool_guide",
-          "risk": "read-only",
-          "summary": "get tool guide"
-        },
-        {
-          "id": "eda.harness.open_viewer",
-          "name": "open_viewer",
-          "risk": "mutating",
-          "summary": "open viewer",
-          "verification": [
-            "Read the resulting run/state and acceptance evidence; process success is not acceptance."
-          ]
-        }
-      ],
-      "verification": [
-        "Use persisted EDA context and acceptance evidence; Core file observations remain not_run."
+        "chip.eda.native.v1"
       ]
     }
   ],
   "runtime": {
     "entry": "runtime/index.cjs"
-  }
+  },
+  "runtimeAssets": [
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "version": "0.7.0",
+      "type": "docker-image",
+      "platform": "darwin-arm64",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746",
+      "imageId": "sha256:2f78970ee36f3b6b16386fe2d2669a1c567610a7e8ba9b037accdc232fc38e64",
+      "sha256": "2f78970ee36f3b6b16386fe2d2669a1c567610a7e8ba9b037accdc232fc38e64",
+      "imagePlatform": "linux/amd64",
+      "size": 1248461941,
+      "installedSize": 4162985984,
+      "environment": "INDUSTRIAL_HARNESS_EDA_IMAGE"
+    }
+  ]
 }

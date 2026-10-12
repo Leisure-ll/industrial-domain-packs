@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "id": "freecad-pack",
   "domain": "cad",
-  "version": "1.1.4-pack.8",
+  "version": "1.1.4-pack.10",
   "provider": {
     "id": "freecad-local.runtime",
-    "title": "FreeCAD 1.1.4 · persistent native tools",
+    "title": "CAD design runtime · FreeCAD and DXF",
     "domain": "cad",
-    "version": "1.1.4-pack.8",
+    "version": "1.1.4-pack.10",
     "transport": "runtime",
     "packDirectory": "freecad",
-    "sourceSha256": "7e18709cb6cb3aff47261c9eeb9baddc0a3855a6f12e95c549f9efa94732c975",
+    "sourceSha256": "e253f9baf39a871131e9009fa703681355d37e6102474a56ac7cd0361f3b5f50",
     "tools": [
       {
         "id": "cad.freecad.build",
@@ -47,13 +47,40 @@
         "verification": [
           "cad.freecad.geometry"
         ]
+      },
+      {
+        "id": "cad.dxf.create",
+        "name": "dxf_create",
+        "risk": "mutating",
+        "summary": "Create or hash-checked replace a millimetre DXF drawing from lines, circles, polylines and text.",
+        "verification": [
+          "cad.dxf.geometry.v1"
+        ]
+      },
+      {
+        "id": "cad.dxf.inspect",
+        "name": "dxf_inspect",
+        "risk": "read-only",
+        "summary": "Read actual DXF entities, units and audit findings.",
+        "verification": []
+      },
+      {
+        "id": "cad.dxf.verify",
+        "name": "dxf_verify",
+        "risk": "mutating",
+        "summary": "Check actual DXF geometry against explicit user expectations.",
+        "verification": [
+          "cad.dxf.geometry.v1"
+        ]
       }
     ],
     "resourceRoots": [
       "runtime"
     ],
     "sourceFiles": {
-      "runtime/index.cjs": "6694995917a51519d36e9447184d7cbb13e99f0338f8db37c6e0948a48d35ebc",
+      "runtime/dxf-native.py": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
+      "runtime/dxf.cjs": "6e435d1e117dd5a1893ac2a4b11caa6e3c500e62b61e8bcfa3e8d2afda2e22e1",
+      "runtime/index.cjs": "9d814d772cd2a63ab5c8ebda20ee747549f554ad839cff98b94f7d5c090470f0",
       "runtime/native.py": "c9da3e181617403384cdeb2135480dd3f7b0bf6b238771c81898f69ba559d9dc",
       "runtime/presentation.cjs": "767c4e97d61d19b3980765c91a4d50ef3e7d4e61684d19cecf1415013facb77e",
       "runtime/recipe.cjs": "8d0f0dc69776359a590561c65c9ca51289bdb417294dddf99317438d080670f3"
@@ -143,6 +170,57 @@
       "verification": [
         "cad.freecad.geometry"
       ]
+    },
+    {
+      "id": "cad.dxf.design",
+      "domain": "cad",
+      "title": "2D DXF drawing",
+      "stages": [],
+      "priority": 110,
+      "keywords": [
+        "dxf",
+        "2d",
+        "drawing",
+        "制图",
+        "图纸",
+        "二维"
+      ],
+      "skills": [
+        {
+          "id": "cad.ezdxf.author",
+          "summary": "Create, inspect and verify drawings with managed DXF tools."
+        }
+      ],
+      "tools": [
+        {
+          "id": "cad.dxf.create",
+          "name": "dxf_create",
+          "risk": "mutating",
+          "summary": "Create or hash-checked replace a millimetre DXF drawing from lines, circles, polylines and text.",
+          "verification": [
+            "cad.dxf.geometry.v1"
+          ]
+        },
+        {
+          "id": "cad.dxf.inspect",
+          "name": "dxf_inspect",
+          "risk": "read-only",
+          "summary": "Read actual DXF entities, units and audit findings.",
+          "verification": []
+        },
+        {
+          "id": "cad.dxf.verify",
+          "name": "dxf_verify",
+          "risk": "mutating",
+          "summary": "Check actual DXF geometry against explicit user expectations.",
+          "verification": [
+            "cad.dxf.geometry.v1"
+          ]
+        }
+      ],
+      "verification": [
+        "cad.dxf.geometry.v1"
+      ]
     }
   ],
   "runtimeAssets": [
@@ -152,7 +230,7 @@
       "version": "1.1.4",
       "type": "macos-app-dmg",
       "platform": "darwin-arm64",
-      "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/freecad/blobs/sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
       "sha256": "071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
       "size": 649760538,
       "app": "FreeCAD.app",
@@ -168,7 +246,22 @@
         "FREECAD_USER_DATA": "data",
         "FREECAD_USER_TEMP": "temp"
       },
-      "installedSize": 2625114576
+      "installedSize": 2625114576,
+      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg"
+    },
+    {
+      "id": "cad-dxf",
+      "label": "DXF drawing runtime",
+      "version": "1.0.0",
+      "type": "docker-image",
+      "platform": "darwin-arm64",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-cad-dxf@sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+      "imageId": "sha256:9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+      "sha256": "9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+      "imagePlatform": "linux/amd64",
+      "size": 75805851,
+      "installedSize": 253382656,
+      "environment": "INDUSTRIAL_HARNESS_DXF_IMAGE"
     }
   ]
 }

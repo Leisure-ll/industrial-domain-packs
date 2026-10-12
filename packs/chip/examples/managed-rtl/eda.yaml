@@ -1,0 +1,22 @@
+name: managed-counter
+top: counter
+inputs:
+  rtl: [counter.sv, counter_tb.sv]
+required_verification: [rtl.lint, rtl.simulate]
+actions:
+  rtl.lint:
+    parameters:
+      operation: lint
+      top: counter
+      sources: [{path: counter.sv}]
+  rtl.simulate:
+    parameters:
+      operation: simulate
+      top: counter_tb
+      trace: true
+      sources: [{path: counter.sv}, {path: counter_tb.sv}]
+  logic.synthesize:
+    parameters:
+      operation: synthesize
+      top: counter
+      sources: [{path: counter.sv}]

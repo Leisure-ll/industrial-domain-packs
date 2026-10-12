@@ -1,8 +1,25 @@
-# Chip Pack source
+# Chip design runtime
 
-This directory maintains the EDA Harness 0.6.1 bootstrap imported from a fixed public Industrial Agent Harness commit. Source, Python locks, Skill, Core adapter and the full tool recipe are present. The original implementation and Verifier have not been rewritten during this import.
+The installed Pack runs `chip.rtl.verify`, `chip.environment.check`,
+`chip.project.describe` and `chip.eda.execute` through the trusted Harness backend.
+A compatible Pack Manager pulls the immutable EDA image from Harbor and verifies
+its identity. Docker must be available; users do not prepare host Python, a virtual
+environment, Verilator or a local tool image. No benchmark task is required.
 
-From the repository root:
+A project declares `eda.yaml`, source files and typed action parameters. Describe
+the supported operations before executing a declared action. The outer Harness
+snapshots inputs, owns container resources/cancellation and preserves native
+reports as canonical artifacts. Runtime scripts cannot choose images, host mounts,
+resource overrides or arbitrary project commands. Physical flows additionally
+require project-owned PDK/technology inputs. The image excludes bundled PDKs and
+sample designs. Presence of a tool does not qualify every physical flow.
+
+The maintained EDA 0.6.1 source, locks, 25-tool standalone MCP, Skills and licenses
+remain available for direct developer integrations. This standalone service is a
+separate integration surface; its persisted state is not the installed Harness's
+canonical state. `legacy-harness-pack.json` records that earlier surface.
+
+Developer source checks (not end-user installation):
 
 ```sh
 uv sync --frozen --directory packs/chip/eda-harness
@@ -10,24 +27,6 @@ uv run --frozen --directory packs/chip/eda-harness python ../scripts/mcp-smoke.p
 uv run --frozen --directory packs/chip/eda-harness pytest -q
 ```
 
-To run the standalone MCP for an existing project:
-
-```sh
-uv run --frozen --directory packs/chip/eda-harness eda --project /absolute/project mcp
-```
-
-The project needs a valid `eda.yaml`. The full raw MCP has 25 tools; protected Core sessions use their scoped Runtime adapter. Real EDA actions require an independently prepared tool image or declared native environment. Python installation alone does not install Verilator, Yosys, OpenROAD or PDK assets.
-
-The existing full recipe can be built from its complete source context:
-
-```sh
-docker build --platform linux/amd64 \
-  -f packs/chip/eda-harness/Dockerfile.tools \
-  -t eda-harness-tools:source-bootstrap packs/chip/eda-harness
-```
-
-This command downloads the pinned upstream images. No image has been published or newly qualified by this repository. A shared RTL-only profile and a sandbox process backend are planned in [migration](https://github.com/Zhiman-BJ/industrial-domain-packs/blob/main/docs/migration.md).
-
-`harness-pack.json` preserves the original consumer metadata; its provider source hash describes the historical Harness layout. It is reference metadata until the source paths and content digest are regenerated for this repository's release format. `pack.json` is the source catalog, not an executable qualification record.
-
-Source identity and licenses are in [provenance](PROVENANCE.md). Historical runtime notes under `eda-harness/docs/` describe the imported implementation; their linked execution receipts are retained in the upstream repository, not redistributed here.
+See [provenance](PROVENANCE.md) for source origin and retained licenses.
+Native qualification records identify exactly the exercised operations; a successful
+process alone never establishes engineering acceptance.

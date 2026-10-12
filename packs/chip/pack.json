@@ -54,7 +54,10 @@
   "runtime": {
     "entry": "runtime/index.cjs",
     "toolId": "chip.rtl.verify",
-    "toolVersion": "0.6.1-core.2"
+    "toolVersion": "0.7.0"
   },
-  "releaseVersion": "0.6.2"
+  "releaseVersion": "0.7.0",
+  "externalDependencies": [
+    "Docker; the compatible Harness downloads the pinned EDA image from Harbor. Physical implementation additionally requires project-owned technology/PDK inputs."
+  ]
 }

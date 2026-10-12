@@ -5,18 +5,21 @@
     {
       "id": "chip",
       "label": "Chip",
-      "emoji": "\ud83d\udca0",
-      "version": "0.6.2",
-      "summary": "EDA skills, viewers and the Chip MCP service",
+      "emoji": "💠",
+      "version": "0.7.0",
+      "summary": "Managed RTL and structured EDA design tools, native reports and Skills",
       "prerequisites": [
-        "Local RTL verification requires Python 3.13, Verilator and a C++ toolchain; prepare these separately",
-        "Other EDA flows require their own tools, container images and PDK; installing this Pack does not install the complete EDA environment"
+        "Docker must be running; the compatible Harness prepares the pinned EDA runtime from Harbor without host Python or toolchain installation",
+        "Physical design requires project-owned PDK/technology inputs; these are not redistributed in the runtime"
+      ],
+      "qualifiedBundlePlatforms": [
+        "darwin-arm64"
       ]
     },
     {
       "id": "pcb",
       "label": "PCB",
-      "emoji": "\ud83d\udd0c",
+      "emoji": "🔌",
       "version": "0.2.0-bench.2",
       "summary": "PCB design and repair on the pinned PCB-bench atomic tool surface (89 tools) plus bounded native KiCad edits",
       "prerequisites": [
@@ -30,11 +33,11 @@
     {
       "id": "godot",
       "label": "Godot",
-      "emoji": "\ud83c\udfae",
-      "version": "0.2.2",
+      "emoji": "🎮",
+      "version": "0.2.3",
       "summary": "Scene transforms, BoxMesh geometry and independent Godot structural verification",
       "prerequisites": [
-        "Godot 4.7.2 is prepared automatically by a compatible Harness on Apple Silicon; export templates are separate and not needed for the qualified structural task"
+        "Godot 4.7.2 is prepared from Harbor on Apple Silicon; export templates are separate and not needed for the qualified structural workflow"
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -43,11 +46,12 @@
     {
       "id": "cad",
       "label": "CAD",
-      "emoji": "\ud83d\udcd0",
-      "version": "1.1.4-pack.8",
-      "summary": "FreeCAD parametric modelling, geometry verification and OCCT CAD viewer",
+      "emoji": "📐",
+      "version": "1.1.4-pack.10",
+      "summary": "FreeCAD parametric models and managed DXF drawings with explicit geometry checks",
       "prerequisites": [
-        "FreeCAD 1.1.4 is prepared automatically on Apple Silicon"
+        "FreeCAD 1.1.4 and the DXF runtime are prepared from Harbor on Apple Silicon; Docker must be running",
+        "AutoCAD is an optional user-installed application for DWG or live desktop work; it is not required for DXF and FreeCAD workflows"
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -56,7 +60,7 @@
     {
       "id": "cuda",
       "label": "CUDA",
-      "emoji": "\u26a1",
+      "emoji": "⚡",
       "version": "0.1.0",
       "summary": "Remote CUDA Compiler and RTX 4090 Evaluator MCP with kernel optimization Skill",
       "prerequisites": [
@@ -194,9 +198,9 @@
         "netlist",
         "logic",
         "signal",
-        "\u7f51\u8868",
-        "\u903b\u8f91",
-        "\u4fe1\u53f7"
+        "网表",
+        "逻辑",
+        "信号"
       ],
       "skills": [
         {
@@ -232,9 +236,9 @@
         "simulation",
         "timing",
         "vcd",
-        "\u6ce2\u5f62",
-        "\u4eff\u771f",
-        "\u65f6\u5e8f"
+        "波形",
+        "仿真",
+        "时序"
       ],
       "skills": [
         {
@@ -268,9 +272,9 @@
         "layout",
         "gds",
         "layer",
-        "\u7248\u56fe",
-        "\u7269\u7406",
-        "\u56fe\u5c42"
+        "版图",
+        "物理",
+        "图层"
       ],
       "skills": [
         {
@@ -307,10 +311,10 @@
         "ezdxf",
         "spec",
         "dimension",
-        "\u56fe\u7eb8",
-        "\u4e8c\u7ef4",
-        "\u5236\u56fe",
-        "\u6807\u6ce8"
+        "图纸",
+        "二维",
+        "制图",
+        "标注"
       ],
       "skills": [
         {
@@ -346,10 +350,10 @@
         "step",
         "fcstd",
         "solid",
-        "\u5efa\u6a21",
-        "\u4e09\u7ef4",
-        "\u53c2\u6570\u5316",
-        "\u8349\u56fe"
+        "建模",
+        "三维",
+        "参数化",
+        "草图"
       ],
       "skills": [
         {
@@ -359,8 +363,8 @@
         },
         {
           "id": "cad.freecad.headless",
-          "summary": "FreeCAD headless via freecadcmd for parametric 2D sketches and 3D solids: build\u2192readback\u2192verify loop, fully-constrained gate, analytic volume checks, Sketcher API traps.",
-          "reference": "Route by deliverable: 2D drawing files go to ezdxf; FreeCAD serves parametric sketches and 3D models (FCStd/STEP). Its DXF paths are weak links \u2014 never the acceptance reader."
+          "summary": "FreeCAD headless via freecadcmd for parametric 2D sketches and 3D solids: build→readback→verify loop, fully-constrained gate, analytic volume checks, Sketcher API traps.",
+          "reference": "Route by deliverable: 2D drawing files go to ezdxf; FreeCAD serves parametric sketches and 3D models (FCStd/STEP). Its DXF paths are weak links — never the acceptance reader."
         }
       ],
       "tools": [],
@@ -384,9 +388,9 @@
         "lisp",
         "drawing",
         "drafting",
-        "\u56fe\u7eb8",
-        "\u5236\u56fe",
-        "\u7ed8\u56fe"
+        "图纸",
+        "制图",
+        "绘图"
       ],
       "skills": [
         {

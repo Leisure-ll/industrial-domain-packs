@@ -5,7 +5,7 @@ const crypto = require('node:crypto');
 const { spawn } = require('node:child_process');
 const { validateRecipe, validateInputs, applyChanges, guides } = require('./recipe.cjs');
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
-const VERSION = '1.1.4-pack.8';
+const VERSION = '1.1.4-pack.10';
 const { presentation } = require('./presentation.cjs');
 
 function executable(environment, managed) {
@@ -272,13 +272,20 @@ function verify({ result, artifacts, readArtifact, action }) {
     },
   };
 }
-function createRuntimePlugin({ environment = process.env, managed = false } = {}) {
+function createRuntimePlugin({ environment = process.env, managed = false, runtimeApi } = {}) {
   const command = executable(environment, managed);
   const available = process.platform === 'darwin' && process.arch === 'arm64' && !!command;
-  return {
+  const plugin = {
     available,
     workspaceProtectedPaths: projectDir => [path.join(projectDir, 'cad-output')],
-    stateProvider: ({ projectDir }) => inspectInputs(projectDir),
+    stateProvider: ({ projectDir }) => {
+      const state = inspectInputs(projectDir);
+      state.inputHashes['runtime-identity/cad-managed'] = hash(JSON.stringify({
+        image: environment.INDUSTRIAL_HARNESS_DXF_IMAGE,
+        files: ['index.cjs', 'dxf.cjs', 'dxf-native.py'].map(name => [name, hash(fs.readFileSync(path.join(__dirname, name)))])
+      }));
+      return state;
+    },
     protectedPaths: [path.resolve(__dirname, '..')],
     tools: ['build', 'inspect', 'export', 'edit'].map(operation => ({
       descriptor: {
@@ -408,5 +415,8 @@ function createRuntimePlugin({ environment = process.env, managed = false } = {}
     })),
     verifiers: { 'cad.freecad.geometry': verify },
   };
+  const dxf = require('./dxf.cjs').createDxfPlugin({ environment, runtimeApi });
+  return { ...plugin, tools: [...plugin.tools, ...dxf.tools],
+    verifiers: { ...plugin.verifiers, ...dxf.verifiers }, capabilities: dxf.capabilities };
 }
 module.exports = { createRuntimePlugin, inspectInputs, inputFile, verify, guides };
