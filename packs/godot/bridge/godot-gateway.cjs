@@ -8,7 +8,7 @@ const {
   ListToolsRequestSchema,
   CallToolRequestSchema,
 } = require('@modelcontextprotocol/sdk/types.js');
-const { validateResources } = require('../../../lib/resources.cjs');
+const { validateResources } = require('./resources.cjs');
 const { ActionJournal } = require('@industrial-agent-harness/domain-runtime');
 
 const MAX_TEXT = 16 * 1024,

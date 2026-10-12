@@ -27,11 +27,28 @@ Distribution 1.1.4-pack.8 makes the user-path containment check case-insensitive
 
 ## Managed FreeCAD and DXF installation
 
-The compatible Harness prepares FreeCAD 1.1.4 and the pinned DXF container from
-Harbor. Docker is required for `cad.dxf.create`, `cad.dxf.inspect` and
-`cad.dxf.verify`; no host Python/ezdxf installation is needed. The single CAD
+The compatible Harness prepares FreeCAD 1.1.4 and a private native DXF runtime
+on macOS Apple Silicon. `cad.dxf.create`, `cad.dxf.inspect` and `cad.dxf.verify`
+use the trusted `INDUSTRIAL_HARNESS_DXF_EXECUTABLE` binding when prepared. The
+existing pinned Docker profile remains available. No host Python/ezdxf installation
+is needed. The single CAD
 runtime exposes these alongside the existing FreeCAD tools. Create supports
 bounded lines, circles, polylines and text in millimetres, and hash-checks any
 replacement. Verification checks the saved drawing against explicit expectations.
 The ezdxf readback is not an independent CAD engine. AutoCAD remains optional for
 DWG and live desktop sessions; it is not part of this managed prerequisite set.
+
+Maintainers build the native archive with Python 3.12+ and `uv`:
+
+```sh
+python3 scripts/build-dxf-native-runtime.py
+DXF_TEST_HARNESS_ROOT=/absolute/path/to/industrial-agent-harness DXF_TEST_EXECUTABLE=/absolute/path/to/extracted/dxf-runtime/bin/harness-dxf node --test tests/dxf-native.test.cjs
+```
+
+The archive contains a pinned standalone CPython 3.13.13 interpreter, hash-locked
+binary ezdxf dependencies, component licenses and source/file hashes. Independent clean builds produce the
+same archive SHA-256. Unused dependency CLI launchers are excluded. The launcher
+ignores ambient Python configuration and runs inside the canonical Runtime's
+bounded local sandbox. Qualification exercises real create/inspect, incorrect
+geometry, native failure, in-flight cancellation and successful recovery. A local
+association selects the extracted launcher file; no `.app` wrapper is involved.

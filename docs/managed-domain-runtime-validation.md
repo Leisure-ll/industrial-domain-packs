@@ -46,7 +46,8 @@ checks do not prove equivalence or LVS, and RTL coverage is testbench-defined.
 ## CAD
 
 One CAD runtime composes the existing FreeCAD tools and `cad.dxf.create`,
-`cad.dxf.inspect`, `cad.dxf.verify`. DXF uses a pinned Python/ezdxf image; AutoCAD is
+`cad.dxf.inspect`, `cad.dxf.verify`. DXF offers a private native CPython/ezdxf runtime on macOS Apple Silicon and
+retains its pinned container profile; AutoCAD is
 an optional existing desktop application, not a default prerequisite.
 
 Actual DXF creation/readback checks passed for a millimetre drawing; an incorrect
@@ -98,3 +99,20 @@ without the required native environment; a skip is not an acceptance result.
 PCB and CUDA have separate native qualification records and explicit platform
 boundaries. Runtime distribution locks and build recipes retain the image/source
 identities used for each publication.
+
+## Native DXF 1.0.1 qualification
+
+`cad-dxf-native` is a real relocatable `native-runtime-zip`, with standalone
+CPython 3.13.13 and hash-locked ezdxf 1.4.3 dependencies. Two independent builds
+produced SHA-256 `10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318`.
+The published Harbor blob was downloaded completely and verified anonymously;
+see `provenance/runtime-distribution-evidence/cad-dxf-native.json`.
+
+`tests/dxf-native.test.cjs` exercised the extracted artifact through the canonical
+Harness local sandbox and runtime file API: saved creation, source inspection,
+correct expectations, incorrect diameter, negative-radius process failure,
+in-flight cancellation, preserved source hash and recovery. Private interpreter
+relocation and hostile ambient Python settings also passed. Qualification details
+are in `cad-dxf-native-qualification.json` beside the download evidence. This
+profile needs neither Docker nor a host Python installation. FreeCAD remains the
+default CAD profile and the DXF container profile remains independently selectable.

@@ -16,7 +16,7 @@
     "Godot 4.7.2 is prepared from Harbor by a compatible Harness on macOS Apple Silicon."
   ],
   "remoteStatus": "not-qualified",
-  "releaseVersion": "0.2.3",
+  "releaseVersion": "0.2.4",
   "nativePlatforms": [
     "darwin-arm64"
   ]

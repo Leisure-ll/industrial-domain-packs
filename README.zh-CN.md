@@ -8,7 +8,7 @@
 
 ## Runtime 分发 v2（0.7.0）
 
-当前产品目录提供 Chip、PCB、Godot 和 CAD。托管 Chip、完整 PCB 设计及 DXF 配置需要 Docker；Godot、FreeCAD 与有限范围的 KiCad 原生检查使用原生应用。CUDA 独立实现保留，但不再列入产品领域、宿主提供者与默认 Skills。
+当前产品目录提供 Chip、PCB、Godot 和 CAD。托管 Chip、完整 PCB 设计及可选 DXF 容器配置需要 Docker；Godot、FreeCAD 与有限范围的 KiCad 原生检查使用原生应用；macOS Apple Silicon 的 DXF 另提供独立原生运行时。CUDA 独立实现保留，但不再列入产品领域、宿主提供者与默认 Skills。
 
 执行 Profile 将本机、容器与远程工具子集绑定到现有资产及已验证平台。本机应用声明只读检测候选路径和官方手动安装入口。源码、Skill 与 MCP 桥接组件由同一份现有清单生成独立归档，与软件安装包分离；工具及 Verifier 实现保持复用。发布生成、验证范围与兼容关系见 [分发 v2](docs/runtime-distribution-v2.md)。独立发布的 Go 平台组件执行固定的本机环境检测；领域 MCP 迁移属于后续阶段。
 
@@ -21,7 +21,7 @@
 | Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | Harbor 运行镜像，已验收 macOS ARM64 和 Linux x64；需要 Docker；物理流程需要用户工艺输入 |
 | Godot | 类型化场景编辑、原生导入、独立场景回读与逐帧检查 | Harbor 自动准备 Godot 4.7.2；macOS Apple Silicon；结构流程 |
 | PCB | 88 项独立原理图/PCB 设计工具、器件资源与原生检查 | Harbor 运行镜像及 KiCad 10.0.6；需要 Docker；macOS Apple Silicon 桌面 |
-| CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | Harbor FreeCAD 与 DXF 镜像；DXF 需要 Docker；按明确几何要求校验 |
+| CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | Harbor FreeCAD 与独立 DXF 原生运行时；可选 DXF 容器；按明确几何要求校验 |
 | CAD guidance | 共享制图方法、ezdxf 操作参考及可选 AutoCAD 指南 | 由 CAD 产品复用；仅 DWG/桌面操作需自备 AutoCAD |
 
 最初迁移来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。后续发行已携带可复用的 PCB actor 及来源记录。当前 harness-pack.json 为实际安装与 Runtime 声明；保留的 legacy 清单和 bootstrap 说明仅作为历史参考。当前可用范围以上方托管发行与验收记录为准。
@@ -56,4 +56,4 @@ FreeCAD 现声明模型、对应版本的预览、导出和诊断成果组。检
 
 0.5.2 保留托管安装配方和 FreeCAD 成果声明，同时合入最新 Godot 场景编辑类型校验与工具说明。Godot 发行版本 0.2.2 将已审查的 Runtime 源码与现有托管原生配方组合；其他 Pack 的版本及内容均保持不变。旧发行版本仍保留各自不可变身份。
 
-PCB 分发 0.3.0 以独立 `pcb.design.*` 能力和产品 Skill 提供原理图/PCB 设计，同时完整保留上游实现与工程 references。兼容 Harness 从自有 Harbor 自动准备 KiCad 和预构建设计环境；普通工程无需 benchmark 种子、评测器或提交。见 [PCB 设计能力](packs/pcb/README.md)。
+PCB 分发 0.3.1 以独立 `pcb.design.*` 能力和产品 Skill 提供原理图/PCB 设计，同时完整保留上游实现与工程 references。兼容 Harness 根据用户选择，从自有 Harbor 单独准备 KiCad 和预构建设计环境；普通工程无需 benchmark 种子、评测器或提交。见 [PCB 设计能力](packs/pcb/README.md)。

@@ -33,8 +33,18 @@ Native assets add `discoveryPaths`: application bundle root candidates under
 version/ABI probing remains required. Existing pinned `url`/`sha256` fields retain
 the managed installation path; official URLs are not an automatic fallback.
 
+`native-runtime-zip` declares a private runtime `directory` and its relative
+`executable`, plus pinned URL, SHA-256, sizes, platform and environment binding.
+`native-executable` supports association with an existing executable file without
+inventing a managed download. Both use a fixed `probeId`: `version` maps to
+`--version`, and `version-short` maps to `-V`. These generic probes accept no
+arbitrary command arguments; existing application-specific probes remain
+compatible. A runtime archive is an ordinary directory, not a fabricated `.app`.
+
 Godot structural and FreeCAD native profiles are qualified on macOS ARM64.
-DXF and PCB design use their existing containers on the exercised macOS host.
+DXF offers a qualified private native runtime archive on macOS Apple Silicon
+and retains its container profile. PCB design uses its existing container on
+the exercised macOS host.
 PCB native covers only the bounded `pcb.kicad.*` tools. Chip managed containers
 cover exercised macOS ARM64/Linux x64 RTL and synthesis; native detection is
 explicitly unqualified with no executable tools. Physical EDA flows are not newly

@@ -39,7 +39,7 @@ test("host consumers resolve canonical Pack identities and verified maintained r
     metadata.domains.find((item) => item.id === "chip").version,
     "0.7.0",
   );
-  assert.equal(freecad.version, "1.1.4-pack.10");
+  assert.equal(freecad.version, "1.1.4-pack.11");
   assert.equal(freecad.version, packs.getPack(freecad.id).releaseVersion);
   assert.equal(
     freecad.version,

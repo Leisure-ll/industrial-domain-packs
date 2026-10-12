@@ -10,7 +10,7 @@ import (
 
 func TestMain(m *testing.M) {
 	_ = os.Setenv("GORACE", "atexit_sleep_ms=0")
-	if len(os.Args) > 1 && os.Args[1] == "--version" {
+	if len(os.Args) > 1 && (os.Args[1] == "--version" || os.Args[1] == "-V") {
 		switch os.Getenv("PROBE_FIXTURE") {
 		case "failure":
 			fmt.Fprintln(os.Stderr, "native failure")
@@ -29,7 +29,7 @@ func TestMain(m *testing.M) {
 func TestFixedVersionProbe(t *testing.T) {
 	executable, _ := os.Executable()
 	t.Setenv("PROBE_FIXTURE", "success")
-	result := probe("godot", executable, time.Second)
+	result := probe("version", executable, time.Second)
 	if !result.OK || !strings.Contains(result.Stdout, "4.7.2") {
 		t.Fatalf("unexpected probe: %+v", result)
 	}
@@ -59,5 +59,14 @@ func TestOutputLimit(t *testing.T) {
 	result := probe("godot", executable, time.Second)
 	if result.OK || !result.Truncated || len(result.Stdout) != 65536 {
 		t.Fatalf("bad output limit: ok=%v length=%v", result.OK, len(result.Stdout))
+	}
+}
+
+func TestGenericShortProbe(t *testing.T) {
+	executable, _ := os.Executable()
+	t.Setenv("PROBE_FIXTURE", "success")
+	result := probe("version-short", executable, time.Second)
+	if !result.OK || !strings.Contains(result.Stdout, "4.7.2") {
+		t.Fatalf("%+v", result)
 	}
 }

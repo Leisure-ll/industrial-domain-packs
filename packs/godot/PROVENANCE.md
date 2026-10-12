@@ -11,3 +11,7 @@ The new runtime/, typed tools, Verifiers and examples are original public MIT co
 ## Managed distribution (2026-10-12)
 
 The official Godot archive is distributed byte-for-byte through the project Harbor. Its original release URL is retained as provenance; the installed default no longer downloads from the upstream release host.
+
+## Installed bridge layout (2026-10-12)
+
+Both Godot bridge entries use Pack-local `bridge/resources.cjs`, derived from this repository’s MIT `lib/resources.cjs`. Installed hpack layouts require no repository-root helper. Exact resource inventory, SHA-256, path, symlink, file-count and size checks remain enforced. This layout fix does not qualify native execution on another platform.

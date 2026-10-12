@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "id": "pcb-pack",
   "domain": "pcb",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "provider": {
     "id": "pcb.design.tools",
     "title": "PCB design",
     "domain": "pcb",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "transport": "runtime",
     "packDirectory": "pcb",
     "packId": "pcb-pack",
-    "sourceSha256": "0fd37cd82aad508d06b519943735ad54cd5677ebe33c7975f1d2fffe8e75918f",
+    "sourceSha256": "fd007e5dd180ffb913635d351c16b921fa0c074018b8756b4ae52feca9cbe65b",
     "resourceRoots": [
       "bridge",
       "runtime"
@@ -19,10 +19,11 @@
     "sourceFiles": {
       "bridge/pcb-controller.py": "e7571ef15f9d71685938aa0ec46cf9c921edf0d1fa75acf6b259bb5686198e84",
       "bridge/pcb-gateway.py": "b7d07fe19a544ec6b87a909179faff7161243d2c148854b08bc32af643acc5fb",
-      "bridge/pcb-runtime.cjs": "2ba920c0e2baa23e4a43d05ed4b01699c777777f21ef45c2e017af482e3356f7",
-      "runtime/bench-gateway.cjs": "0179098b33cf5c993d1c97bb7913e8985a1cb9572620f94b48deb71834b19854",
+      "bridge/pcb-runtime.cjs": "66c276b64d51ec6406459f5adf72ba43d12c66a3061d939065a4335f2d9c3f20",
+      "bridge/resources.cjs": "2df5df07e0a1ad3f6e89df192e41c58f385468f875f192e0d232b11179c87d72",
+      "runtime/bench-gateway.cjs": "e5a106c17305e1706e81dbe50ce7b6ddf9c7be9a358889ddd7479e1151864e32",
       "runtime/bench-upstream.json": "a6de0b366a17cdeb28685b8571e417f1a9a7b404bd4eac0f301f6de90c01462d",
-      "runtime/index.cjs": "fefc47df0a80c0b1a74e178a565cbf3c87d644ff69f54e2594eefb34e8e72146",
+      "runtime/index.cjs": "2df69c0c8a47fbe80f31469fc3c64dfd51f62631cff956d0813d0dad3fcc9111",
       "runtime/native-dependency.json": "e1596081a9d11f1b7a325b7c8a01ccb6d913f94d16b5454c382e0c98da04392c",
       "runtime/native.py": "8f1eb5f360ad422910266a93356a3e7609f1f26fd72c0ef96645030c1275d29b",
       "runtime/product.cjs": "7adbeac62cf7ba0d2105b3c5cf86a44ff3204984f4ad5d3512d1345029a260bf",
@@ -2984,7 +2985,7 @@
     {
       "id": "pcb-design-runtime",
       "label": "PCB design environment",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "type": "docker-image",
       "platform": "darwin-arm64",
       "imagePlatform": "linux/amd64",

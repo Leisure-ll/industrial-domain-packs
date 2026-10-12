@@ -18,7 +18,7 @@
     "Harness-managed KiCad 10.0.6 and the immutable PCB design container from harbor.pvg2.zhiman.tech; Docker is required for the container profile"
   ],
   "remoteStatus": "not-qualified",
-  "releaseVersion": "0.3.0",
+  "releaseVersion": "0.3.1",
   "nativePlatforms": [
     "darwin-arm64"
   ]

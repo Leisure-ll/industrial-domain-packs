@@ -2,20 +2,24 @@
   "schemaVersion": 1,
   "id": "godot-pack",
   "domain": "godot",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "provider": {
     "id": "godot.local",
     "title": "Godot structural Runtime",
     "domain": "godot",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "transport": "runtime",
     "packDirectory": "godot",
     "packId": "godot-pack",
-    "sourceSha256": "1f17b80417d6df1e3973133a2713e97fc887cc43c68825dcae3627b5836568b8",
+    "sourceSha256": "ef596fbd8da5b4b49aea0812deb5ce0adc5497a06d3dbb8f8f0cbcde5fa7e7d3",
     "resourceRoots": [
+      "bridge",
       "runtime"
     ],
     "sourceFiles": {
+      "bridge/godot-gateway.cjs": "c06a9ccb2b7cdb605627108e0734c1a3ba4e5f83b4833608d9300a45eef859a8",
+      "bridge/godot-runtime.cjs": "3c26a6c7b9da8e62d688f3f198f41e7721bb5e2e2b1f5911a6ae5b2def1de6a8",
+      "bridge/resources.cjs": "d9bfeeaba5c4ceb6df004e588226e995fae36eb2bd6c6eb35502344f5ae5b19c",
       "runtime/diagnostics.cjs": "2fbc151510d6be8932d9b2456f1709d5e0de57c17ed79525b539c26e1289a18d",
       "runtime/edit.cjs": "b38cca5a03452e73afa5df1852f5f6a98de61b2c938f1c65836f47cc3bc8ba93",
       "runtime/index.cjs": "51f3923dd36d9b7aad925dbc0c9ea1d309587e694dd627d5d2722ba612e85f21",

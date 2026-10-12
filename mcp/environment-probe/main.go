@@ -50,7 +50,7 @@ type Result struct {
 
 func probe(asset, executable string, timeout time.Duration) Result {
 	result := Result{ExitCode: -1}
-	args, ok := map[string][]string{"godot": {"--version"}, "kicad": {"--version"}, "freecad": {"--keep-deprecated-paths", "--version"}}[asset]
+	args, ok := map[string][]string{"version": {"--version"}, "version-short": {"-V"}, "godot": {"--version"}, "kicad": {"--version"}, "freecad": {"--keep-deprecated-paths", "--version"}}[asset]
 	if !ok || !filepath.IsAbs(executable) || timeout <= 0 || timeout > 120*time.Second {
 		result.Error = "unsupported fixed application probe"
 		return result

@@ -35,3 +35,11 @@ test('platform probe executes the actual installed Godot version',{skip:!availab
  const output=await createVersionProbe({binary,sha256})(asset,'/Applications/Godot.app/Contents/MacOS/Godot',{timeout:120000});
  assert.match(output,/^4\./);
 });
+
+test('generic probe ID is independent of application name and permits no arbitrary arguments',{skip:!available},async()=>{
+ const executable=path.join(directory,'generic-app');fs.writeFileSync(executable,'#!/bin/sh\n[ "$1" = "-V" ] && printf "native 1.0\\n"\n',{mode:0o755});
+ const run=createVersionProbe({binary,sha256});
+ assert.match(await run({id:'new-native-worker',probeId:'version-short'},executable,{timeout:5000}),/native 1.0/);
+ await assert.rejects(run({id:'new-native-worker',probeId:'arbitrary'},executable),/Unsupported/);
+ await assert.rejects(run({id:'new-native-worker',probeId:'version-short',versionArgs:['--script','unsafe']},executable),/Unsupported/);
+});

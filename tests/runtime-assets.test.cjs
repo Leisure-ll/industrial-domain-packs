@@ -112,3 +112,25 @@ test('every installed native or container runtime uses a verified own-source dis
     }
   }
 });
+
+test('CAD native DXF is a private relocatable runtime with an independent native profile', () => {
+  const cad = owner.hostPacks().find(pack => pack.domain === 'cad');
+  const native = cad.runtimeAssets.find(asset => asset.id === 'cad-dxf-native');
+  assert.ok(native, 'Native DXF requires an actually published and qualified runtime');
+  assert.equal(native.type, 'native-runtime-zip');
+  assert.equal(native.directory, 'dxf-runtime');
+  assert.equal(native.executable, 'bin/harness-dxf');
+  assert.equal(native.environment, 'INDUSTRIAL_HARNESS_DXF_EXECUTABLE');
+  assert.equal(native.probeId, 'version');
+  assert.equal(native.versionArgs, undefined);
+  const qualified = require('../provenance/runtime-distribution-evidence/cad-dxf-native-qualification.json');
+  assert.equal(native.sha256, qualified.runtimeSha256);
+  assert.equal(native.versionText, qualified.versionText);
+  assert.equal(cad.executionProfiles[0].id, 'freecad-native');
+  const profile = cad.executionProfiles.find(item => item.id === 'dxf-native');
+  assert.equal(profile.kind, 'native');
+  assert.equal(profile.qualified, true);
+  assert.deepEqual(profile.assetIds, ['cad-dxf-native']);
+  assert.deepEqual(profile.toolIds, ['cad.dxf.create', 'cad.dxf.inspect', 'cad.dxf.verify']);
+  assert.ok(cad.executionProfiles.find(item => item.id === 'dxf-container'));
+});

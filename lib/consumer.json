@@ -21,7 +21,7 @@
       "id": "pcb",
       "label": "PCB",
       "emoji": "\ud83d\udd0c",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "summary": "Design and verify KiCad schematics and circuit boards.",
       "prerequisites": [
         "Native checks: KiCad 10.0.6 on macOS Apple Silicon.",
@@ -35,7 +35,7 @@
       "id": "godot",
       "label": "Godot",
       "emoji": "\ud83c\udfae",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "summary": "Edit and verify Godot scenes.",
       "prerequisites": [
         "Native: Godot 4.7.2 on macOS Apple Silicon."
@@ -48,11 +48,11 @@
       "id": "cad",
       "label": "CAD",
       "emoji": "\ud83d\udcd0",
-      "version": "1.1.4-pack.10",
+      "version": "1.1.4-pack.11",
       "summary": "Create and verify FreeCAD models and DXF drawings.",
       "prerequisites": [
         "Native models: FreeCAD 1.1.4 on macOS Apple Silicon.",
-        "DXF drawings: managed container; Docker required.",
+        "DXF drawings: private native runtime on macOS Apple Silicon; container profile also available.",
         "AutoCAD is optional for DWG and live desktop work."
       ],
       "qualifiedBundlePlatforms": [
