@@ -91,6 +91,11 @@ test("gateway transport implementations belong to the pinned owner release", () 
 });
 
 test("CUDA stays standalone and is absent from the product catalog", () => {
+  assert.deepEqual(packs.consumerMetadata().withdrawnDomains, ["cuda"]);
+  const metadata = packs.consumerMetadata();
+  metadata.withdrawnDomains.length = 0;
+  assert.deepEqual(packs.consumerMetadata().withdrawnDomains, ["cuda"]);
+  assert.ok(!packs.consumerMetadata().domains.some(item => packs.consumerMetadata().withdrawnDomains.includes(item.id)));
   assert.ok(packs.getPack("cuda-pack"));
   assert.ok(fs.statSync(packs.sourceDirectory("cuda-pack")).isDirectory());
   assert.ok(!packs.hostPacks().some(item => item.domain === "cuda"));

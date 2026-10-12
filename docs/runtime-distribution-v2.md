@@ -10,7 +10,10 @@ Runtime semantics are retained.
 
 `consumerMetadata()` offers Chip, PCB, Godot and CAD with concise purpose and
 profile-specific requirements. `hostPacks()` and the product Skill catalog exclude
-CUDA. Standalone CUDA sources, packaging, `getPack()` and `sourceDirectory()`
+CUDA. `withdrawnDomains: ["cuda"]` tells consumers to suppress previously installed
+CUDA product entries as well. Consumers apply this explicit withdrawal list to
+managed entries instead of treating the offered-domain catalog as a whitelist;
+third-party domains remain available. Standalone CUDA sources, packaging, `getPack()` and `sourceDirectory()`
 remain available for existing integrations. Its paired-service declarations below
 are legacy standalone contracts, not a product installation option.
 

@@ -391,5 +391,8 @@
         "Confirm the resulting drawing file on disk"
       ]
     }
+  ],
+  "withdrawnDomains": [
+    "cuda"
   ]
 }
