@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T03:38:04Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-pcb-runtime/manifests/sha256:d923643d0283640c084a70237c5353f3b6041ece181c7d26dc751a156ae59e7f",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:d923643d0283640c084a70237c5353f3b6041ece181c7d26dc751a156ae59e7f",
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "size": 856,
+    "platformManifest": {
+      "digest": "sha256:cdacc92c6afc235bf73db7f591d278376e1207a12386fc60ba09935ff18f142c",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 2008,
+      "configDigest": "sha256:08bafd80dac833477ddc8dd5cbf084d4c7d3081a56263e53886e2769048e6f1f",
+      "downloadSize": 1232557773,
+      "layerCount": 9
+    }
+  },
+  "blobs": [
+    {
+      "digest": "sha256:08bafd80dac833477ddc8dd5cbf084d4c7d3081a56263e53886e2769048e6f1f",
+      "size": 4730,
+      "seconds": 0.365
+    },
+    {
+      "digest": "sha256:edd1ed89f0d443580bd42e5a10cd8736aba5a3438b2a0645c2ebb50119bb0eba",
+      "size": 29764116,
+      "seconds": 3.488
+    },
+    {
+      "digest": "sha256:b9d9e52d340b5986ad721184ded8f21d9742c7e877227a7294bee6961f7d524a",
+      "size": 1470,
+      "seconds": 0.34
+    },
+    {
+      "digest": "sha256:7921526968c63d4c761f0464e6f8982136cf3aa3c93a349d5e5ebe40d27f3114",
+      "size": 277,
+      "seconds": 0.313
+    },
+    {
+      "digest": "sha256:8cf0e23167b4833714e380566c54d69d49c33b9aa43814a2d60b4bfe09b7894d",
+      "size": 1079742147,
+      "seconds": 43.137
+    },
+    {
+      "digest": "sha256:993def581e44e6f5e565e12c112e0a06389aac8adbc93f19dad87f8b7979b3ec",
+      "size": 517812,
+      "seconds": 0.399
+    },
+    {
+      "digest": "sha256:e114cc344c87c43904fddaf9f55ea2ae44d3c8472f2f4d10b31cde264b1f894d",
+      "size": 37480,
+      "seconds": 0.322
+    },
+    {
+      "digest": "sha256:227ecd38582d2b38556ae795b2a9560a5df6ed670c2a592b34175b2abb98486e",
+      "size": 62937508,
+      "seconds": 3.309
+    },
+    {
+      "digest": "sha256:81630c5811301c159b6aae57f85c548796e3f3419c70777d39673a0025d49d09",
+      "size": 59552134,
+      "seconds": 3.724
+    },
+    {
+      "digest": "sha256:38ad442cfcc69bd937e813b2fbe979aa2f013efae606e884a4589246b9d45975",
+      "size": 99,
+      "seconds": 0.294
+    }
+  ]
+}

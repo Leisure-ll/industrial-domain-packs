@@ -88,8 +88,8 @@ python3 scripts/verify-harbor-artifact.py \
 
 ## 发布工具
 
-维护者用已有 Docker/ORAS 登录发布新 tag，脚本不读取或输出明文凭据。目标 tag 已存在
-则拒绝写入；上传后强制从匿名 registry 会话读取全部内容，验证完成才返回成功。
+维护者用已有 Docker/ORAS 登录发布新 tag，脚本不输出或保存凭据。目标 tag 已存在
+则拒绝写入；公开产物上传后从全新匿名 registry 会话读取全部内容，验证完成才返回成功。
 
 ```sh
 python3 scripts/publish-runtime-artifact.py \
@@ -97,12 +97,20 @@ python3 scripts/publish-runtime-artifact.py \
   --image <maintainer-local-image> --output /tmp/release-verification.json
 ```
 
+大 image 如果 Docker Desktop 的出口代理在长时间 PUT 时返回 broken pipe，增加
+`--transport oras`：导出保持原 manifest digest 的 OCI archive，由宿主 ORAS 上传，
+无需更改 Docker/Harbor 全局代理。已用于 1,248,460,170 字节的 Chip clean layer。
+
+受限 CUDA worker 只发布到已有 private 项目，并用 `--private` 验收；脚本先核对
+`metadata.public=false`，再使用已有 Docker 登录，绝不把受限源发布到 public 项目。
+普通远程用户无需 registry 凭据，由部署管理员认证拉取。
+
 原生安装包用 `--file <installer> --sha256 <pin>` 替代 `--image`。不要把 manifest digest
 当成安装包的 blob digest：原生 `url` 必须从 artifact layer descriptor 取得。
 
 ## 预构建 Runtime
 
-`provenance/runtime-distribution.json` 记录公开下载地址、registry manifest digest、
+`provenance/runtime-distribution.json` 记录下载地址及访问前提、registry manifest digest、
 config digest、平台、真实下载字节数、依赖版本和上游来源。digest 引用是消费入口；tag
 只方便维护者发现。Docker 的某些 image store 会将 `inspect.Id` 返回为 manifest/index
 identity，因此消费者同时接受并核对 `Descriptor.annotations["config.digest"]`，不把

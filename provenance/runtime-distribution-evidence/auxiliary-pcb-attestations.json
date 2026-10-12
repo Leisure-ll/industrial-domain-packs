@@ -1,0 +1,26 @@
+{
+  "index": "sha256:d923643d0283640c084a70237c5353f3b6041ece181c7d26dc751a156ae59e7f",
+  "authentication": "anonymous-bearer",
+  "manifests": [
+    {
+      "digest": "sha256:2aae0faf0a23ce5c03cbe3e2f82b7893d1845686a63265c6e48a0705dc587ff2",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 564,
+      "configDigest": "sha256:bc2cc00f8b8cae064c291ae4e2538e3ac71af47822c5104ae1b67ed3303766b6",
+      "downloadSize": 1837,
+      "layerCount": 1
+    }
+  ],
+  "blobs": [
+    {
+      "digest": "sha256:bc2cc00f8b8cae064c291ae4e2538e3ac71af47822c5104ae1b67ed3303766b6",
+      "size": 167,
+      "seconds": 0.318
+    },
+    {
+      "digest": "sha256:078d0997dca7ec64922f2cfab7e6190683dc9fa3787cad8ab0ddafd6df48f8b7",
+      "size": 1670,
+      "seconds": 0.306
+    }
+  ]
+}

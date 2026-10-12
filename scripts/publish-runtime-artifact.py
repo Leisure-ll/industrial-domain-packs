@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish a NEW immutable tag, then verify every byte anonymously from Harbor."""
+"""Publish a NEW immutable tag, then verify every byte from Harbor."""
 import argparse
 import base64
 import json
@@ -17,14 +17,14 @@ spec = importlib.util.spec_from_file_location('harbor_verify', Path(__file__).wi
 verify = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(verify)
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('destination', help='harbor.pvg2.zhiman.tech/<existing-public-project>/<repo>:<new-tag>')
+parser.add_argument('destination', help='harbor.pvg2.zhiman.tech/<existing-project>/<repo>:<new-tag>')
 source = parser.add_mutually_exclusive_group(required=True)
 source.add_argument('--image', help='Existing local maintainer-built Docker image')
 source.add_argument('--file', type=Path, help='Native installer to publish unchanged as OCI blob')
 parser.add_argument('--transport', choices=['docker', 'oras'], default='docker', help='Use oras for large images when the Docker daemon proxy cannot complete uploads')
 parser.add_argument('--sha256', help='Required pinned SHA-256 for --file')
 parser.add_argument('--private', action='store_true', help='Existing private project only; verifies registry authorization and preserves privacy')
-parser.add_argument('--output', required=True, help='Public verification evidence output')
+parser.add_argument('--output', required=True, help='Verification evidence output (never includes credentials)')
 args = parser.parse_args()
 match = re.fullmatch(r'(harbor\.pvg2\.zhiman\.tech)/([a-z0-9][a-z0-9._/-]*):([A-Za-z0-9_][A-Za-z0-9_.-]{0,127})', args.destination)
 if not match:
@@ -72,7 +72,7 @@ else:
     else:
         subprocess.run(['docker', 'tag', args.image, args.destination], check=True)
         subprocess.run(['docker', 'push', args.destination], check=True)
-# Read the manifest again using a NEW credential-free verifier session.
+# Read the manifest using a NEW registry session; private access uses existing credentials.
 with verify.PublicRegistry('https://' + host, repository, credentials).request('manifests', tag) as response:
     raw = response.read()
     digest = 'sha256:' + hashlib.sha256(raw).hexdigest()
