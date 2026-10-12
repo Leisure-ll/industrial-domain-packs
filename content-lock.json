@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "8e585b8bf22f0bbfd11c4b17cb1c1e62b070a12f9a80d93f681ebb4ec624cc11",
+  "contentSha256": "702446273c0d7b701d500a7d7f5059222b6592ff7606f045869b7be19d5aa34b",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "bdb543fbe9885f4ae2411d3a41d218059997d18841d10fa21ce3bb5f0cd7d026",
@@ -196,7 +196,7 @@
     "packs/pcb/bridge/pcb-gateway.py": "b7d07fe19a544ec6b87a909179faff7161243d2c148854b08bc32af643acc5fb",
     "packs/pcb/bridge/pcb-runtime.cjs": "2ba920c0e2baa23e4a43d05ed4b01699c777777f21ef45c2e017af482e3356f7",
     "packs/pcb/examples/mounting-board/board.kicad_pcb": "a892beb0e25094c3c55cb859a22b9811bb1b6c0615f4856b588660cec846ff9e",
-    "packs/pcb/harness-pack.json": "73f3f6ba865e4ff4a93e906a2147b6236cd5d9c6395a2a5bc3d8cf20682575c8",
+    "packs/pcb/harness-pack.json": "b75db5f275f3832795d543aed2fedff63d4da39e6fa5a590de09cac6c2010043",
     "packs/pcb/legacy-harness-pack.json": "64be47af2b24d1a6a059db65e39344d60221f161afa8384e8c2c8f14b6edc95c",
     "packs/pcb/pack.json": "d27365375d972e2be7a82b4e57a9ebce6c49ee3a6ed7aa5279558c25e0d0c06c",
     "packs/pcb/pcb-agent/tools/acceptance.py": "58ebfd478745755dc90953ca8143daea75c5f1fa08b70bb77c4222c4e61e69ff",
@@ -321,7 +321,7 @@
     "packs/pcb/skills/pcb-design-e2e/references/standards.md": "2de706c89f4a9773e932c9136eaad4db005e434ee706957ef3eb96896984007f",
     "packs/pcb/skills/pcb-design-e2e/references/tools.md": "991ccec5bcbda5338093164fd7d38c15486111137dcee35e4a52123d058fab20",
     "packs/pcb/skills/pcb-design-e2e/references/verification.md": "0d101fc907202d15b3ac5844efaa49ed9f3565c7c5e55aab6a94ed4fb242cac8",
-    "packs/pcb/skills/pcb-design/SKILL.md": "2d32f58c45063179c8bee954e77f858929ea83dd334696255110cef795c76f24",
+    "packs/pcb/skills/pcb-design/SKILL.md": "7c0dd6709130f88765e446a03240387f468e9e59b1f65b75d820f7ba88b660a3",
     "packs/pcb/skills/pcb-kicad-native/SKILL.md": "e41099be1368ea1b216f653f24f0a27f7ab50de7e0e4f227b241886137fb2ceb",
     "packs/pcb/skills/pcb-layout-inspect/SKILL.md": "32fc6159e077641b8672920157a2f6552d9abae0511945fb972351a10f64d856",
     "packs/pcb/uv.lock": "d4e08ee289d8ee8ebb7a8d9672f6e62efa9a6bd50bf70efa7e06627fc2e8c282"

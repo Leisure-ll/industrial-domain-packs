@@ -785,7 +785,7 @@
         "id": "pcb.design.export_3d",
         "name": "export_3d",
         "risk": "mutating",
-        "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64\u20134096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
+        "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64–4096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
         "verification": [
           "pcb.design.receipts.v1"
         ]
@@ -835,15 +835,15 @@
         "layout",
         "placement",
         "PCB",
-        "\u677f\u6846",
-        "\u5143\u4ef6",
-        "\u5e03\u7ebf",
-        "\u7535\u8def\u677f",
+        "板框",
+        "元件",
+        "布线",
+        "电路板",
         "edit",
         "modify",
-        "\u5c3a\u5bf8",
-        "\u4fee\u6539",
-        "\u9a8c\u8bc1"
+        "尺寸",
+        "修改",
+        "验证"
       ],
       "skills": [
         {
@@ -885,7 +885,7 @@
     },
     {
       "id": "pcb.design.core",
-      "title": "PCB \u00b7 core",
+      "title": "PCB · core",
       "domain": "pcb",
       "stages": [
         "requirements",
@@ -896,16 +896,16 @@
       "priority": 20,
       "keywords": [
         "project status",
-        "\u9879\u76ee\u72b6\u6001",
+        "项目状态",
         "pcb status",
-        "kicad\u73af\u5883",
-        "pcb\u73af\u5883",
+        "kicad环境",
+        "pcb环境",
         "inspect_tool"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -968,7 +968,7 @@
     },
     {
       "id": "pcb.design.components",
-      "title": "PCB \u00b7 components",
+      "title": "PCB · components",
       "domain": "pcb",
       "stages": [
         "requirements",
@@ -979,14 +979,14 @@
         "prepare_component",
         "lookup_component",
         "datasheet",
-        "\u5668\u4ef6",
-        "\u5143\u4ef6\u5e93",
-        "\u5c01\u88c5\u5e93"
+        "器件",
+        "元件库",
+        "封装库"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -1229,24 +1229,24 @@
     },
     {
       "id": "pcb.design.schematic",
-      "title": "PCB \u00b7 schematic",
+      "title": "PCB · schematic",
       "domain": "pcb",
       "stages": [
         "schematic"
       ],
       "priority": 20,
       "keywords": [
-        "\u539f\u7406\u56fe\u7f16\u8f91",
+        "原理图编辑",
         "schematic edit",
         "generate_schematic",
         "update_pcb",
-        "\u8fde\u63a5\u5f15\u811a",
+        "连接引脚",
         "schematic mcp"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -1555,7 +1555,7 @@
     },
     {
       "id": "pcb.design.pcb",
-      "title": "PCB \u00b7 pcb",
+      "title": "PCB · pcb",
       "domain": "pcb",
       "stages": [
         "layout"
@@ -1566,14 +1566,14 @@
         "inspect_board",
         "pcb edit",
         "add_track",
-        "\u5e03\u7ebf",
-        "\u8c03\u957f",
+        "布线",
+        "调长",
         "layout repair"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -1846,7 +1846,7 @@
     },
     {
       "id": "pcb.design.verification",
-      "title": "PCB \u00b7 verification",
+      "title": "PCB · verification",
       "domain": "pcb",
       "stages": [
         "verification"
@@ -1856,14 +1856,14 @@
         "run_drc",
         "run_erc",
         "verify_design",
-        "pcb\u9a8c\u8bc1",
+        "pcb验证",
         "pcb verification",
-        "\u56fe\u677f\u4e00\u81f4\u6027"
+        "图板一致性"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -2028,7 +2028,7 @@
     },
     {
       "id": "pcb.design.delivery",
-      "title": "PCB \u00b7 delivery",
+      "title": "PCB · delivery",
       "domain": "pcb",
       "stages": [
         "delivery"
@@ -2038,13 +2038,13 @@
         "export_project",
         "export_3d",
         "gerber",
-        "pcb\u4ea4\u4ed8",
+        "pcb交付",
         "pcb export"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -2143,7 +2143,7 @@
           "id": "pcb.design.export_3d",
           "name": "export_3d",
           "risk": "mutating",
-          "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64\u20134096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
+          "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64–4096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
           "verification": [
             "pcb.design.receipts.v1"
           ]
@@ -2155,7 +2155,7 @@
     },
     {
       "id": "pcb.design.operate",
-      "title": "PCB \u00b7 end-to-end design and repair",
+      "title": "PCB · end-to-end design and repair",
       "domain": "pcb",
       "stages": [
         "requirements",
@@ -2167,23 +2167,23 @@
       "priority": 25,
       "keywords": [
         "pcb mcp",
-        "pcb\u5de5\u5177",
-        "\u8bbe\u8ba1pcb",
+        "pcb工具",
+        "设计pcb",
         "design pcb",
         "pcb design",
-        "\u4fee\u590dpcb",
+        "修复pcb",
         "repair pcb",
         "design a kicad project",
         "repair the supplied kicad project",
         "design kicad",
         "repair kicad",
         "end-to-end pcb",
-        "\u5b8c\u6574pcb"
+        "完整pcb"
       ],
       "skills": [
         {
           "id": "pcb.design.e2e",
-          "summary": "Create, inspect, edit and verify the user\u2019s PCB project with native evidence.",
+          "summary": "Create, inspect, edit and verify the user’s PCB project with native evidence.",
           "reference": "Managed PCB design runtime with revision-bound atomic CAD tools and complete engineering references; observations are not verification."
         }
       ],
@@ -2924,7 +2924,7 @@
           "id": "pcb.design.export_3d",
           "name": "export_3d",
           "risk": "mutating",
-          "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64\u20134096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
+          "summary": "Export one native KiCad assembly file or PNG view. View/size apply only to PNG; 64–4096 pixels. Missing bodies remain UNKNOWN; clearance/collision requires mechanical analysis.",
           "verification": [
             "pcb.design.receipts.v1"
           ]
