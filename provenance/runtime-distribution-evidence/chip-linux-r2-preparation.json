@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-10-12T04:12:06.774Z",
+  "platform": "linux-x64",
+  "node": "v24.15.0",
+  "previousColdImagePrepared": true,
+  "ownerIdentity": {
+    "packageVersion": "0.6.0",
+    "contentSha256": "c3aa6f1a430ede3212881231933b63f75e294da93f94ad2c4e174aac908685bb"
+  },
+  "status": [
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "version": "1.0.1",
+      "ready": true,
+      "executable": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:80925a7398169e1404d3cf372f217e1743a2e105e986e11f5743bb5eda32d8f2",
+      "executables": {
+        "INDUSTRIAL_HARNESS_EDA_IMAGE": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:80925a7398169e1404d3cf372f217e1743a2e105e986e11f5743bb5eda32d8f2"
+      },
+      "checkedAt": "2026-10-12T04:12:06.726Z"
+    }
+  ],
+  "environment": {
+    "INDUSTRIAL_HARNESS_EDA_IMAGE": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:80925a7398169e1404d3cf372f217e1743a2e105e986e11f5743bb5eda32d8f2"
+  }
+}

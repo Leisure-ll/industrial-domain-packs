@@ -1,0 +1,6 @@
+# Maintainer-only runner update; base is the already sanitized immutable image.
+ARG CHIP_RUNTIME_BASE=harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746
+FROM ${CHIP_RUNTIME_BASE}
+COPY managed-native.py /opt/domain-packs/packs/chip/runtime/managed-native.py
+ARG CHIP_RUNNER_SHA256
+LABEL tech.zhiman.chip.runner-sha256=${CHIP_RUNNER_SHA256}

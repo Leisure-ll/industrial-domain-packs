@@ -1,0 +1,61 @@
+{
+  "verifiedAt": "2026-10-12T04:05:01.475Z",
+  "platform": "linux-x64",
+  "node": "v24.15.0",
+  "preexisting": false,
+  "ownerIdentity": {
+    "packageVersion": "0.6.0",
+    "contentSha256": "4e4b800df37bd5cc6bd7b4190d1fb8b3162364f2c4f00a7bfeb8a90e87f8bc18"
+  },
+  "status": [
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "version": "0.7.0",
+      "ready": true,
+      "executable": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746",
+      "executables": {
+        "INDUSTRIAL_HARNESS_EDA_IMAGE": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746"
+      },
+      "checkedAt": "2026-10-12T04:05:01.428Z"
+    }
+  ],
+  "environment": {
+    "INDUSTRIAL_HARNESS_EDA_IMAGE": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746"
+  },
+  "progress": [
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "phase": "checking"
+    },
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "phase": "checking-space",
+      "downloadBytes": 1248461941,
+      "installedBytes": 4162985984,
+      "requiredBytes": 5619597225,
+      "estimated": false,
+      "cacheReused": false,
+      "availableBytes": 22384496640
+    },
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "phase": "downloading",
+      "received": 0,
+      "total": 1248461941
+    },
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "phase": "verifying"
+    },
+    {
+      "id": "chip-eda",
+      "label": "Chip design runtime",
+      "phase": "ready"
+    }
+  ]
+}

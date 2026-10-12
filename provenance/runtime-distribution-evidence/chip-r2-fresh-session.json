@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-10-12T04:11:36Z",
+  "imageDigest": "sha256:80925a7398169e1404d3cf372f217e1743a2e105e986e11f5743bb5eda32d8f2",
+  "config": {
+    "digest": "sha256:896580b33a6be28e84128ae7671257729d678119b7a45bd0c0aecaf847783774",
+    "size": 2515,
+    "seconds": 0.269
+  },
+  "authentication": "anonymous-bearer"
+}

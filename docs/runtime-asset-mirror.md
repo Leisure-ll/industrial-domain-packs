@@ -135,3 +135,12 @@ CUDA base 的最终固定入口、私有访问前提和精确占用在 distribut
 本次 10,099,942,854 字节全量验收由 Mac 的独立认证会话完成（47 layers + config）；
 GPU 主机另外执行 immutable Docker pull 与 owner prepareProject，已有 layers 不声明冷缓存。
 普通远程客户端不获取 registry 登录信息。
+
+Chip r2 修复 Linux 非 root 工作副本权限：保留 `/inputs` readonly，仅在复制到
+`/work/project` 后对自有文件及目录增加 owner-write。已用 Node 24 的真实 Host 工厂
+通过 RTL 正/负、active cancellation/recovery，以及签名安装、源码 inventory、重启和
+同版本 repair 门。首次 1.2GB image 为冷拉取，r2 仅增量拉取 runner 小层。
+
+仅更新 runner 时，维护方可给 `build-chip-runtime.py` 增加 `--runtime-base <immutable-clean-image>`；
+它先核对 base 与当前 Python 锁和全部 EDA source hashes 一致，再复制 runner 并写入
+runner SHA label，避免重传清洁工具大层。工具/依赖变化仍使用完整 sanitize 构建。

@@ -22,6 +22,7 @@ source = parser.add_mutually_exclusive_group(required=True)
 source.add_argument('--image', help='Existing local maintainer-built Docker image')
 source.add_argument('--file', type=Path, help='Native installer to publish unchanged as OCI blob')
 parser.add_argument('--transport', choices=['docker', 'oras'], default='docker', help='Use oras for large images when the Docker daemon proxy cannot complete uploads')
+parser.add_argument('--verify-jobs', type=int, choices=range(1, 33), default=8, metavar='1..32', help='Bounded concurrent range reads during complete post-publish verification')
 parser.add_argument('--sha256', help='Required pinned SHA-256 for --file')
 parser.add_argument('--private', action='store_true', help='Existing private project only; verifies registry authorization and preserves privacy')
 parser.add_argument('--output', required=True, help='Verification evidence output (never includes credentials)')
@@ -77,4 +78,4 @@ with verify.PublicRegistry('https://' + host, repository, credentials).request('
     raw = response.read()
     digest = 'sha256:' + hashlib.sha256(raw).hexdigest()
 url = f'https://{host}/v2/{repository}/manifests/{digest}'
-subprocess.run(['python3', str(Path(__file__).with_name('verify-harbor-artifact.py')), url, '--output', args.output, *(['--docker-credentials'] if args.private else [])], check=True)
+subprocess.run(['python3', str(Path(__file__).with_name('verify-harbor-artifact.py')), url, '--output', args.output, '--jobs', str(args.verify_jobs), *(['--docker-credentials'] if args.private else [])], check=True)
