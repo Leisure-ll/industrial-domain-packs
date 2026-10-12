@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "b2d5eb1f59f105825aa8ecb7becc51c60d006b1a0b0290257db9ac35dbaa3a32",
+  "contentSha256": "fcbe4a33ba2eb81185845c2633e6aacdcad69c4aa081d71497d25da81f06154b",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "bdb543fbe9885f4ae2411d3a41d218059997d18841d10fa21ce3bb5f0cd7d026",
@@ -136,12 +136,12 @@
     "packs/cuda/examples/square/kernels/square_binding.cpp": "0eb740cf2ebe2d5c9da464b16314d3f1aa57482ec12677cc0eab06deb120cb24",
     "packs/cuda/examples/square/model.py": "0d8bf49b3e5a41922a1b12e19b613c00725605e4b5a7920adaafebcff9a79032",
     "packs/cuda/examples/square/model_new.py": "5bfafc345f7279fdf364ea3e3fc30e816b5bcba3790c7495cc3cfe8dffa94f09",
-    "packs/cuda/harness-pack.json": "980c686df885f9d86089b9529170956403685daee6fbe60abccb4c190918e5a4",
+    "packs/cuda/harness-pack.json": "1e9c5836f11f3d0a70fa156e6da36d73c6f7ff576fce2418ae76fe1db4d229cf",
     "packs/cuda/locks/rtx4090-image.json": "cca7222767f24d83a799297410fe849f4ad2b76bc5765725be9786ff76c1f5af",
     "packs/cuda/locks/runtime-distribution.json": "1316f810531048fbe711daff0c379010da8209d13ba4ce254679b4c79a8147bc",
     "packs/cuda/locks/upstream.json": "4c88d9f18fb6d328d973b4e047f42a11ff7fabb783a11a732ec9245ad905842f",
-    "packs/cuda/pack.json": "d3a853683ebb896cab6f3bea0fad273acc03e4fb60436dd1cef02a6f8b3a9f06",
-    "packs/cuda/runtime/index.cjs": "e3d9b49870eef6d4cc8c6fa066ec76831477d31cf1c5fbcb5d91d83076e95d41",
+    "packs/cuda/pack.json": "02a6347e748ea2156f1eeaf4f593592b2e5399ba2a89635a02c63cdd8ad0d308",
+    "packs/cuda/runtime/index.cjs": "5641dbbb9e00281d36fc2f11a1c60da33f364977b2461a8a2af7408deb4c6bac",
     "packs/cuda/runtime/project.cjs": "c25a4196a39b15f7f046e4f26790296b32e9386796b7d1bbaf2bf97a76955125",
     "packs/cuda/runtime/protocol.cjs": "93dbe80cdaa94806ca4cf3484903006debce0972c895dffa94cb982c97250173",
     "packs/cuda/runtime/verifier.cjs": "44838a1ac2e4c81ccc7c7a7a0a6dfccd7ff12e9b2f6928c6a4dbb0e0e8c074ec",

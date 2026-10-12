@@ -1,7 +1,5 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
-const { StreamableHTTPClientTransport } = require('@modelcontextprotocol/sdk/client/streamableHttp.js');
 const { version, readSource, validateIdentity, tools, descriptors, sha256 } = require('./protocol.cjs');
 const { readProject, assertProject } = require('./project.cjs');
 const { verifier, assess, operations } = require('./verifier.cjs');
@@ -30,7 +28,12 @@ function evidenceDirectory(projectDir, actionId) {
   }
   return directory;
 }
-function createRuntimePlugin({ environment = process.env } = {}) {
+function createRuntimePlugin({ environment = process.env, managed = false, runtimeApi } = {}) {
+  if (managed && typeof runtimeApi?.resolveDependency !== 'function')
+    throw Error('Managed CUDA requires the Harness pinned dependency resolver.');
+  const dependency = name => require(runtimeApi?.resolveDependency ? runtimeApi.resolveDependency(name) : name);
+  const { Client } = dependency('@modelcontextprotocol/sdk/client/index.js');
+  const { StreamableHTTPClientTransport } = dependency('@modelcontextprotocol/sdk/client/streamableHttp.js');
   const configs = Object.fromEntries(['compiler', 'evaluator'].map(role => [role, configuration(environment, role)]));
   if (Boolean(configs.compiler) !== Boolean(configs.evaluator)) throw Error('Configure both CUDA MCP Servers together.');
   const clients = {}, connecting = {};
