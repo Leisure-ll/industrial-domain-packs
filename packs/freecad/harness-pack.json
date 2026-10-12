@@ -283,7 +283,8 @@
       "environment": "INDUSTRIAL_HARNESS_DXF_EXECUTABLE",
       "probeId": "version",
       "versionText": "Harness DXF 1.0.1; ezdxf 1.4.3; Python 3.13.13",
-      "discoveryPaths": []
+      "discoveryPaths": [],
+      "installUrl": "https://github.com/Zhiman-BJ/industrial-domain-packs#manual-native-dxf-preparation"
     }
   ],
   "executionProfiles": [

@@ -112,7 +112,15 @@ test('CUDA paired service profile preserves the existing canonical runtime proto
  assert.equal(new Set(profile.connection.environment.map(x=>x.name)).size,6);
  for(const variable of profile.connection.environment)assert.deepEqual(Object.keys(variable).sort(),['name','type']);
  const domains=require('../lib/consumer.json').domains;
- assert.ok(domains.find(x=>x.id==='cad').prerequisites.some(x=>x.startsWith('Native models: FreeCAD')));
+ assert.ok(domains.find(x=>x.id==='cad').prerequisites.some(x=>x.startsWith('Native models: install FreeCAD')));
  assert.ok(!domains.some(x=>x.id==='cuda'));
  assert.ok(!domains.some(x=>x.prerequisites.some(p=>p.includes('automatically'))));
+});
+
+test('current product prerequisites distinguish external native installs and explicit container preparation',()=>{
+ const domains=require('../lib/consumer.json').domains;
+ for(const domain of domains)assert.match(domain.prerequisites.join(' '),/externally|separately|manually/);
+ for(const id of ['chip','pcb'])assert.match(domains.find(d=>d.id===id).prerequisites.join(' '),/explicitly prepare/);
+ const dxf=require('../packs/freecad/harness-pack.json').runtimeAssets.find(a=>a.id==='cad-dxf-native');
+ assert.equal(dxf.installUrl,'https://github.com/Zhiman-BJ/industrial-domain-packs#manual-native-dxf-preparation');
 });

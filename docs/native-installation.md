@@ -1,4 +1,12 @@
-# Managed native dependency declarations
+# Historical native dependency distribution declarations
+
+> Current product policy: Harness downloads Domain Packs. Native applications and
+> private native runtime directories are prepared externally and detected/associated.
+> Users install Docker separately; explicit container preparation in Harness may
+> fetch the declared pinned image, or use an existing local image. Pack installation
+> never implicitly installs dependencies or pulls images. Native archive URLs and
+> earlier managed native-install descriptions remain compatibility, maintainer and
+> historical qualification records, not native installation actions.
 
 Consumer release 0.6.0 provides Harbor-hosted native applications and immutable prebuilt domain runtimes for qualified macOS Apple Silicon clients; the managed Chip profile is also qualified on Linux x64. A compatible Harness Pack Manager consumes these trusted declarations; this repository does not own installation UI, download execution, canonical readiness state or a second installer. The developer `setup-native.cjs` scripts remain optional diagnostic entry points.
 

@@ -9,7 +9,7 @@
       "version": "0.7.0",
       "summary": "Design and verify RTL and EDA projects.",
       "prerequisites": [
-        "RTL and synthesis: managed container; Docker required.",
+        "RTL and synthesis: install Docker separately; explicitly prepare the pinned container image in Harness or provide it locally.",
         "Physical design: project-owned PDK/technology inputs and separate qualification."
       ],
       "qualifiedBundlePlatforms": [
@@ -24,8 +24,8 @@
       "version": "0.3.1",
       "summary": "Design and verify KiCad schematics and circuit boards.",
       "prerequisites": [
-        "Native checks: KiCad 10.0.6 on macOS Apple Silicon.",
-        "Full PCB design: managed container; Docker required."
+        "Native checks: install KiCad 10.0.6 separately on macOS Apple Silicon, then detect or associate it.",
+        "Full PCB design: install Docker separately; explicitly prepare the pinned container image in Harness or provide it locally."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -38,7 +38,7 @@
       "version": "0.2.4",
       "summary": "Edit and verify Godot scenes.",
       "prerequisites": [
-        "Native: Godot 4.7.2 on macOS Apple Silicon."
+        "Install Godot 4.7.2 separately on macOS Apple Silicon, then detect or associate it."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -51,8 +51,8 @@
       "version": "1.1.4-pack.11",
       "summary": "Create and verify FreeCAD models and DXF drawings.",
       "prerequisites": [
-        "Native models: FreeCAD 1.1.4 on macOS Apple Silicon.",
-        "DXF drawings: private native runtime on macOS Apple Silicon; container profile also available.",
+        "Native models: install FreeCAD 1.1.4 separately on macOS Apple Silicon, then detect or associate it.",
+        "DXF drawings: manually prepare and associate the private native runtime, or install Docker separately and explicitly prepare the pinned container profile in Harness.",
         "AutoCAD is optional for DWG and live desktop work."
       ],
       "qualifiedBundlePlatforms": [

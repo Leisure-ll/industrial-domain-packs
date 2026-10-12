@@ -1,5 +1,13 @@
 # Runtime distribution v2
 
+> Current product policy: Harness downloads Domain Packs. Native applications and
+> private native runtime directories are prepared externally and detected/associated.
+> Users install Docker separately; explicit container preparation in Harness may
+> fetch the declared pinned image, or use an existing local image. Pack installation
+> never implicitly installs dependencies or pulls images. Native archive URLs and
+> earlier managed native-install descriptions remain compatibility, maintainer and
+> historical qualification records, not native installation actions.
+
 This release separates software preparation from domain source distribution.
 `pack.json` and `harness-pack.json` remain the maintained declarations;
 `content-lock.json` remains the exact source identity. No additional manual catalog
@@ -30,8 +38,10 @@ platform qualification and the Broker allowlist at execution time.
 Native assets add `discoveryPaths`: application bundle root candidates under
 `/Applications` and `~/Applications`, with `~` expanded by the consumer, and
 `installUrl`: an official manual installation entry. Discovery is read-only and
-version/ABI probing remains required. Existing pinned `url`/`sha256` fields retain
-the managed installation path; official URLs are not an automatic fallback.
+version/ABI probing remains required. Existing pinned `url`/`sha256` fields retain compatibility and maintainer
+identities only. Current consumers offer detection/association and external
+native preparation links, without native runtime download/install actions.
+Container image preparation is a separate explicit action requiring user-installed Docker.
 
 `native-runtime-zip` declares a private runtime `directory` and its relative
 `executable`, plus pinned URL, SHA-256, sizes, platform and environment binding.

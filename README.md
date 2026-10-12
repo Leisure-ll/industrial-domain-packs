@@ -12,19 +12,19 @@ The current product catalog offers Chip, PCB, Godot and CAD. Docker is required 
 
 Execution profiles now bind native, container and remote tool subsets to existing assets and qualified platforms. Native applications declare read-only discovery candidates and official manual installation entries. Generated source, Skill and MCP bridge archives ship separately from software payloads; tools and Verifiers retain their existing implementations. See [distribution v2](docs/runtime-distribution-v2.md) for release generation, qualification scope and compatibility. A separately published Go component performs fixed native environment probes; domain MCP migration remains a later stage.
 
-## Managed product release 0.6.0
+## Current product setup
 
-A compatible Harness prepares native applications and prebuilt tool runtimes from the project Harbor. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Execution prerequisites depend on the selected profile. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.
+Harness downloads Domain Packs. Install native applications from official sites and prepare private native runtime directories outside Harness, then detect or associate them. Install Docker separately; once Docker is available, explicitly selecting container preparation in Harness may fetch the declared pinned image. Installing a Domain Pack never implicitly prepares dependencies or pulls images. Native runtime URLs, hashes and sizes remain compatibility, maintainer and qualification metadata without native installation actions. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Execution prerequisites depend on the selected profile. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.
 
 | Pack | Included implementation | Execution boundary |
 | --- | --- | --- |
-| Chip | Managed structured EDA, RTL assertions/VCD, synthesis, Skills and native reports | Harbor runtime for macOS ARM64 and Linux x64; Docker; physical flows need project-owned technology inputs |
-| Godot | Typed scene edits, native import, independent scene readback and frame checks | Harbor-prepared Godot 4.7.2 on macOS Apple Silicon; structural workflow |
-| PCB | 88 independent schematic/PCB design tools, component resources and native checks | Harbor runtime and KiCad 10.0.6; Docker; macOS Apple Silicon desktop |
-| CAD / FreeCAD | Parametric solids and managed DXF create/inspect/verify in one CAD runtime | Harbor FreeCAD and private DXF native runtime; optional DXF container; explicit geometric expectations |
+| Chip | Managed structured EDA, RTL assertions/VCD, synthesis, Skills and native reports | Explicitly prepared pinned image for macOS ARM64 and Linux x64; Docker; physical flows need project-owned technology inputs |
+| Godot | Typed scene edits, native import, independent scene readback and frame checks | Externally installed Godot 4.7.2 on macOS Apple Silicon; structural workflow |
+| PCB | 88 independent schematic/PCB design tools, component resources and native checks | Explicitly prepared pinned image and official KiCad 10.0.6; Docker; macOS Apple Silicon desktop |
+| CAD / FreeCAD | Parametric solids and managed DXF create/inspect/verify in one CAD runtime | Official FreeCAD and manually prepared private DXF native runtime; optional DXF container; explicit geometric expectations |
 | CAD guidance | Shared drawing methodology, ezdxf operating references, optional AutoCAD guidance | Reused by the CAD product; AutoCAD is optional for DWG/live desktop work |
 
-The original migration imported committed source: Harness `371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e` and FreeCAD PR29 `62510b22b47803e0841825ec1c2b34fae48b3b15`. Exact imports are recorded in [provenance](provenance/domain-migration.json). Subsequent releases vendor the reusable PCB actor with its provenance. Current `harness-pack.json` files are executable installation/runtime declarations; preserved legacy manifests and bootstrap notes are historical references. Current availability is defined by the managed release and qualification records above.
+The original migration imported committed source: Harness `371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e` and FreeCAD PR29 `62510b22b47803e0841825ec1c2b34fae48b3b15`. Exact imports are recorded in [provenance](provenance/domain-migration.json). Subsequent releases vendor the reusable PCB actor with its provenance. Current `harness-pack.json` files are executable installation/runtime declarations; preserved legacy manifests and bootstrap notes are historical references. Current availability follows the preparation policy above and the recorded qualification scope.
 
 ## Consumers
 
@@ -84,3 +84,30 @@ Version 0.5.1 combines these managed installation recipes with the 0.5.0 result 
 Version 0.5.2 retains the managed installation recipes and FreeCAD result declarations while incorporating the latest Godot typed scene-edit checks and tool guidance. Godot distribution 0.2.2 combines those reviewed Runtime sources with the existing managed native recipe; other Pack versions and contents are unchanged. Earlier distribution versions keep their original immutable identities.
 
 PCB distribution 0.3.1 provides independent `pcb.design.*` capabilities and a product Skill while retaining the complete pinned upstream implementation and references. A compatible Harness separately prepares its prebuilt design environment and KiCad from Harbor after explicit user selection. Ordinary workspaces require no benchmark seed, evaluator or submission. See [PCB design](packs/pcb/README.md).
+
+## Manual native DXF preparation
+
+Harness downloads the Domain Pack, then detects or associates an existing native runtime.
+Install [FreeCAD](https://www.freecad.org/downloads.php),
+[Godot](https://godotengine.org/download/) or [KiCad](https://www.kicad.org/download/)
+separately when your chosen profile needs them. Container profiles require Docker
+to be installed by the user. With Docker ready, explicitly select container
+preparation in Harness to fetch its pinned image, or provide the image locally.
+Pack installation itself never pulls images or installs native dependencies.
+
+For native DXF on macOS Apple Silicon, check out a reviewed commit of this Owner
+repository and use Python 3.12+ and `uv` in your own preparation environment:
+
+```sh
+python3 scripts/build-dxf-native-runtime.py --output /absolute/path/dxf-native.zip
+unzip /absolute/path/dxf-native.zip -d /absolute/path/dxf-install
+/absolute/path/dxf-install/dxf-runtime/bin/harness-dxf --version
+```
+
+The maintainer recipe downloads hash-pinned standalone Python and locked binary
+packages into temporary isolated directories. This explicit external preparation
+step does not modify global Python or Homebrew. Keep the extracted runtime
+directory together and select its `bin/harness-dxf` file in Harness's association
+flow. It runs with its private interpreter; neither Docker nor host Python is
+needed during drawing operations. Existing archive URLs are retained for
+maintainers and backward compatibility, without a Harness installation button.

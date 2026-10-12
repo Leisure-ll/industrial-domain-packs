@@ -1,5 +1,13 @@
 # PCB and Godot professional Runtime profiles
 
+> Current product policy: Harness downloads Domain Packs. Native applications and
+> private native runtime directories are prepared externally and detected/associated.
+> Users install Docker separately; explicit container preparation in Harness may
+> fetch the declared pinned image, or use an existing local image. Pack installation
+> never implicitly installs dependencies or pulls images. Native archive URLs and
+> earlier managed native-install descriptions remain compatibility, maintainer and
+> historical qualification records, not native installation actions.
+
 The public profile is macOS Apple Silicon only, exercised with KiCad 10.0.6 and Godot 4.7.2 official stable. Windows, Linux, Intel macOS and remote execution remain unqualified. Native executables are external downloads, not bundled Pack resources. Consumer release 0.4.1 declares official downloads, sizes and executable environment mappings for the shared Harness Pack Manager; see [native installation](native-installation.md). The developer preparation scripts remain available without requiring administrator rights, Apple Developer credentials or installer publication.
 
 Harness injects its generic trusted `runtimeApi` (`executeTask`, `runtimeFiles`) into the installed plugin factory. The Pack does not resolve Core through a development checkout. Harness owns canonical Run, Action, Artifact, State, Verification and Checkpoint persistence, scoped authorization, protected execution and cancellation. The owner Pack owns source observation, typed edits, native command preparation, report interpretation and versioned Verifiers. Kimi Code stays pinned at 2.1.1 and retains its native loop, sessions, compaction and subtasks.
@@ -24,7 +32,10 @@ The self-authored `examples/structural` uses a Node3D, BoxMesh and referenced GD
 
 ## Preparing native dependencies
 
-For a compatible Harness with managed dependency support, select the PCB or Godot Pack in the installation screen. The shared installer uses the maintained `runtimeAssets` declaration to download, verify, prepare, probe and supply the executable paths; no user environment configuration is required. Pack preparation is not engineering acceptance.
+Install the required official KiCad or Godot application outside Harness, then
+use detection or association to supply its existing executable paths. Harness
+downloads only the Domain Pack and probes the externally prepared application;
+it does not download/install dependencies. Preparation is not engineering acceptance.
 
 For standalone developer preparation, from the owner package (or an installed Pack's `domain-packs/<domain>` directory):
 

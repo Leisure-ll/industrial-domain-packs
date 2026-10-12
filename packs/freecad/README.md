@@ -4,7 +4,7 @@ Harness-owned fixed FreeCAD 1.1.4 bridge: parametric recipes, constrained rectan
 
 Versioned edits change known parameters or feature dimensions, profile and origin from a hash-bound recipe. Originals remain intact. Outputs include BREP and source-bound native sketch companions for the official OCCT AIS/V3d WebGL2 Viewer. A separate FreeCAD process reopens the saved FCStd and exports actual geometry, constraint references/dimensions and fully-constrained status, not recipe-derived display guesses. The Viewer is bundled with Desktop separately from this native Pack.
 
-A compatible Harness Pack Manager prepares the pinned official FreeCAD application on macOS Apple Silicon. For standalone development or older consumers, install upstream FreeCAD separately and set `INDUSTRIAL_HARNESS_FREECAD_CMD` if it is outside `/Applications`. This Pack does not bundle FreeCAD, Python macros, paid services or an independent MCP execution server. Geometry validation does not establish strength or manufacturability.
+Install official FreeCAD separately on macOS Apple Silicon, then detect or associate it in Harness. Harness downloads the Domain Pack only. For standalone development, set `INDUSTRIAL_HARNESS_FREECAD_CMD` if it is outside `/Applications`. This Pack does not bundle FreeCAD, Python macros, paid services or an independent MCP execution server. Geometry validation does not establish strength or manufacturability.
 
 See [integration and limits](../../doc/freecad-domain-pack.md). Run native acceptance with:
 
@@ -27,10 +27,13 @@ Distribution 1.1.4-pack.8 makes the user-path containment check case-insensitive
 
 ## Managed FreeCAD and DXF installation
 
-The compatible Harness prepares FreeCAD 1.1.4 and a private native DXF runtime
-on macOS Apple Silicon. `cad.dxf.create`, `cad.dxf.inspect` and `cad.dxf.verify`
+Prepare official FreeCAD 1.1.4 and the private native DXF runtime directory
+externally on macOS Apple Silicon, then detect or associate their executables.
+Harness does not download applications or private native runtime archives.
+Container preparation may fetch the pinned image only after the user installs
+Docker and explicitly selects that preparation action. `cad.dxf.create`, `cad.dxf.inspect` and `cad.dxf.verify`
 use the trusted `INDUSTRIAL_HARNESS_DXF_EXECUTABLE` binding when prepared. The
-existing pinned Docker profile remains available. No host Python/ezdxf installation
+existing pinned Docker profile uses a local image or explicit Harness image preparation. No host Python/ezdxf installation
 is needed. The single CAD
 runtime exposes these alongside the existing FreeCAD tools. Create supports
 bounded lines, circles, polylines and text in millimetres, and hash-checks any
@@ -52,3 +55,5 @@ ignores ambient Python configuration and runs inside the canonical Runtime's
 bounded local sandbox. Qualification exercises real create/inspect, incorrect
 geometry, native failure, in-flight cancellation and successful recovery. A local
 association selects the extracted launcher file; no `.app` wrapper is involved.
+
+See [manual native DXF preparation](../../README.md#manual-native-dxf-preparation) for explicit external build/extraction instructions. Runtime download identities remain compatibility and maintainer metadata, without a Harness installation action.

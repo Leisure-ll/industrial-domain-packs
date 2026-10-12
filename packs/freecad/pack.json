@@ -12,7 +12,7 @@
     "entry": "runtime/index.cjs"
   },
   "externalDependencies": [
-    "FreeCAD 1.1.4 is prepared from Harbor on macOS Apple Silicon; DXF uses a private native runtime or the existing Docker profile."
+    "Install FreeCAD 1.1.4 externally and detect or associate its executable; prepare the private DXF runtime directory externally and associate its launcher. Container profiles require separately installed Docker and explicit pinned-image preparation; installing a Domain Pack does not prepare dependencies."
   ],
   "qualification": {
     "inherited": "macOS arm64 Harness 2482114 verified source; new consumer packaging requires its own acceptance",

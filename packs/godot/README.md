@@ -29,10 +29,10 @@ Projects are bounded to 128 MiB, 16 MiB per input/output, 10,000 scan entries an
 
 The frozen `legacy-harness-pack.json` and bridge/src files remain standalone transport diagnostic references. They are not disclosed or loaded by the integrated host. Native engineering acceptance is tested through the canonical Runtime.
 
-## Managed distribution
+## External application preparation
 
-The compatible Harness downloads the pinned Godot 4.7.2 archive from the project
-Harbor, checks its SHA-256 and prepares the native executable automatically. The
-upstream release URL is provenance only. Ordinary scene work uses this independent
+Install official Godot 4.7.2 outside Harness and use detection or association.
+Harness downloads the Domain Pack only; it does not download/install Godot.
+Archive URLs and hashes remain compatibility and maintainer provenance metadata. Ordinary scene work uses this independent
 runtime and user-owned projects; no benchmark harness is required. Export
 templates and unqualified game-engine workflows remain outside this profile.

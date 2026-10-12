@@ -12,19 +12,19 @@
 
 执行 Profile 将本机、容器与远程工具子集绑定到现有资产及已验证平台。本机应用声明只读检测候选路径和官方手动安装入口。源码、Skill 与 MCP 桥接组件由同一份现有清单生成独立归档，与软件安装包分离；工具及 Verifier 实现保持复用。发布生成、验证范围与兼容关系见 [分发 v2](docs/runtime-distribution-v2.md)。独立发布的 Go 平台组件执行固定的本机环境检测；领域 MCP 迁移属于后续阶段。
 
-## 托管产品发行 0.6.0
+## 当前产品准备方式
 
-兼容的 Harness 从自有 Harbor 自动准备原生应用和预构建工具环境。日常设计项目直接使用领域 Skills、工具和 Runtime，无需 benchmark 任务种子或评分流程。执行前提取决于所选配置。验收见[托管领域记录](docs/managed-domain-runtime-validation.md)、[PCB 记录](docs/pcb-product-validation.md)、[CUDA 记录](packs/cuda/QUALIFICATION.md)与[分发身份](provenance/runtime-distribution.json)。下方旧版本说明为历史记录，实际消费端需固定本次发行提交后才会获得新能力。
+Harness 下载 Domain Pack。原生应用请从官方网站自行安装，独立原生运行时目录请在 Harness 外部准备，再检测或关联。Docker 由用户自行安装；Docker 可用后，可在 Harness 中显式选择准备容器，获取清单固定身份的镜像，也可提供本机已有镜像。安装 Domain Pack 不隐式准备依赖或拉取镜像。原生运行时 URL、哈希及大小仅保留为兼容、维护复现与历史验收元数据，不提供原生安装操作。日常设计项目直接使用领域 Skills、工具和 Runtime，无需 benchmark 任务种子或评分流程。执行前提取决于所选配置。验收见[托管领域记录](docs/managed-domain-runtime-validation.md)、[PCB 记录](docs/pcb-product-validation.md)、[CUDA 记录](packs/cuda/QUALIFICATION.md)与[分发身份](provenance/runtime-distribution.json)。下方旧版本说明为历史记录，实际消费端需固定本次发行提交后才会获得新能力。
 
 | Pack | 当前实现 | 使用边界 |
 | --- | --- | --- |
-| Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | Harbor 运行镜像，已验收 macOS ARM64 和 Linux x64；需要 Docker；物理流程需要用户工艺输入 |
-| Godot | 类型化场景编辑、原生导入、独立场景回读与逐帧检查 | Harbor 自动准备 Godot 4.7.2；macOS Apple Silicon；结构流程 |
-| PCB | 88 项独立原理图/PCB 设计工具、器件资源与原生检查 | Harbor 运行镜像及 KiCad 10.0.6；需要 Docker；macOS Apple Silicon 桌面 |
-| CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | Harbor FreeCAD 与独立 DXF 原生运行时；可选 DXF 容器；按明确几何要求校验 |
+| Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | 显式准备的固定镜像，已验收 macOS ARM64 和 Linux x64；需要 Docker；物理流程需要用户工艺输入 |
+| Godot | 类型化场景编辑、原生导入、独立场景回读与逐帧检查 | 自行安装官方 Godot 4.7.2；macOS Apple Silicon；结构流程 |
+| PCB | 88 项独立原理图/PCB 设计工具、器件资源与原生检查 | 显式准备的固定镜像及自行安装的官方 KiCad 10.0.6；需要 Docker；macOS Apple Silicon 桌面 |
+| CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | 自行安装的官方 FreeCAD 与手动准备的独立 DXF 原生运行时；可选 DXF 容器；按明确几何要求校验 |
 | CAD guidance | 共享制图方法、ezdxf 操作参考及可选 AutoCAD 指南 | 由 CAD 产品复用；仅 DWG/桌面操作需自备 AutoCAD |
 
-最初迁移来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。后续发行已携带可复用的 PCB actor 及来源记录。当前 harness-pack.json 为实际安装与 Runtime 声明；保留的 legacy 清单和 bootstrap 说明仅作为历史参考。当前可用范围以上方托管发行与验收记录为准。
+最初迁移来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。后续发行已携带可复用的 PCB actor 及来源记录。当前 harness-pack.json 为实际安装与 Runtime 声明；保留的 legacy 清单和 bootstrap 说明仅作为历史参考。当前准备方式以上述准备政策为准，资格范围仍以验收记录为准。
 
 remote 直接依赖 npm 包名 @zhiman-bj/industrial-domain-packs 对应的 Git 提交。它读取 Pack 提供的 descriptor、验证器、执行入口、证据导出器和 Dockerfile，不再维护独立 Chip runner。沙箱执行前必须与协调器核对内容身份；身份随能力快照和任务保存。
 
@@ -57,3 +57,16 @@ FreeCAD 现声明模型、对应版本的预览、导出和诊断成果组。检
 0.5.2 保留托管安装配方和 FreeCAD 成果声明，同时合入最新 Godot 场景编辑类型校验与工具说明。Godot 发行版本 0.2.2 将已审查的 Runtime 源码与现有托管原生配方组合；其他 Pack 的版本及内容均保持不变。旧发行版本仍保留各自不可变身份。
 
 PCB 分发 0.3.1 以独立 `pcb.design.*` 能力和产品 Skill 提供原理图/PCB 设计，同时完整保留上游实现与工程 references。兼容 Harness 根据用户选择，从自有 Harbor 单独准备 KiCad 和预构建设计环境；普通工程无需 benchmark 种子、评测器或提交。见 [PCB 设计能力](packs/pcb/README.md)。
+
+## 手动准备原生 DXF
+
+Harness 下载领域包。原生应用请从 [FreeCAD](https://www.freecad.org/downloads.php)、
+[Godot](https://godotengine.org/download/) 或 [KiCad](https://www.kicad.org/download/)
+官网自行安装，再检测或关联。Docker 需用户自行安装；Docker 可用后，在 Harness 中显式选择准备容器即可获取固定镜像，也可关联本机已有镜像。领域包安装不会隐式拉取镜像。
+
+macOS Apple Silicon 用户可检出本仓库已审查的固定提交，在外部准备环境使用 Python 3.12+
+与 `uv`，按照英文 README 的 “Manual native DXF preparation” 命令构建并解压。
+该显式准备步骤会在临时独立目录下载固定哈希的 Python 及锁定依赖，不修改全局 Python
+或 Homebrew。保留解压后的完整 `dxf-runtime` 目录，在 Harness 中关联其中的
+`bin/harness-dxf` 文件。实际绘图只使用私有解释器，无需 Docker 或宿主 Python。
+保留的历史分发链接不代表 Harness 提供依赖安装按钮。

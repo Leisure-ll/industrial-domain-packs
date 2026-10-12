@@ -1,5 +1,13 @@
 # Managed domain products: qualification and boundaries
 
+> Current product policy: Harness downloads Domain Packs. Native applications and
+> private native runtime directories are prepared externally and detected/associated.
+> Users install Docker separately; explicit container preparation in Harness may
+> fetch the declared pinned image, or use an existing local image. Pack installation
+> never implicitly installs dependencies or pulls images. Native archive URLs and
+> earlier managed native-install descriptions remain compatibility, maintainer and
+> historical qualification records, not native installation actions.
+
 ## Delivery contract
 
 The installed product prepares its declared native applications and prebuilt
