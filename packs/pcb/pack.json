@@ -2,9 +2,10 @@
   "schemaVersion": 1,
   "id": "pcb-pack",
   "domain": "pcb",
-  "sourceVersion": "2026.10.10",
+  "sourceVersion": "2026.10.12",
   "status": "local-runtime",
   "skills": [
+    "skills/pcb-design/SKILL.md",
     "skills/pcb-design-e2e/SKILL.md",
     "skills/pcb-kicad-native/SKILL.md",
     "skills/pcb-layout-inspect/SKILL.md"
@@ -14,11 +15,10 @@
     "entry": "runtime/index.cjs"
   },
   "externalDependencies": [
-    "Official KiCad 10.0.6 app (kicad-cli and bundled pcbnew Python); prepared by a compatible Harness Pack Manager on macOS Apple Silicon",
-    "Optional pcb.bench.* container profile: Docker with the image built from the vendored actor sources (packs/pcb/Dockerfile.local-dev) and the gateway Python environment (uv sync --frozen --no-dev)"
+    "Harness-managed KiCad 10.0.6 and the immutable PCB design container from harbor.pvg2.zhiman.tech; Docker is required for the container profile"
   ],
   "remoteStatus": "not-qualified",
-  "releaseVersion": "0.2.0-bench.2",
+  "releaseVersion": "0.3.0",
   "nativePlatforms": [
     "darwin-arm64"
   ]

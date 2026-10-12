@@ -20,11 +20,11 @@
       "id": "pcb",
       "label": "PCB",
       "emoji": "🔌",
-      "version": "0.2.0-bench.2",
-      "summary": "PCB design and repair on the pinned PCB-bench atomic tool surface (89 tools) plus bounded native KiCad edits",
+      "version": "0.3.0",
+      "summary": "Create, edit, inspect and verify PCB projects with atomic KiCad tools, sourced components and declared analyses",
       "prerequisites": [
-        "KiCad 10.0.6 and its bundled pcbnew Python are prepared automatically by a compatible Harness on Apple Silicon",
-        "pcb.bench.* container tools additionally need Docker with the image built from the vendored sources (Dockerfile.local-dev) and the gateway Python (uv sync --frozen --no-dev)"
+        "A compatible Harness installs the pinned KiCad and prebuilt PCB design environment from Harbor automatically",
+        "Docker is required for the managed PCB design container"
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -96,36 +96,12 @@
       "resourcePath": "skills/chip-layout-inspect"
     },
     {
-      "id": "pcb.layout.inspect",
-      "domain": "pcb",
-      "title": "Inspect PCB layout",
-      "enabledByDefault": true,
-      "packId": "pcb-pack",
-      "resourcePath": "skills/pcb-layout-inspect"
-    },
-    {
       "id": "chip.eda.operate",
       "domain": "chip",
       "title": "Operate Chip Pack EDA Harness",
       "enabledByDefault": true,
       "packId": "chip-pack",
       "resourcePath": "skills/chip-eda-operate"
-    },
-    {
-      "id": "pcb.kicad.native",
-      "domain": "pcb",
-      "title": "Bounded native KiCad edits",
-      "enabledByDefault": true,
-      "packId": "pcb-pack",
-      "resourcePath": "skills/pcb-kicad-native"
-    },
-    {
-      "id": "pcb.design.e2e",
-      "domain": "pcb",
-      "title": "PCB design and repair",
-      "enabledByDefault": true,
-      "packId": "pcb-pack",
-      "resourcePath": "skills/pcb-design-e2e"
     },
     {
       "id": "godot.game.inspect",
@@ -182,6 +158,30 @@
       "enabledByDefault": true,
       "packId": "cuda-pack",
       "resourcePath": "skills/cuda-kernel-optimize"
+    },
+    {
+      "id": "pcb.layout.inspect",
+      "domain": "pcb",
+      "title": "Inspect PCB layout",
+      "enabledByDefault": true,
+      "packId": "pcb-pack",
+      "resourcePath": "skills/pcb-layout-inspect"
+    },
+    {
+      "id": "pcb.kicad.native",
+      "domain": "pcb",
+      "title": "Bounded native KiCad edits",
+      "enabledByDefault": true,
+      "packId": "pcb-pack",
+      "resourcePath": "skills/pcb-kicad-native"
+    },
+    {
+      "id": "pcb.design.e2e",
+      "domain": "pcb",
+      "title": "PCB design and repair",
+      "enabledByDefault": true,
+      "packId": "pcb-pack",
+      "resourcePath": "skills/pcb-design"
     }
   ],
   "capabilities": [

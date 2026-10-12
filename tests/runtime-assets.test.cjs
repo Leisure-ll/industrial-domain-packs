@@ -7,7 +7,7 @@ test("installed professional Packs export the exact qualified native downloads a
   for (const domain of ["pcb", "godot"]) {
     const manifest = owner.hostPacks().find((pack) => pack.domain === domain);
     const lock = require(`../packs/${domain}/runtime/native-dependency.json`);
-    assert.equal(manifest.runtimeAssets.length, 1);
+    assert.equal(manifest.runtimeAssets.length, domain === "pcb" ? 2 : 1);
     const asset = manifest.runtimeAssets[0];
     for (const key of ["url", "sha256", "version"])
       assert.equal(asset[key], lock[key]);
@@ -80,4 +80,13 @@ test("dependency metadata preserves platform limits and declares managed EDA and
       .installedSize,
     2625114576,
   );
+});
+
+
+test("PCB design installation pins its Harbor image and complete prebuilt gateway", () => {
+  const asset = owner.hostPacks().find((p) => p.domain === "pcb").runtimeAssets.find((a) => a.type === "docker-image");
+  assert.match(asset.image, /^harbor\.pvg2\.zhiman\.tech\/.+@sha256:[a-f0-9]{64}$/);
+  assert.equal(asset.sha256, asset.imageId.slice(7));
+  assert.equal(asset.imagePlatform, "linux/amd64");
+  assert.ok(asset.size > 0 && asset.installedSize > 0);
 });

@@ -29,6 +29,12 @@ STARTUP_TIMEOUT = 120  # A cold amd64 image can start slowly on an arm64 develop
 
 
 def backend_parameters(policy, policy_file):
+    if policy.get("inContainer"):
+        # The Harness backend owns this already allocated container. The
+        # domain adapter starts only its controller within that boundary.
+        return StdioServerParameters(command="/usr/bin/python3",
+            args=["-I", policy["controller"], str(policy_file)],
+            env={"PYTHONDONTWRITEBYTECODE": "1", "PYTHONUNBUFFERED": "1", "PCB_TOOL_GROUPS": ""})
     args = ["run", "--rm", "--pull", "never", "-i", "--init", "--platform", "linux/amd64", "--user", "0:0",
             "--security-opt", "no-new-privileges", "--workdir", "/workspace"]
     # Execute immutable image sources, not a mutable host checkout. The checkout
@@ -70,6 +76,8 @@ def create_gateway(policy, policy_file):
     if len(descriptors) != len(policy["tools"]) or not set(policy["allowedToolIds"]) <= descriptors.keys():
         raise ValueError("Invalid PCB tool allowlist")
     allowed = {key: descriptors[key] for key in policy["allowedToolIds"]}
+    public_ids = policy.get("publicToolIds", {})
+    aliases = {public_ids.get(key, key): key for key in allowed}
     project = Path(policy["projectDir"]).resolve(strict=True)
     cache = Path(policy["cacheDir"])
     cache.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -108,6 +116,7 @@ def create_gateway(policy, policy_file):
                 "nextStep": "Use domain_tool_result_read. Transport pagination does not establish native CAD observation coverage."}
 
     def require(tool_id):
+        tool_id = aliases.get(tool_id, tool_id)
         if tool_id not in allowed:
             raise ValueError("Tool is outside the current Broker scope.")
         return allowed[tool_id]
@@ -149,7 +158,7 @@ def create_gateway(policy, policy_file):
             if name == "domain_tool_list":
                 offset, limit = arguments.get("offset", 0), arguments.get("limit", 20)
                 entries = list(allowed.values())
-                items = [{"toolId": t["id"], "nativeName": t["name"], "summary": t["summary"], "risk": t["risk"]} for t in entries[offset:offset + limit]]
+                items = [{"toolId": public_ids.get(t["id"], t["id"]), "nativeName": t["name"], "summary": t["summary"], "risk": t["risk"]} for t in entries[offset:offset + limit]]
                 return output({"providerId": policy["id"], "projectDir": str(project), "tools": items,
                                "total": len(entries), "nextOffset": offset + len(items) if offset + len(items) < len(entries) else None})
             if name == "domain_tool_result_read":
@@ -170,7 +179,7 @@ def create_gateway(policy, policy_file):
             item = require(arguments["toolId"])
             native = state["tools"][item["name"]]
             if name == "domain_tool_describe":
-                return output(bounded({"toolId": item["id"], "nativeName": item["name"], "risk": item["risk"],
+                return output(bounded({"toolId": public_ids.get(item["id"], item["id"]), "nativeName": item["name"], "risk": item["risk"],
                                        "description": native.description, "inputSchema": native.inputSchema}))
             if "arguments" in arguments and "argumentsJson" in arguments:
                 raise ValueError("Supply either arguments or argumentsJson, not both.")
@@ -218,12 +227,12 @@ def create_gateway(policy, policy_file):
                     if block.mimeType != "image/png" or len(data) > 4 * 1024 * 1024 or image_bytes > 10 * 1024 * 1024 or len(visual) >= 4:
                         raise ValueError("PCB image response exceeds the declared image boundary; inspect receipts before retrying.")
                     delivered = bool(policy.get("imageInput"))
-                    visual.append({"mimeType": block.mimeType, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(), "delivered": delivered})
+                    visual.append({"mimeType": block.mimeType, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(), "forwarded": delivered, "delivered": False})
                     if delivered:
                         images.append(block)
                 else:
                     raise ValueError("Unsupported PCB result content type; inspect native receipts before retrying.")
-            value = {"providerId": policy["id"], "projectDir": str(project), "toolId": item["id"],
+            value = {"providerId": policy["id"], "projectDir": str(project), "toolId": public_ids.get(item["id"], item["id"]),
                      "result": result.structuredContent if result.structuredContent is not None else (texts[0] if len(texts) == 1 else texts),
                      "isError": bool(result.isError), "images": visual, "requirementsBound": bool(policy.get("requirementsSha256"))}
             return output(bounded(value), bool(result.isError), images)

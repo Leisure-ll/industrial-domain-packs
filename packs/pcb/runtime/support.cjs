@@ -20,6 +20,7 @@ const readBytes = (...args) => core().runtimeFiles.readBytes(...args);
 const runDirectory = (...args) => core().runtimeFiles.runDirectory(...args);
 const applyFiles = (...args) => core().runtimeFiles.applyFiles(...args);
 const hash = (bytes) => crypto.createHash("sha256").update(bytes).digest("hex");
+const { DERIVED_INPUTS } = require("./product.cjs");
 const ignored = new Set([
   ".git",
   ".godot",
@@ -42,6 +43,7 @@ function sources(projectDir) {
         );
       if (++count > 10000) throw Error("Project input scan limit exceeded.");
       const rel = relative ? relative + "/" + name : name;
+      if (DERIVED_INPUTS.some((root) => rel === root || rel.startsWith(root + "/"))) continue;
       const file = path.join(projectDir, rel),
         stat = fs.lstatSync(file);
       if (stat.isSymbolicLink())

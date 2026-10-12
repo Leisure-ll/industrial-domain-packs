@@ -10,7 +10,7 @@ Maintained public source for Industrial Harness domains. Local and remote consum
 | --- | --- | --- |
 | Chip | EDA 0.6.1, 25-tool MCP, canonical RTL adapter, Skills, full EDA recipe and shared `rtl-cpu` recipe | CPU trial exposes `chip.rtl.verify`; raw MCP has a wider standalone surface |
 | Godot | Typed scene edits, source StateProvider, independent native import/readback/frame Verifier | macOS Apple Silicon, Godot 4.7.2; bounded structural task |
-| PCB | Public typed KiCad edits, source StateProvider, DRC + native geometry Verifier | macOS Apple Silicon, KiCad 10.0.6; rectangular mounting-board task |
+| PCB | Independent schematic/PCB design tools, sourced components, native checks and declared analyses; bounded native geometry Verifier | Managed Harbor image and KiCad 10.0.6; desktop qualification remains macOS Apple Silicon |
 | FreeCAD | Maintained runtime reconciled with verified Harness fixes, bounded recipe validator, native code and Skill | Inherited macOS arm64 qualification; Linux/Windows are not qualified |
 | CUDA | Paired remote Compiler/Evaluator MCP Servers, bounded source client, canonical Verifier and optimization Skill | Fixed AXPBY RTX 4090 profile; private native workers remain external; see [qualification](packs/cuda/QUALIFICATION.md) |
 | CAD guidance | AutoCAD macOS, ezdxf and intent-loop Skills | Skill-only; no remote execution profile |
@@ -73,3 +73,5 @@ FreeCAD now declares version-bound result groups for models, previews, exports a
 Version 0.5.1 combines these managed installation recipes with the 0.5.0 result declarations. FreeCAD distribution 1.1.4-pack.7 retains the complete installation recipe from pack.6 and the source presentation behavior from pack.5; published earlier Pack versions keep their original bytes. PCB and Godot versions and qualified platform limits are unchanged. Consumers must update their immutable pin and qualify the combined application.
 
 Version 0.5.2 retains the managed installation recipes and FreeCAD result declarations while incorporating the latest Godot typed scene-edit checks and tool guidance. Godot distribution 0.2.2 combines those reviewed Runtime sources with the existing managed native recipe; other Pack versions and contents are unchanged. Earlier distribution versions keep their original immutable identities.
+
+PCB distribution 0.3.0 provides independent `pcb.design.*` capabilities and a product Skill while retaining the complete pinned upstream implementation and references. A compatible Harness automatically installs its prebuilt design environment and KiCad from Harbor. Ordinary workspaces require no benchmark seed, evaluator or submission. See [PCB design](packs/pcb/README.md).

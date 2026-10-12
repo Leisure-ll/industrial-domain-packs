@@ -61,3 +61,11 @@ The new runtime/, typed tools, Verifiers and examples are original public MIT co
 - 快照 `runtime/bench-upstream.json` 的 112 个哈希现同时承担 vendored 文件的完整性校验
   （bridge 启动时逐文件核对包内资源）；分发范围仍为自有私有仓库内部分发（见上方 2026-10-10 决定）。
 - 派发自检：缺镜像/缺 venv 在任何进程启动前报出带构建指引的 setup 错误。
+
+## 独立 PCB 产品适配（2026-10-12）
+
+- 产品入口改为 `pcb.design.*` 与 `skills/pcb-design/SKILL.md`，普通工程无需固定 benchmark task、种子、评测器或结构化提交。88 个设计操作复用原工具；`finalize_claims` 仅保留在完整上游历史库存，不在产品 allowlist 披露。
+- `pcb-agent/**` 与原始 `skills/pcb-design-e2e/**` 的 112 个文件保留原字节及哈希，不改写成新的无来源实现。产品 Skill 是本仓库的薄适配入口，完整引用原工程 references。
+- 过程/容器生命周期移交 Harness `runtimeApi.openToolSession`；Pack 准备域命令和受控挂载，gateway 在已分配容器内调用 controller。保留原生版本/Schema/资源校验、身份隔离、排他租约、观测守卫与失败恢复。
+- KiCad 与预构建 gateway 镜像从自有 Harbor 的哈希/digest 资源分发。官方来源仍为原生工具的上游来源；维护者构建与镜像发布不会成为终端用户的安装步骤。derived 镜像仅增加锁定 gateway Python/MCP 依赖，原 actor 字节未变。
+- 单个 operation 的 canonical receipt Verifier 继续如实返回 `not_run`；各类 ERC/DRC/parity/适用仿真的原生报告分别报告真实结论，不把执行成功提升为工程验收。

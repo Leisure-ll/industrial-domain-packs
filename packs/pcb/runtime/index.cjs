@@ -20,16 +20,12 @@ const {
 } = s;
 const { ID, verify } = require("./verifier.cjs");
 const benchSnapshot = require("./bench-upstream.json");
-const VERSION = "0.2.0-bench.2";
-const BENCH_PROFILE =
-  "Executes inside the pinned PCB-bench Linux container (image " +
-  benchSnapshot.imageTag +
-  ", upstream commit " +
-  benchSnapshot.sourceCommit.slice(0, 12) +
-  "). The actor sources ship inside this pack; prepare the container image " +
-  "(docker build --platform linux/amd64 -f Dockerfile.local-dev -t industrial-pcb-bench <packDir>, " +
-  "then set INDUSTRIAL_HARNESS_PCB_DEV_IMAGE_ID) and the gateway Python environment " +
-  "(uv sync --frozen --no-dev inside packs/pcb).";
+const VERSION = "0.3.0";
+const { productTools, DERIVED_INPUTS } = require("./product.cjs");
+const RUNTIME_PROFILE =
+  "Uses the managed, immutable PCB design environment installed by Harness. " +
+  "Inspect existing files or create a project; native ERC, DRC and declared simulations " +
+  "report their own evidence and scope. A successful operation is not engineering acceptance.";
 const guides = {
   "pcb.kicad.edit": {
     inputs: {
@@ -40,7 +36,7 @@ const guides = {
       timeoutMs: 60000,
     },
     description:
-      "Change a single rectangular board outline or move existing footprints with native KiCad on a protected snapshot, then hash-checked source replacement. No library authoring, routing or private PCB-bench environment. Rerun pcb.kicad.verify afterwards.",
+      "Change a single rectangular board outline or move existing footprints with native KiCad on a protected snapshot, then hash-checked source replacement. For broader schematic, library and routing operations use pcb.design tools. Rerun pcb.kicad.verify afterwards.",
   },
   "pcb.kicad.verify": {
     inputs: {
@@ -148,8 +144,8 @@ function dependencies(environment) {
     ],
   };
 }
-const benchTools = (environment) =>
-  benchSnapshot.tools.map((tool) => ({
+const designTools = (environment, runtimeApi) =>
+  productTools().map((tool) => ({
   descriptor: {
     schemaVersion: "1",
     id: tool.id,
@@ -159,24 +155,23 @@ const benchTools = (environment) =>
     verification: tool.verification || [],
   },
   guide: {
-    description: tool.summary + " " + BENCH_PROFILE,
+    description: tool.summary + " " + RUNTIME_PROFILE,
   },
   execute: async ({ projectDir, inputs, signal }) => {
     const { gatewaySession } = require("./bench-gateway.cjs");
-    const session = await gatewaySession({ projectDir, environment });
-    const payload = await session.callTool(
+    const session = await gatewaySession({ projectDir, environment, runtimeApi });
+    const { payload, content } = await session.callTool(
       "domain_tool_call",
       { toolId: tool.id, arguments: inputs ?? {} },
       signal,
     );
-    // The full observation payload rides in diagnostics: bench observations
-    // (paged requirements, board collections, receipts) are the model-facing
-    // result of this action. callTool throws on gateway/native errors, so
-    // reaching here means the transport accepted the call.
+    // Preserve revision-bound native observations and image blocks. The host
+    // owns model delivery; transport success never creates a design verdict.
     return {
       executionSucceeded: true,
       diagnostics: [JSON.stringify(payload)],
       artifacts: [],
+      images: content.filter((item) => item.type === "image"),
       toolVersion: VERSION,
     };
   },
@@ -184,6 +179,7 @@ const benchTools = (environment) =>
 function createRuntimePlugin({ environment = process.env, runtimeApi } = {}) {
   s.configure(runtimeApi);
   return {
+    workspaceInputs: { ignore: DERIVED_INPUTS },
     stateProvider: ({ projectDir }) => {
       const inputs = sources(projectDir);
       return {
@@ -193,18 +189,11 @@ function createRuntimePlugin({ environment = process.env, runtimeApi } = {}) {
         inputHashes: {
           ...inputs,
           "runtime-identity/pcb": hash(
-            JSON.stringify(
-              Object.fromEntries(
-                fs
-                  .readdirSync(__dirname)
-                  .sort()
-                  .filter((n) => fs.statSync(path.join(__dirname, n)).isFile())
-                  .map((n) => [
-                    n,
-                    hash(fs.readFileSync(path.join(__dirname, n))),
-                  ]),
-              ),
-            ),
+            JSON.stringify(Object.fromEntries(
+              Object.keys(require("../harness-pack.json").provider.sourceFiles).sort().map((name) => [
+                name, hash(fs.readFileSync(path.resolve(__dirname, "..", name))),
+              ]),
+            )),
           ),
         },
       };
@@ -330,7 +319,7 @@ function createRuntimePlugin({ environment = process.env, runtimeApi } = {}) {
         };
       },
     })),
-      ...benchTools(environment),
+      ...designTools(environment, runtimeApi),
     ],
     verifiers: {
       [ID]: verify,
@@ -340,10 +329,10 @@ function createRuntimePlugin({ environment = process.env, runtimeApi } = {}) {
           "Source edit preserved; rerun independent board requirements and DRC.",
         metrics: {},
       }),
-      "pcb.bench.receipts.v1": () => ({
+      "pcb.design.receipts.v1": () => ({
         status: "not_run",
         reason:
-          "Bench controller receipts live inside the container session; execution is not acceptance.",
+          "Operation receipts are retained in the project session. Read each current ERC, DRC, parity or simulation check and its scope; this operation alone does not establish engineering acceptance.",
         metrics: {},
       }),
     },
