@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "cuda-pack",
   "domain": "cuda",
-  "sourceVersion": "0.1.0",
-  "releaseVersion": "0.1.0",
+  "sourceVersion": "0.2.0",
+  "releaseVersion": "0.2.0",
   "status": "maintained-adapter",
   "skills": [
     "skills/cuda-kernel-optimize/SKILL.md"
@@ -27,16 +27,17 @@
     }
   ],
   "externalDependencies": [
-    "Private CUDA-Agent-Harbor checkout pinned by locks/upstream.json",
-    "Immutable preallocated RTX 4090 worker image",
+    "Private Harbor immutable prebuilt CUDA worker runtime",
+    "Administrator-bound protected kernel project and supported RTX 4090 service",
     "Authenticated paired remote MCP endpoints"
   ],
-  "remoteStatus": "qualified-fixed-native-mcp",
+  "remoteStatus": "project-bound-native-mcp",
   "qualification": {
     "profile": "rtx4090-sm89",
-    "native": "qualified-rtx4090-axpby",
+    "native": "qualified-rtx4090-project-square-and-legacy-axpby",
     "harnessConsumer": "pending-release-pin",
     "harnessRuntime": "qualified-developer-canonical-path",
-    "record": "QUALIFICATION.md"
+    "record": "QUALIFICATION.md",
+    "projectBinding": "qualified-independent-square-reference-mutation-cancellation-recovery"
   }
 }

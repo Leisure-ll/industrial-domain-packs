@@ -1,9 +1,10 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
-const version = '0.1.0', protocol = 'cuda-domain-mcp/1', profile = 'rtx4090-sm89';
+const version = '0.2.0', protocol = 'cuda-domain-mcp/1', profile = 'rtx4090-sm89';
 const upstream = require('../locks/upstream.json');
 const imageLock = require('../locks/rtx4090-image.json');
+const { validateBinding } = require('./project.cjs');
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const MAX_SOURCE_BYTES = 8 * 1024 * 1024;
 const sourceName = name => name === 'model_new.py' ||
@@ -47,10 +48,15 @@ function readSource(projectDir) {
   return { files, ...validateSource(files) };
 }
 function validateIdentity(identity, role) {
+  if (identity?.taskBinding) {
+    validateBinding(identity.taskBinding);
+    if (identity.baseImageId !== imageLock.imageId || identity.taskSha256 !== identity.taskBinding.files['model.py'] ||
+        !/^sha256:[a-f0-9]{64}$/.test(identity.imageId || '')) throw Error('CUDA project runtime/base identity mismatch.');
+  }
   if (identity?.protocol !== protocol || identity.packVersion !== version || identity.role !== role ||
       identity.profile !== profile || identity.packSourceSha256 !== require('../harness-pack.json').provider.sourceSha256 || identity.upstreamCommit !== upstream.commit ||
       identity.upstreamContentSha256 !== upstream.contentSha256 ||
-      identity.imageId !== imageLock.imageId ||
+      (!identity.taskBinding && identity.imageId !== imageLock.imageId) ||
       identity.platform !== 'linux-amd64' || identity.driverVersion !== '595.71.05' ||
       identity.computeCapability !== '8.9' ||
       !/^GPU-[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(identity.gpuUuid || '') ||

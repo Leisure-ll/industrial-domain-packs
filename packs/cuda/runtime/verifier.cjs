@@ -71,10 +71,11 @@ function assess(receipt, expected) {
           snapshot.memory_used_mib < 0 || snapshot.memory_used_mib > 512)
         return insufficient('Exclusive measurements require matching GPU snapshots before and after profiling.');
     metrics.speedupVsCompile = record.torch_compile_us / record.cuda_us;
-    metrics.targetMet = metrics.speedupVsCompile >= 1.05;
+    metrics.targetSpeedup = receipt.identity.taskBinding?.measurement.targetSpeedup || 1.05;
+    metrics.targetMet = metrics.speedupVsCompile >= metrics.targetSpeedup;
   }
   return { status: 'passed', reason: receipt.operation === 'profiling'
-    ? 'Correctness and exclusive GPU measurement passed; targetMet records the separate 5% optimization target.'
+    ? 'Correctness and exclusive GPU measurement passed; targetMet records the separately bound optimization target.'
     : 'CPU compilation and five independent GPU correctness checks passed.', metrics };
 }
 function verifier({ result, artifacts, action, readArtifact }) {

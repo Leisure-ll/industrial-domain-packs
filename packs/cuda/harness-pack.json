@@ -2,32 +2,45 @@
   "schemaVersion": 1,
   "id": "cuda-pack",
   "domain": "cuda",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "provider": {
     "id": "cuda-remote.runtime",
     "title": "CUDA Compiler + RTX 4090 Evaluator MCP",
     "domain": "cuda",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "transport": "runtime",
     "packDirectory": "cuda",
     "packId": "cuda-pack",
     "resourceRoots": [
       "runtime",
       "server",
-      "locks"
+      "locks",
+      "scripts",
+      "backend"
     ],
     "sourceFiles": {
+      "backend/MOBY-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "backend/PROVENANCE.md": "4a46f4cead84fdc12ec0475d026df987adf3763012bd69780131f09795141f04",
+      "backend/candidate-worker-seccomp.json": "8c953683159362f5af1edd2c793da3a952024be7d480336ba8e3c6a51d7e309b",
+      "backend/evaluator-worker-seccomp.json": "b9aaf73b79aa9088c675399b494b358c579aa1221a722cf32da9aded5c4a40c1",
+      "backend/recipe.cjs": "8d164517bec0110f6ca2f1853b641bff08a019a59dbdaa90559b42adecd053c8",
       "locks/rtx4090-image.json": "cca7222767f24d83a799297410fe849f4ad2b76bc5765725be9786ff76c1f5af",
       "locks/upstream.json": "4c88d9f18fb6d328d973b4e047f42a11ff7fabb783a11a732ec9245ad905842f",
-      "runtime/index.cjs": "6b180f2cecec599b96e7144057b7593e376993ce6dafe1976815db54feed6a28",
-      "runtime/protocol.cjs": "1588f7ca7d7dd22dedf4357d5a1aa6ee7bf6d916795616e756c17cf4b1d1474b",
-      "runtime/verifier.cjs": "0146df892c8938e5fc351cafdb122e3bd52f983ff75efeac3ef041583fda5a2f",
-      "server/backend.cjs": "6e90d96e490b2e5ed8664f2daaff7176f3f44d9aeea2125a25d082cf9f7fe82a",
-      "server/mcp.cjs": "71115d4de7957cb0abe270b0d3ce02f20288d35e5ab626c73f69546da472505e",
-      "server/native.py": "d075ea76a09099865cbd6e56003513be6c2e67ad6cb55dc03f4268d630a41388",
+      "runtime/index.cjs": "d92bb299901af0836d7d05d809c30a2260ca8ab0fadf39836297c7673333639e",
+      "runtime/project.cjs": "c25a4196a39b15f7f046e4f26790296b32e9386796b7d1bbaf2bf97a76955125",
+      "runtime/protocol.cjs": "93dbe80cdaa94806ca4cf3484903006debce0972c895dffa94cb982c97250173",
+      "runtime/verifier.cjs": "44838a1ac2e4c81ccc7c7a7a0a6dfccd7ff12e9b2f6928c6a4dbb0e0e8c074ec",
+      "scripts/allocate.cjs": "1a8f72fb5f120083aeda98f85b5aa556340b934155bfe853469619018a5d53f5",
+      "scripts/preflight.cjs": "489b28ced6bbe00e887b341f9723b36520040c72573310e853d2fd92b84e83ce",
+      "scripts/prepare-project.cjs": "aa16744ea9803180f22e717edfad757768b34a5b72e926104d3e005348c6bdbf",
+      "scripts/qualify-project.cjs": "920002b9cae94cf68b3f8dd1c4b7cb31471f4f0ee5255661312a73097d458c3c",
+      "scripts/qualify.cjs": "9ab325973d9a59da46f5702d0eb002b154d054b7d569449fafcfce870ca8c059",
+      "server/backend.cjs": "109c9f870ab33f829f813eae5cdf767de076ccf340fa22d74d33d30145c48785",
+      "server/mcp.cjs": "c5bcf9f673688d0308cfdf3e08fd31c794d2ce3fd330526dde88d58fe517cecb",
+      "server/native.py": "c164a50744ca1fd387d0d90afb38f1c4852c6d85e0367a3558d0bc5250094857",
       "server/store.cjs": "f8a737cefba4c80a6089792219b968b8af22eae7e4010886e8eb9dece2052152"
     },
-    "sourceSha256": "ec1e6f9ee99446a6dae75d4ecbe6491274f62c3a01eebb6f96fb71f358501a28",
+    "sourceSha256": "625b5235510cc114b2532caa34c4a954b4ae561a99075d4aa0c5c2feaa2560f8",
     "tools": [
       {
         "id": "cuda.compiler.check",
@@ -97,9 +110,9 @@
         "kernel",
         "axpby",
         "torch.compile",
-        "CUDA优化",
-        "算子优化",
-        "性能评测"
+        "CUDA\u4f18\u5316",
+        "\u7b97\u5b50\u4f18\u5316",
+        "\u6027\u80fd\u8bc4\u6d4b"
       ],
       "skills": [
         {
@@ -161,5 +174,10 @@
         "cuda.candidate.evidence"
       ]
     }
-  ]
+  ],
+  "workspaceInputs": {
+    "ignore": [
+      ".cuda"
+    ]
+  }
 }

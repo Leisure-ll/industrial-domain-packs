@@ -14,6 +14,7 @@ function identity(config, role) {
   return validateIdentity({ protocol, packVersion: version, role, profile,
     packSourceSha256: require('../harness-pack.json').provider.sourceSha256,
     upstreamCommit: upstream.commit, upstreamContentSha256: upstream.contentSha256,
+    ...(config.taskBinding ? { taskBinding: config.taskBinding, baseImageId: config.baseImageId } : {}),
     imageId: config.imageId, platform: 'linux-amd64', driverVersion: '595.71.05',
     computeCapability: '8.9', gpuUuid: config.gpuUuid, taskSha256: config.taskSha256,
     verifierSha256: sha256(fs.readFileSync(path.join(__dirname, '../runtime/verifier.cjs'))) }, role);
@@ -68,7 +69,7 @@ class CudaService {
         const submission = await this.backend.compile(args, sequence, controller.signal);
         if (submission.source_manifest_sha256 !== args.sourceSha256) throw Error('Compiler changed candidate source identity.');
         sourceSha256 = source.sourceSha256;
-        ticketId = sha256(JSON.stringify({ projectId: args.projectId, requestId: args.requestId, sourceSha256, imageId: this.config.imageId }));
+        ticketId = sha256(JSON.stringify({ projectId: args.projectId, requestId: args.requestId, sourceSha256, imageId: this.config.imageId, taskBinding: this.config.taskBinding?.sha256 }));
         entry.ticket = { ticketId, projectId: args.projectId, sourceSha256, submission, files: args.files, compileRequestId: args.requestId };
         record = { source_manifest_sha256: sourceSha256, compiler_compile_ok: submission.compiler_compile_ok,
           phase_trace: [submission.compiler_phase] };

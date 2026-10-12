@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
 const { StreamableHTTPClientTransport } = require('@modelcontextprotocol/sdk/client/streamableHttp.js');
 const { version, readSource, validateIdentity, tools, descriptors, sha256 } = require('./protocol.cjs');
+const { readProject, assertProject } = require('./project.cjs');
 const { verifier, assess, operations } = require('./verifier.cjs');
 function configuration(environment, role) {
   const prefix = 'INDUSTRIAL_HARNESS_CUDA_' + role.toUpperCase() + '_MCP_';
@@ -49,6 +50,7 @@ function createRuntimePlugin({ environment = process.env } = {}) {
       } catch (error) { await client.close().catch(() => {}); throw error; }
     })().finally(() => { delete connecting[role]; });
     if (connecting[role]) await connecting[role];
+    if (clients[role].identity.taskBinding) assertProject(projectDir, clients[role].identity.taskBinding);
     if (clients[role].identity.taskSha256 !== sha256(fs.readFileSync(path.join(projectDir, 'model.py'))))
       throw Error('Bound reference model differs from the remote CUDA task.');
     return clients[role];
@@ -67,11 +69,12 @@ function createRuntimePlugin({ environment = process.env } = {}) {
     available: Boolean(configs.compiler),
     matchesProject: dir => fs.existsSync(path.join(dir, 'model_new.py')) && fs.existsSync(path.join(dir, 'model.py')),
     protectedPaths: [path.resolve(__dirname, '..')],
-    workspaceProtectedPaths: dir => ['.cuda', 'model.py', 'binding.cpp', 'binding_registry.h', 'utils', 'CAPABILITIES.json'].map(name => path.join(dir, name)),
+    workspaceProtectedPaths: dir => ['.cuda', 'cuda.project.json', 'model.py', 'binding.cpp', 'binding_registry.h', 'utils', 'CAPABILITIES.json'].map(name => path.join(dir, name)),
     stateProvider: ({ projectDir }) => {
       const source = readSource(projectDir), model = path.join(projectDir, 'model.py');
       if (fs.lstatSync(model).isSymbolicLink()) throw Error('Reference model cannot be a symlink.');
-      return { stage: 'kernel', inputHashes: { ...source.hashes, 'model.py': sha256(fs.readFileSync(model)) } };
+      const binding = fs.existsSync(path.join(projectDir, 'cuda.project.json')) ? readProject(projectDir).binding : null;
+      return { stage: 'kernel', inputHashes: { ...source.hashes, ...(binding?.files || {}), 'model.py': sha256(fs.readFileSync(model)) } };
     },
     tools: configs.compiler ? descriptors.map((descriptor, index) => ({ descriptor,
       guide: { inputs: {}, description: tools[index].summary + ' Uses bound candidate files; accepts no command, endpoint or GPU overrides.' },

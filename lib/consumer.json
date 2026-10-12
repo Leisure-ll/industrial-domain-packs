@@ -61,10 +61,10 @@
       "id": "cuda",
       "label": "CUDA",
       "emoji": "⚡",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "summary": "Remote CUDA Compiler and RTX 4090 Evaluator MCP with kernel optimization Skill",
       "prerequisites": [
-        "Developer configuration: both authenticated remote Compiler and Evaluator MCP services and a matching fixed reference model",
+        "Developer configuration: both authenticated remote Compiler and Evaluator MCP services and a matching immutable project reference, bindings and measurement configuration",
         "Remote clients need no local GPU; native service deployment and credentials are separate administrator prerequisites"
       ],
       "qualifiedBundlePlatforms": []
@@ -152,14 +152,6 @@
       "resourcePath": "skills/cad-freecad-headless"
     },
     {
-      "id": "cuda.kernel.optimize",
-      "domain": "cuda",
-      "title": "Optimize CUDA kernels with remote MCP",
-      "enabledByDefault": true,
-      "packId": "cuda-pack",
-      "resourcePath": "skills/cuda-kernel-optimize"
-    },
-    {
       "id": "pcb.layout.inspect",
       "domain": "pcb",
       "title": "Inspect PCB layout",
@@ -182,6 +174,14 @@
       "enabledByDefault": true,
       "packId": "pcb-pack",
       "resourcePath": "skills/pcb-design"
+    },
+    {
+      "id": "cuda.kernel.optimize",
+      "domain": "cuda",
+      "title": "Optimize CUDA kernels with remote MCP",
+      "enabledByDefault": true,
+      "packId": "cuda-pack",
+      "resourcePath": "skills/cuda-kernel-optimize"
     }
   ],
   "capabilities": [

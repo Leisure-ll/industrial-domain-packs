@@ -1,4 +1,4 @@
-// Backend provisioning for one administrator-bound AXPBY allocation. This is
+// Backend provisioning for one administrator-bound kernel project allocation. This is
 // never invoked from project inputs or an agent-exposed MCP tool.
 const fs = require('node:fs');
 const path = require('node:path');
@@ -9,17 +9,18 @@ const { upstream, imageLock, sha256 } = require('../runtime/protocol.cjs');
 function bindEvaluatorGpu(recipe, gpuUuid) {
   const evaluator = recipe.services?.evaluator;
   if (!evaluator) throw Error('Locked allocation recipe has no Evaluator.');
-  evaluator.environment = { ...evaluator.environment, NVIDIA_VISIBLE_DEVICES: gpuUuid };
+  evaluator.environment = { ...evaluator.environment, NVIDIA_VISIBLE_DEVICES: gpuUuid, CUDA_AGENT_EVALUATOR_GPU_UUID: gpuUuid };
   evaluator.deploy ||= {}; evaluator.deploy.resources ||= {}; evaluator.deploy.resources.reservations ||= {};
   evaluator.deploy.resources.reservations.devices = [{ driver: 'nvidia', device_ids: [gpuUuid], capabilities: ['gpu'] }];
   return recipe;
 }
 async function allocate(config, { checkGpu = requireLocalGpu } = {}) {
-  if (!path.isAbsolute(config.upstreamRoot || '') || !path.isAbsolute(config.stateDirectory || '') ||
+  if ((!config.taskProjectDir && !path.isAbsolute(config.upstreamRoot || '')) || !path.isAbsolute(config.stateDirectory || '') ||
       config.imageId !== imageLock.imageId ||
       !/^[a-z0-9][a-z0-9-]{1,62}$/.test(config.allocation || '') ||
       !/^[a-f0-9]{64}$/.test(config.projectId || '')) throw Error('Invalid administrator allocation configuration.');
   await checkGpu(config);
+  if (config.taskProjectDir) return allocateProject(await require('./prepare-project.cjs').prepareProject(config));
   const root = fs.realpathSync(config.upstreamRoot), directory = path.dirname(config.stateDirectory);
   const envPath = 'tasks/axpby/environment/';
   const composeProjectDirectory = path.join(root, envPath);
@@ -54,6 +55,35 @@ async function allocate(config, { checkGpu = requireLocalGpu } = {}) {
     await execute(config.docker || '/usr/bin/docker', [...args, 'down', '--volumes'], undefined, { timeout: 30000 }).catch(() => {});
     throw error;
   }
+}
+async function allocateProject(config) {
+  const { projectRecipe } = require('../backend/recipe.cjs');
+  const root = path.resolve(__dirname, '../backend');
+  const envPath = 'tasks/axpby/environment/';
+  for (const name of ['candidate-worker-seccomp.json', 'evaluator-worker-seccomp.json'])
+    if (sha256(fs.readFileSync(path.join(root, name))) !== upstream.files[envPath + name]) throw Error('Worker syscall profile identity mismatch.');
+  const directory = path.dirname(config.stateDirectory);
+  fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
+  const override = path.join(directory, 'allocation-' + crypto.randomUUID() + '.json');
+  const recipe = projectRecipe(config);
+  fs.writeFileSync(override, JSON.stringify(recipe), { mode: 0o600, flag: 'wx' });
+  const docker = config.docker || '/usr/bin/docker';
+  const args = ['compose', '--project-directory', root, '-p', config.allocation, '-f', override];
+  try {
+    await execute(docker, [...args, 'up', '-d', '--wait', '--wait-timeout', '60'], undefined, { timeout: 90000 });
+    const containers = {};
+    for (const role of ['main', 'compiler', 'evaluator']) {
+      containers[role] = (await execute(docker, [...args, 'ps', '-q', '--no-trunc', role], undefined, { timeout: 10000 })).trim();
+      if (!/^[a-f0-9]{64}$/.test(containers[role])) throw Error('Worker allocation did not return one immutable container ID.');
+    }
+    const allocated = { ...config, containers, composeFiles: [override], composeProjectDirectory: root, override, reviewedRecipeSha256: sha256(JSON.stringify(recipe)) };
+    const { DockerBackend } = require('../server/backend.cjs');
+    const backend = new DockerBackend(allocated);
+    for (let attempt = 0; attempt < 30; attempt++) {
+      try { await backend.check(); return allocated; }
+      catch (error) { if (attempt === 29) throw error; await new Promise(resolve => setTimeout(resolve, 1000)); }
+    }
+  } catch (error) { await execute(docker, [...args, 'down', '--volumes'], undefined, { timeout: 30000 }).catch(() => {}); throw error; }
 }
 if (require.main === module) (async () => {
   const input = process.argv[2], output = process.argv[3];

@@ -4,8 +4,8 @@ description: Optimize a bound CUDA extension with the remote Compiler and Evalua
 ---
 
 Use this Skill when the active CUDA Project has both configured MCP Servers and
-its reference model matches the fixed remote task. The first profile is AXPBY
-on Linux amd64 / RTX 4090 SM 8.9. Server configuration and credentials belong to
+its reference, bindings and measurement settings match the remote immutable task
+binding. Independent projects use Linux amd64 / RTX 4090 SM 8.9. Server configuration and credentials belong to
 the host Runtime. Discover and call tools through the current Broker scope.
 
 ## Workflow
@@ -17,8 +17,8 @@ the host Runtime. Discover and call tools through the current Broker scope.
    immutable reference's kernel breakdown. This establishes a baseline, not
    candidate correctness or optimization success.
 3. Edit only `model_new.py` and source files under `kernels/`. Keep `model.py`,
-   binding files, `utils/`, `CAPABILITIES.json` and `.cuda/` protected. Read the
-   fixed task's public capability contract rather than guessing permitted APIs.
+   binding files, `cuda.project.json`, `utils/`, `CAPABILITIES.json` and `.cuda/` protected. Read the
+   runtime's public capability contract rather than guessing permitted APIs.
 4. Call `cuda.candidate.compile` with `inputs: {}`. The Runtime submits only the
    candidate files and keeps the project-bound compiler ticket. Check the
    native phase and diagnostics. A successful compile has no correctness claim.
@@ -28,8 +28,8 @@ the host Runtime. Discover and call tools through the current Broker scope.
    a fresh compile ticket.
 6. Once correctness passes, call `cuda.candidate.profile` with `inputs: {}` in
    its own turn before replacing that source. It verifies again, then measures
-   against the fixed torch.compile baseline. Treat contended/unclassified GPU
-   measurements as insufficient evidence. `targetMet` means at least 5% faster;
+   against the bound reference’s torch.compile baseline. Treat contended/unclassified GPU
+   measurements as insufficient evidence. `targetMet` compares speedup with `cuda.project.json`’s bound `targetSpeedup`;
    successful execution or valid measurement alone does not meet this target.
 7. Preserve current and best source checkpoints through the bound workspace's
    authorized file tools/Git workflow. Use saved candidate source hashes and
@@ -42,7 +42,7 @@ the host Runtime. Discover and call tools through the current Broker scope.
 
 ## Implementation contract
 
-Read `CAPABILITIES.json` for the fixed task's complete positive contract.
+Read `CAPABILITIES.json` for the runtime's complete positive contract.
 Preserve the reference constructor and required state. Return extension-derived
 results. CUDA files contain raw CUDA; binding files handle permitted tensors,
 allocation and the current stream. Place permitted cuBLAS/cuDNN calls in ordinary

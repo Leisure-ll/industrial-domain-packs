@@ -51,7 +51,7 @@ def main():
             result = compiler.Compiler()._compile({
                 'archive': base64.b64encode(archive).decode('ascii'),
                 'source_manifest_sha256': data['sourceSha256'], 'turn_number': data['sequence'],
-                'evaluation_mode': 'verification', 'profile_iters': 1000,
+                'evaluation_mode': 'verification', 'profile_iters': data.get('profileIterations', 1000),
             })
     elif operation == 'evaluate':
         result = client.request('/run/cuda-agent-private/evaluator.sock', data['submission'])

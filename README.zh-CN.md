@@ -12,7 +12,7 @@
 | Godot | 类型化场景修改、真实 StateProvider、原生导入／回读／逐帧独立验证器 | macOS Apple Silicon，Godot 4.7.2；有限结构任务 |
 | PCB | 公开 KiCad 类型化修改、真实 StateProvider、DRC 与原生几何验证器 | macOS Apple Silicon，KiCad 10.0.6；矩形安装板任务 |
 | FreeCAD | 公开 PR29 已提交的 runtime、参数化模型校验器、原生代码、Skill | 沿用 macOS arm64 验收记录；Linux/Windows 未验收 |
-| CUDA | Compiler / Evaluator 两个远程 MCP、源码客户端、canonical 验证器与优化 Skill | 固定 RTX 4090 AXPBY；私有原生执行依赖保持外置，见[验收记录](packs/cuda/QUALIFICATION.md) |
+| CUDA | Compiler / Evaluator 两个远程 MCP、源码客户端、canonical 验证器与优化 Skill | 项目绑定参考模型、接口与测量设置，沿用已验收 RTX 4090 profile；私有预构建运行环境保持外置，见[验收记录](packs/cuda/QUALIFICATION.md) |
 | CAD guidance | AutoCAD macOS、ezdxf、intent-loop Skills | 仅 Skills，没有远端执行 profile |
 
 导入来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。本地仍在修改的工作文件不纳入本次迁移。Pack 子目录 README 与 harness-pack.json 保留原仓库／bootstrap 的安装说明，其中可能引用 Harness 专属脚本或先前计划；当前状态以本页、pack.json 和验收记录为准，旧消费端元数据待 Harness 迁移时再生成。

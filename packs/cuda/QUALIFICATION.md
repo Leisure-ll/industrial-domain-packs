@@ -63,3 +63,34 @@ validation is a separate protocol and is not synthesized from Harness MCP receip
 `qualifiedBundlePlatforms: []` keeps CUDA out of automatically advertised desktop
 bundles. The qualification allocation is temporary and is removed after checks;
 a reviewed administrator deployment must provision and configure the paired service.
+
+## Independent project qualification — 2026-10-12
+
+A self-authored square project computes `x*x+1`, independently of the legacy
+AXPBY reference. Its four protected files have binding
+`d9a0af7267b77b9e450cbb617aa3ed6154604faa4879d076619028569fe4c10b`.
+Offline task preparation derived image
+`sha256:e3ee35dad61cb823f7953b1ae9eb2e522af8d14feb98963cbafda4b67ffad2d1`
+over the same locked worker base. The new allocation used the Pack's packaged
+Compose and syscall profiles without reading a private upstream checkout. The
+reference, bindings and measurement configuration are checked before native calls
+and bound into both MCP identities, compiler tickets and native receipts.
+
+On the same Linux amd64 / RTX 4090 SM 8.9 / driver 595.71.05 profile:
+
+- Authenticated paired HTTP initialization, readiness, reference profiling, CPU
+  compile, five independent GPU correctness inputs and exclusive GPU profiling
+  all passed through the maintained Runtime plugin and its artifact collector.
+- Speedup was `0.9672429481346678` against torch.compile; the bound `1.05` target
+  was not met. Correctness and valid measurements do not imply optimization.
+- The compiling `x*x+2` candidate failed the real GPU correctness verifier.
+- Changing `model.py` caused the old allocation to reject its task binding.
+- Active native compilation cancellation confirmed cleanup and quarantined the
+  allocation. Explicit recovery allowed a fresh compile and five-input GPU
+  verification to pass. The unique qualification allocation and volumes were
+  removed afterward; no owned container remained.
+
+Private full receipts and logs are retained in the local qualification workspace.
+The project path is constrained by the unchanged positive API, compiler IR and
+native verification contracts. This extends task binding, not the GPU/driver
+qualification scope. Other GPUs and unrestricted Python programs are not claimed.

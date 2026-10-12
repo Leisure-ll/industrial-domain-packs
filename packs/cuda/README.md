@@ -8,8 +8,9 @@ separate scoped credentials; each also has a stdio entry. Kimi remains the
 Harness agent kernel. Native CUDA-Agent-Harbor code is a private external
 resource pinned in `locks/upstream.json`.
 
-The first fixed task is AXPBY on Linux amd64 / RTX 4090 SM 8.9 with driver
-595.71.05. This release is an explicitly configured developer integration, not
+Independent projects supply their protected reference, bindings and measurement
+settings. The qualified hardware remains Linux amd64 / RTX 4090 SM 8.9 with driver
+595.71.05. The original AXPBY allocation remains a compatibility profile. This release is an explicitly configured developer integration, not
 a general GPU service or an automatically installed desktop bundle. `pack.json`
 records qualification separately from source delivery.
 
@@ -20,19 +21,20 @@ Configure both `INDUSTRIAL_HARNESS_CUDA_COMPILER_MCP_{URL,TOKEN,IDENTITY}` and
 IDENTITY is SHA-256 of the exact JSON identity printed by the reviewed deployment,
 including its server role and Pack source digest. Use HTTPS or an authenticated loopback SSH tunnel.
 Do not expose credentials to the model, source workspace or generated evidence.
-The bound Project's `model.py` must match the deployment's task hash.
+The bound Project's reference, bindings and measurement manifest must match the
+deployment's immutable task binding.
 
 Every canonical tool accepts `inputs: {}`. The Runtime packages only
 `model_new.py` and supported source files in `kernels/`. Compilation stores a
 local protected ticket. GPU evaluation rejects tickets for changed source.
 The local aggregate Verifier consumes the exact remote receipt collected in
 Harness's canonical artifact store. Compilation, correctness, valid measurement
-and the 5% target are separate facts; a process/MCP success cannot stand in for
+and the project-defined optimization target are separate facts; a process/MCP success cannot stand in for
 verification. Broker scope and ordinary Runtime approval remain required.
 
 ## Administrator deployment
 
-Provision an exact upstream AXPBY image and GPU-free client/CPU compiler plus an
+Provision the immutable runtime image from the private Harbor distribution and a GPU-free client/CPU compiler plus an
 isolated GPU evaluator. Workers have no Docker socket, host bind mounts or network
 access. The host-side backend owns Docker lifecycle and real resource limits.
 `server/backend.cjs` checks source hashes, protected files, hardware identity and
@@ -54,14 +56,36 @@ to a remote service, show the detected devices and actionable mismatch status,
 and bind the selected evaluator by stable UUID. The automatic local installer/UI
 is not yet supplied by this developer release.
 
-Create a private configuration with `projectId`, `imageId`, `gpuUuid`, `taskSha256`,
-`allocation`, absolute `upstreamRoot`, absolute `stateDirectory`, absolute Docker
-executable (an administrator's sudo wrapper is supported) and optional loopback
-`port`. `scripts/allocate.cjs INPUT OUTPUT` verifies the locked upstream recipe
-and allocates a fresh uniquely named workspace. Never reuse another deployment's
-allocation. The produced configuration contains immutable container IDs and the
-resolved Compose file/project directory; the reviewed recipe's relative security
-profiles continue to resolve against the original upstream environment directory.
+Create a private configuration with `projectId`, the locked base `imageId`,
+`gpuUuid`, `allocation`, absolute `taskProjectDir`, absolute `stateDirectory`,
+absolute Docker executable and optional loopback `port`. `taskProjectDir` contains
+`model.py` (`Model`, `get_inputs`, `get_init_inputs`), `binding.cpp`,
+`binding_registry.h` and `cuda.project.json`:
+
+```json
+{"schemaVersion":1,"measurement":{"profileIterations":1000,"targetSpeedup":1.05}}
+```
+
+The supplied `examples/square` is a complete independent project computing
+`x*x+1`; candidate code lives in `model_new.py` and `kernels/`. The native
+positive capability contract still applies: raw CUDA in `.cu`, tensor handling
+in `_binding.cpp`, approved APIs and source limits. Arbitrary Python/CUDA programs
+outside that contract are not admitted.
+
+`scripts/allocate.cjs INPUT OUTPUT` hashes the four trusted files and layers their
+snapshot over the prebuilt runtime without downloading or compiling a toolchain.
+It allocates three fresh workers using this Pack's complete security recipe and
+pinned syscall profiles; no private source checkout is required. Changing any
+reference, binding or measurement file rejects the old allocation and requires a
+new binding. The derived image, base image and task binding are included in both
+server identities, receipts and compiler tickets. Candidate calls cannot change
+this configuration. The legacy path without `taskProjectDir` retains the reviewed
+AXPBY recipe and upstream checkout for historical integrations.
+
+The remote client installs the Pack and connects to the paired service. It needs
+no CUDA toolkit, local image build, registry credentials or GPU. Only the trusted
+administrator preparing the service needs private Harbor access. Image preparation
+and authenticated endpoint provisioning remain administrator responsibilities.
 
 Run `node packs/cuda/server/mcp.cjs /absolute/config.json --identity` to verify and
 print identities. Run without `--identity` with separate

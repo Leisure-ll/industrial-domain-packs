@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
+const { assertProject, validateBinding } = require('../runtime/project.cjs');
 const { upstream, imageLock } = require('../runtime/protocol.cjs');
 const nativeScript = fs.readFileSync(path.join(__dirname, 'native.py'), 'utf8');
 const installed = {
@@ -42,6 +43,14 @@ function execute(command, args, input, { signal, timeout = 900000, limit = 32 * 
 class DockerBackend {
   constructor(config) {
     this.config = config;
+    if (config.taskBinding) {
+      validateBinding(config.taskBinding);
+      if (config.baseImageId !== imageLock.imageId || config.taskSha256 !== config.taskBinding.files['model.py']) throw Error('Invalid CUDA task/base identity.');
+      const expected = { ...imageLock.protectedFiles, ...config.taskBinding.files };
+      if (JSON.stringify(Object.entries(expected).sort()) !== JSON.stringify(Object.entries(config.protectedFiles || {}).sort())) throw Error('CUDA protected runtime files changed.');
+      const manifest = Object.entries(expected).sort().map(([file, digest]) => `${digest}  ${file}\n`).join('');
+      if (require('../runtime/protocol.cjs').sha256(manifest) !== config.protectedManifestSha256) throw Error('CUDA protected manifest identity changed.');
+    }
     if (!/^sha256:[a-f0-9]{64}$/.test(config.imageId || '') ||
         !['main', 'compiler', 'evaluator'].every(role => /^[a-f0-9]{64}$/.test(config.containers?.[role] || '')) ||
         new Set(Object.values(config.containers)).size !== 3 ||
@@ -60,6 +69,7 @@ class DockerBackend {
     return parsed;
   }
   async check() {
+    if (this.config.taskBinding) assertProject(this.config.taskProjectDir, this.config.taskBinding);
     if (this.quarantined) throw Error('CUDA allocation is quarantined after cancellation; recover it before continuing.');
     const all = JSON.parse(await this.command(['inspect', ...Object.values(this.config.containers)], undefined, { timeout: 10000 }));
     for (const [role, id] of Object.entries(this.config.containers)) {
@@ -78,9 +88,11 @@ class DockerBackend {
           device.Driver === 'nvidia' && device.DeviceIDs?.length === 1 && device.DeviceIDs[0] === this.config.gpuUuid))
         throw Error('CUDA evaluator must have exactly its assigned GPU.');
       const paths = Object.keys(installed).filter(file => role === 'main' ? !file.includes('candidate_compiler') && !file.includes('candidate_server') : true);
-      const hashes = await this.native(role, { operation: 'identity', paths: [...paths, '/app/model.py', '/opt/cuda-agent-workspace/model.py'] });
+      const hashes = await this.native(role, { operation: 'identity', paths: [...paths, ...Object.keys(this.config.protectedFiles || imageLock.protectedFiles).flatMap(file => ['/app/' + file, '/opt/cuda-agent-workspace/' + file])] });
       if (hashes['/app/model.py'] !== this.config.taskSha256 || hashes['/opt/cuda-agent-workspace/model.py'] !== this.config.taskSha256) throw Error('CUDA reference model identity mismatch.');
-      for (const file of paths) if (hashes[file] !== (file.startsWith('/app/') ? imageLock.protectedFiles[file.slice(5)] : (file === '/opt/cuda-agent-lock/protected.sha256' ? imageLock.protectedManifestSha256 : upstream.files[installed[file]]))) throw Error('CUDA installed upstream source mismatch: ' + installed[file]);
+      for (const file of paths) if (hashes[file] !== (file.startsWith('/app/') ? (this.config.protectedFiles || imageLock.protectedFiles)[file.slice(5)] : (file === '/opt/cuda-agent-lock/protected.sha256' ? (this.config.protectedManifestSha256 || imageLock.protectedManifestSha256) : upstream.files[installed[file]]))) throw Error('CUDA installed upstream source mismatch: ' + installed[file]);
+      for (const [file, expected] of Object.entries(this.config.protectedFiles || imageLock.protectedFiles))
+        if (hashes['/app/' + file] !== expected || hashes['/opt/cuda-agent-workspace/' + file] !== expected) throw Error('CUDA task/runtime protected identity mismatch: ' + file);
       await this.command(['exec', '--user', '0:0', id, 'sh', '-c', 'cd /app && sha256sum -c /opt/cuda-agent-lock/protected.sha256'], undefined, { timeout: 10000 });
     }
     const gpu = (await this.command(['exec', this.config.containers.evaluator, 'nvidia-smi', '--query-gpu=uuid,driver_version,compute_cap', '--format=csv,noheader'], undefined, { timeout: 10000 })).trim().split(/,\s*/);
@@ -97,7 +109,7 @@ class DockerBackend {
   }
   async compile(args, sequence, signal) {
     return this.native('compiler', { operation: 'compile', sequence,
-      sourceSha256: args.sourceSha256, files: args.files }, signal);
+      sourceSha256: args.sourceSha256, files: args.files, profileIterations: this.config.taskBinding?.measurement.profileIterations || 1000 }, signal);
   }
   async baseline(sequence, signal) {
     await this.attest();
