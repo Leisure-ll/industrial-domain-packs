@@ -110,9 +110,9 @@
         "kernel",
         "axpby",
         "torch.compile",
-        "CUDA\u4f18\u5316",
-        "\u7b97\u5b50\u4f18\u5316",
-        "\u6027\u80fd\u8bc4\u6d4b"
+        "CUDA优化",
+        "算子优化",
+        "性能评测"
       ],
       "skills": [
         {

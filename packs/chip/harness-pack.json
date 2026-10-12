@@ -95,11 +95,11 @@
       "runtime/export.py": "715f33bd0658eda7bf0bacd716e7b9881fbf45cec30f5d1c7838790f7a579369",
       "runtime/index.cjs": "be21c42c9e5022f8029266fa6411136ab63feb274902806aa7bf42b9389331ae",
       "runtime/managed-native.py": "b65605085b476b52b6f0a18032f63632cd41fe22f1b4ef26e4cf2caced430dff",
-      "runtime/managed.cjs": "1627c25695f906179b61907b73f93e2a6158cb61192b522e5d507b8263f64f4c",
+      "runtime/managed.cjs": "4f23247380134e987301e8b3f513e06d4bdf43826ecccb3dc77747a6c6d4f1a8",
       "runtime/native-profile.py": "72a581ffc3e9ea28add739a3b6ff435985ed0e03dfcf38c10694916332c776f1",
       "runtime/verifier.cjs": "d8b94be8d0da62862da4b1a3de75f08e73a7120312a73876c5d66b09377c1e5b"
     },
-    "sourceSha256": "13515d5d291abe63cff637660bf6a610651f92058cbbcc12536a8ada531cbbe8"
+    "sourceSha256": "e852be1b3ca54ae34b50663bb09277a1bf498c37072e9d91aced81e13c8b77de"
   },
   "capabilities": [
     {

@@ -6,16 +6,20 @@ Development boundary: [accepted architecture contract IH-ARCH-001](docs/architec
 
 Maintained public source for Industrial Harness domains. Local and remote consumers pin this repository by an exact Git commit; domain execution, Skills, dependency locks, tool definitions, Verifiers and image recipes are developed here.
 
+## Managed product release 0.6.0
+
+A compatible Harness prepares native applications and prebuilt tool runtimes from the project Harbor. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Docker and administrator-provided GPU service access remain explicit prerequisites. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.
+
 | Pack | Included implementation | Execution boundary |
 | --- | --- | --- |
-| Chip | EDA 0.6.1, 25-tool MCP, canonical RTL adapter, Skills, full EDA recipe and shared `rtl-cpu` recipe | CPU trial exposes `chip.rtl.verify`; raw MCP has a wider standalone surface |
-| Godot | Typed scene edits, source StateProvider, independent native import/readback/frame Verifier | macOS Apple Silicon, Godot 4.7.2; bounded structural task |
-| PCB | Independent schematic/PCB design tools, sourced components, native checks and declared analyses; bounded native geometry Verifier | Managed Harbor image and KiCad 10.0.6; desktop qualification remains macOS Apple Silicon |
-| FreeCAD | Maintained runtime reconciled with verified Harness fixes, bounded recipe validator, native code and Skill | Inherited macOS arm64 qualification; Linux/Windows are not qualified |
-| CUDA | Paired remote Compiler/Evaluator MCP Servers, bounded source client, canonical Verifier and optimization Skill | Project-bound reference, bindings and measurements on the qualified RTX 4090 profile; private prebuilt runtime remains external; see [qualification](packs/cuda/QUALIFICATION.md) |
-| CAD guidance | AutoCAD macOS, ezdxf and intent-loop Skills | Skill-only; no remote execution profile |
+| Chip | Managed structured EDA, RTL assertions/VCD, synthesis, Skills and native reports | Harbor runtime; Docker; physical flows need project-owned technology inputs |
+| Godot | Typed scene edits, native import, independent scene readback and frame checks | Harbor-prepared Godot 4.7.2 on macOS Apple Silicon; structural workflow |
+| PCB | 88 independent schematic/PCB design tools, component resources and native checks | Harbor runtime and KiCad 10.0.6; Docker; macOS Apple Silicon desktop |
+| CAD / FreeCAD | Parametric solids and managed DXF create/inspect/verify in one CAD runtime | Harbor FreeCAD and DXF image; Docker for DXF; explicit geometric expectations |
+| CUDA | User-owned kernel projects, reference bindings, remote compile/correctness/profile | Administrator-prepared private Harbor runtime and authenticated RTX 4090 service; no client GPU |
+| CAD guidance | Shared drawing methodology, ezdxf operating references, optional AutoCAD guidance | Reused by the CAD product; AutoCAD is optional for DWG/live desktop work |
 
-The migration imports only committed public source: Harness `371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e` and FreeCAD PR29 `62510b22b47803e0841825ec1c2b34fae48b3b15`. Exact imports are recorded in [provenance](provenance/domain-migration.json). Existing uncommitted work and private PCB actor resources are excluded. Pack-local READMEs and harness-pack.json preserve upstream/bootstrap setup notes, including references to Harness-only scripts and earlier plans. Current availability and consumer instructions are defined by this README, pack.json and docs/migration-validation.md; legacy consumer metadata remains reference material until the Harness consumer transition.
+The original migration imported committed source: Harness `371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e` and FreeCAD PR29 `62510b22b47803e0841825ec1c2b34fae48b3b15`. Exact imports are recorded in [provenance](provenance/domain-migration.json). Subsequent releases vendor the reusable PCB actor with its provenance. Current `harness-pack.json` files are executable installation/runtime declarations; preserved legacy manifests and bootstrap notes are historical references. Current availability is defined by the managed release and qualification records above.
 
 ## Consumers
 

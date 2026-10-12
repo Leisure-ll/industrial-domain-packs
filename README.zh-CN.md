@@ -6,16 +6,20 @@
 
 领域实现统一维护在这个公开仓库。本地与远端通过完整 Git commit 固定同一版本，包含执行代码、MCP、Skills、依赖锁、工具定义、验证器和镜像配方。
 
-| Pack | 已迁入内容 | 当前边界 |
-| --- | --- | --- |
-| Chip | EDA 0.6.1、25 个 MCP 工具、Core RTL 适配器、Skills、完整 EDA 与 rtl-cpu 镜像配方 | CPU 体验服务开放 chip.rtl.verify；其余 EDA 工具仍按本地依赖使用 |
-| Godot | 类型化场景修改、真实 StateProvider、原生导入／回读／逐帧独立验证器 | macOS Apple Silicon，Godot 4.7.2；有限结构任务 |
-| PCB | 公开 KiCad 类型化修改、真实 StateProvider、DRC 与原生几何验证器 | macOS Apple Silicon，KiCad 10.0.6；矩形安装板任务 |
-| FreeCAD | 公开 PR29 已提交的 runtime、参数化模型校验器、原生代码、Skill | 沿用 macOS arm64 验收记录；Linux/Windows 未验收 |
-| CUDA | Compiler / Evaluator 两个远程 MCP、源码客户端、canonical 验证器与优化 Skill | 项目绑定参考模型、接口与测量设置，沿用已验收 RTX 4090 profile；私有预构建运行环境保持外置，见[验收记录](packs/cuda/QUALIFICATION.md) |
-| CAD guidance | AutoCAD macOS、ezdxf、intent-loop Skills | 仅 Skills，没有远端执行 profile |
+## 托管产品发行 0.6.0
 
-导入来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。本地仍在修改的工作文件不纳入本次迁移。Pack 子目录 README 与 harness-pack.json 保留原仓库／bootstrap 的安装说明，其中可能引用 Harness 专属脚本或先前计划；当前状态以本页、pack.json 和验收记录为准，旧消费端元数据待 Harness 迁移时再生成。
+兼容的 Harness 从自有 Harbor 自动准备原生应用和预构建工具环境。日常设计项目直接使用领域 Skills、工具和 Runtime，无需 benchmark 任务种子或评分流程。Docker 及管理员提供的远程 GPU 服务访问仍为明确前提。验收见[托管领域记录](docs/managed-domain-runtime-validation.md)、[PCB 记录](docs/pcb-product-validation.md)、[CUDA 记录](packs/cuda/QUALIFICATION.md)与[分发身份](provenance/runtime-distribution.json)。下方旧版本说明为历史记录，实际消费端需固定本次发行提交后才会获得新能力。
+
+| Pack | 当前实现 | 使用边界 |
+| --- | --- | --- |
+| Chip | 托管结构化 EDA、RTL 断言/VCD、综合、Skills 与原生报告 | Harbor 运行镜像；需要 Docker；物理流程需要用户工艺输入 |
+| Godot | 类型化场景编辑、原生导入、独立场景回读与逐帧检查 | Harbor 自动准备 Godot 4.7.2；macOS Apple Silicon；结构流程 |
+| PCB | 88 项独立原理图/PCB 设计工具、器件资源与原生检查 | Harbor 运行镜像及 KiCad 10.0.6；需要 Docker；macOS Apple Silicon 桌面 |
+| CAD / FreeCAD | 单一 CAD Runtime 中的参数化实体建模与 DXF 创建/检查/验证 | Harbor FreeCAD 与 DXF 镜像；DXF 需要 Docker；按明确几何要求校验 |
+| CUDA | 用户内核项目、参考模型绑定、远程编译/正确性/性能测量 | 管理员准备私有 Harbor 运行镜像及认证 RTX 4090 服务；客户端不需 GPU |
+| CAD guidance | 共享制图方法、ezdxf 操作参考及可选 AutoCAD 指南 | 由 CAD 产品复用；仅 DWG/桌面操作需自备 AutoCAD |
+
+最初迁移来自 Harness 提交 371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e 和 FreeCAD PR29 提交 62510b22b47803e0841825ec1c2b34fae48b3b15。逐文件来源与哈希见 [迁移记录](provenance/domain-migration.json)。后续发行已携带可复用的 PCB actor 及来源记录。当前 harness-pack.json 为实际安装与 Runtime 声明；保留的 legacy 清单和 bootstrap 说明仅作为历史参考。当前可用范围以上方托管发行与验收记录为准。
 
 remote 直接依赖 npm 包名 @zhiman-bj/industrial-domain-packs 对应的 Git 提交。它读取 Pack 提供的 descriptor、验证器、执行入口、证据导出器和 Dockerfile，不再维护独立 Chip runner。沙箱执行前必须与协调器核对内容身份；身份随能力快照和任务保存。
 

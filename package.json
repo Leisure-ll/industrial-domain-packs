@@ -1,6 +1,6 @@
 {
   "name": "@zhiman-bj/industrial-domain-packs",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Shared Industrial Harness domain implementations and sandbox profiles",
   "license": "MIT",
   "main": "lib/index.cjs",

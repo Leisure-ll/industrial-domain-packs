@@ -10,7 +10,7 @@
     "version": "1.1.4-pack.10",
     "transport": "runtime",
     "packDirectory": "freecad",
-    "sourceSha256": "e253f9baf39a871131e9009fa703681355d37e6102474a56ac7cd0361f3b5f50",
+    "sourceSha256": "a5f526034605e313c05a7684720a68cdfcfb8559c058142275dfef77233cb19b",
     "tools": [
       {
         "id": "cad.freecad.build",
@@ -79,7 +79,7 @@
     ],
     "sourceFiles": {
       "runtime/dxf-native.py": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
-      "runtime/dxf.cjs": "6e435d1e117dd5a1893ac2a4b11caa6e3c500e62b61e8bcfa3e8d2afda2e22e1",
+      "runtime/dxf.cjs": "301551256ba3b45cc5ef4082b200ff645821919ef1efb564715d1cd27627190f",
       "runtime/index.cjs": "9d814d772cd2a63ab5c8ebda20ee747549f554ad839cff98b94f7d5c090470f0",
       "runtime/native.py": "c9da3e181617403384cdeb2135480dd3f7b0bf6b238771c81898f69ba559d9dc",
       "runtime/presentation.cjs": "767c4e97d61d19b3980765c91a4d50ef3e7d4e61684d19cecf1415013facb77e",
