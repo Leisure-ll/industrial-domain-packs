@@ -6,6 +6,14 @@ This release separates software preparation from domain source distribution.
 is introduced. Existing tools, Verifiers, upstream byte identities and protected
 Runtime semantics are retained.
 
+## Product catalog
+
+`consumerMetadata()` offers Chip, PCB, Godot and CAD with concise purpose and
+profile-specific requirements. `hostPacks()` and the product Skill catalog exclude
+CUDA. Standalone CUDA sources, packaging, `getPack()` and `sourceDirectory()`
+remain available for existing integrations. Its paired-service declarations below
+are legacy standalone contracts, not a product installation option.
+
 ## Execution profiles
 
 Each executable provider declares `executionProfiles` with `id`, `label`, `kind`
@@ -125,3 +133,13 @@ and declared component dependencies without loading code. The caller owns safe
 assembly and must preserve repository-relative paths. Neither an unsigned remote
 index nor a successful version probe authorizes executable code or engineering
 acceptance.
+
+## Product catalog cleanup validation (2026-10-12)
+
+`npm run test:architecture-contract` passed 11 tests. `npm test` passed
+85 tests with two opt-in native qualification tests skipped (managed CAD/Chip
+containers and managed PCB). The suite exercised real HTTP MCP and both CUDA
+stdio MCP initialization/tool-discovery paths, preserving standalone compatibility.
+`npm run lock:check` passed after regenerating the changed consumer source hashes.
+No deployment, native engineering run or additional platform qualification was
+performed for this metadata-only product change.

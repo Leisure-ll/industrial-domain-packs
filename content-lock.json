@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "98edfba5c7442b1abd2125f3a65c8cf5b06bb73bb3618beda7384b605692c17a",
+  "contentSha256": "eee1052a12446c7014085aa2eca0f9c721555916f4033a56ca94b3f9a03a4e9f",
   "files": {
-    "lib/consumer.cjs": "c465941f404d750d000b0457faae3203272dbef2aadb1381a80c44415182a86c",
-    "lib/consumer.json": "d791db6cf684689512daa426b137ea6c8e3d8d786ec1f35b7a683bd5c692cf8c",
+    "lib/consumer.cjs": "f15c15e171245b59ae2031b64a704eae323c59ec880950989ebcf954d5c60b2c",
+    "lib/consumer.json": "5093325288cfcb54890ab212653d1dfb3f39bc996a21cb9e51e3024ee34d6dad",
     "lib/container.cjs": "d77ba68d399bbc6add9129dd9d4f338f9aedce66bd6385062531dc1880dfe819",
     "lib/distribution.cjs": "859d9dd3b83e7cbd40f38f8b4b16cda109c90ee61ce4aaab4b68d44a340a46a2",
     "lib/index.cjs": "8a74cbe453f67dc9f0b26def96b70285baa7e32ed115e27a6024cbeca2cfc9f4",

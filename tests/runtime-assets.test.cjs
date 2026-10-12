@@ -39,7 +39,7 @@ test("installed professional Packs export the exact qualified native downloads a
   });
 });
 
-test("dependency metadata preserves platform limits, managed EDA/DXF and the configured remote GPU client", () => {
+test("dependency metadata preserves platform limits, managed EDA/DXF and execution requirements", () => {
   const domains = owner.consumerMetadata().domains;
   const host = owner.hostPacks();
   const cad = host.find((pack) => pack.domain === "cad");
@@ -55,19 +55,9 @@ test("dependency metadata preserves platform limits, managed EDA/DXF and the con
       "not-qualified",
     );
   }
-  assert.deepEqual(
-    domains.find((d) => d.id === "cuda").qualifiedBundlePlatforms,
-    ["darwin-arm64"],
-  );
-  for (const id of ["cuda"])
-    assert.equal(host.find((pack) => pack.domain === id).runtimeAssets, undefined);
   assert.match(
     domains.find((d) => d.id === "chip").prerequisites.join(" "),
     /project-owned PDK/,
-  );
-  assert.match(
-    domains.find((d) => d.id === "cuda").prerequisites.join(" "),
-    /Remote clients need no local GPU/,
   );
   const chip = host.find(pack => pack.domain === "chip");
   const chipPlatforms = ["darwin-arm64", "linux-x64"];

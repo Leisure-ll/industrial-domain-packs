@@ -8,11 +8,13 @@ Maintained public source for Industrial Harness domains. Local and remote consum
 
 ## Runtime distribution v2 (0.7.0)
 
+The current product catalog offers Chip, PCB, Godot and CAD. Docker is required for managed Chip, full PCB design and DXF profiles; Godot, FreeCAD and bounded KiCad native checks use native applications. CUDA remains available as a standalone implementation and is excluded from product domains, host providers and default Skills.
+
 Execution profiles now bind native, container and remote tool subsets to existing assets and qualified platforms. Native applications declare read-only discovery candidates and official manual installation entries. Generated source, Skill and MCP bridge archives ship separately from software payloads; tools and Verifiers retain their existing implementations. See [distribution v2](docs/runtime-distribution-v2.md) for release generation, qualification scope and compatibility. A separately published Go component performs fixed native environment probes; domain MCP migration remains a later stage.
 
 ## Managed product release 0.6.0
 
-A compatible Harness prepares native applications and prebuilt tool runtimes from the project Harbor. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Docker and administrator-provided GPU service access remain explicit prerequisites. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.
+A compatible Harness prepares native applications and prebuilt tool runtimes from the project Harbor. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Execution prerequisites depend on the selected profile. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.
 
 | Pack | Included implementation | Execution boundary |
 | --- | --- | --- |
@@ -20,7 +22,6 @@ A compatible Harness prepares native applications and prebuilt tool runtimes fro
 | Godot | Typed scene edits, native import, independent scene readback and frame checks | Harbor-prepared Godot 4.7.2 on macOS Apple Silicon; structural workflow |
 | PCB | 88 independent schematic/PCB design tools, component resources and native checks | Harbor runtime and KiCad 10.0.6; Docker; macOS Apple Silicon desktop |
 | CAD / FreeCAD | Parametric solids and managed DXF create/inspect/verify in one CAD runtime | Harbor FreeCAD and DXF image; Docker for DXF; explicit geometric expectations |
-| CUDA | User-owned kernel projects, reference bindings, remote compile/correctness/profile | Administrator-prepared private Harbor runtime and authenticated RTX 4090 service; no client GPU |
 | CAD guidance | Shared drawing methodology, ezdxf operating references, optional AutoCAD guidance | Reused by the CAD product; AutoCAD is optional for DWG/live desktop work |
 
 The original migration imported committed source: Harness `371b011b41417d5cb0c29bc9a0fd4c8bfa4bf75e` and FreeCAD PR29 `62510b22b47803e0841825ec1c2b34fae48b3b15`. Exact imports are recorded in [provenance](provenance/domain-migration.json). Subsequent releases vendor the reusable PCB actor with its provenance. Current `harness-pack.json` files are executable installation/runtime declarations; preserved legacy manifests and bootstrap notes are historical references. Current availability is defined by the managed release and qualification records above.

@@ -112,7 +112,7 @@ test('CUDA paired service profile preserves the existing canonical runtime proto
  assert.equal(new Set(profile.connection.environment.map(x=>x.name)).size,6);
  for(const variable of profile.connection.environment)assert.deepEqual(Object.keys(variable).sort(),['name','type']);
  const domains=require('../lib/consumer.json').domains;
- assert.ok(domains.find(x=>x.id==='cad').prerequisites.some(x=>x.includes('native FreeCAD does not require Docker')));
- assert.ok(domains.find(x=>x.id==='cuda').prerequisites.some(x=>x.includes('different remote protocol')));
+ assert.ok(domains.find(x=>x.id==='cad').prerequisites.some(x=>x.startsWith('Native models: FreeCAD')));
+ assert.ok(!domains.some(x=>x.id==='cuda'));
  assert.ok(!domains.some(x=>x.prerequisites.some(p=>p.includes('automatically'))));
 });

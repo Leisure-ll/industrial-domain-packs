@@ -11,7 +11,6 @@ test("host consumers resolve canonical Pack identities and verified maintained r
   assert.deepEqual(metadata.domains.map((item) => item.id).sort(), [
     "cad",
     "chip",
-    "cuda",
     "godot",
     "pcb",
   ]);
@@ -89,4 +88,12 @@ test("gateway transport implementations belong to the pinned owner release", () 
         pack.provider.sourceSha256,
       );
   }
+});
+
+test("CUDA stays standalone and is absent from the product catalog", () => {
+  assert.ok(packs.getPack("cuda-pack"));
+  assert.ok(fs.statSync(packs.sourceDirectory("cuda-pack")).isDirectory());
+  assert.ok(!packs.hostPacks().some(item => item.domain === "cuda"));
+  assert.ok(!packs.consumerMetadata().skills.some(item => item.domain === "cuda"));
+  assert.throws(() => packs.skillResource("cuda.kernel.optimize"));
 });

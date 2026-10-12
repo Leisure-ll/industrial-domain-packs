@@ -7,10 +7,10 @@
       "label": "Chip",
       "emoji": "\ud83d\udca0",
       "version": "0.7.0",
-      "summary": "Managed RTL and structured EDA design tools, native reports and Skills",
+      "summary": "Design and verify RTL and EDA projects.",
       "prerequisites": [
-        "Select the qualified managed container profile; Docker must be running. Prepare its pinned EDA runtime separately, without host Python or toolchain installation",
-        "Physical design requires project-owned PDK/technology inputs and separate qualification; these are not redistributed in the runtime"
+        "RTL and synthesis: managed container; Docker required.",
+        "Physical design: project-owned PDK/technology inputs and separate qualification."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64",
@@ -22,10 +22,10 @@
       "label": "PCB",
       "emoji": "\ud83d\udd0c",
       "version": "0.3.0",
-      "summary": "Create, edit, inspect and verify PCB projects with atomic KiCad tools, sourced components and declared analyses",
+      "summary": "Design and verify KiCad schematics and circuit boards.",
       "prerequisites": [
-        "The bounded native profile uses an associated compatible KiCad 10.0.6 application on Apple Silicon; a managed download is optional",
-        "The PCB design profile uses the separately prepared pinned container and requires Docker"
+        "Native checks: KiCad 10.0.6 on macOS Apple Silicon.",
+        "Full PCB design: managed container; Docker required."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -36,9 +36,9 @@
       "label": "Godot",
       "emoji": "\ud83c\udfae",
       "version": "0.2.3",
-      "summary": "Scene transforms, BoxMesh geometry and independent Godot structural verification",
+      "summary": "Edit and verify Godot scenes.",
       "prerequisites": [
-        "Associate a compatible Godot 4.7.2 application on Apple Silicon, or prepare the managed download explicitly; export templates are separate and unnecessary for structural verification"
+        "Native: Godot 4.7.2 on macOS Apple Silicon."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -49,26 +49,11 @@
       "label": "CAD",
       "emoji": "\ud83d\udcd0",
       "version": "1.1.4-pack.10",
-      "summary": "FreeCAD parametric models and managed DXF drawings with explicit geometry checks",
+      "summary": "Create and verify FreeCAD models and DXF drawings.",
       "prerequisites": [
-        "The native FreeCAD profile uses an associated compatible FreeCAD 1.1.4 application on Apple Silicon; a managed download is optional",
-        "The DXF profile uses its separately prepared pinned container and requires Docker; native FreeCAD does not require Docker",
-        "AutoCAD is optional for DWG or live desktop work and is not required for DXF or FreeCAD"
-      ],
-      "qualifiedBundlePlatforms": [
-        "darwin-arm64"
-      ]
-    },
-    {
-      "id": "cuda",
-      "label": "CUDA",
-      "emoji": "\u26a1",
-      "version": "0.2.0",
-      "summary": "Remote CUDA Compiler and RTX 4090 Evaluator MCP with kernel optimization Skill",
-      "prerequisites": [
-        "Configure both authenticated remote Compiler and Evaluator MCP services using the existing paired-service settings and matching immutable project reference",
-        "This profile retains the local canonical Runtime with remote MCP workers; coordinator Project execution settings are a different remote protocol",
-        "Remote clients need no local GPU. Configuration enables the existing Runtime handshake; it does not establish readiness. Service deployment and credentials remain administrator prerequisites"
+        "Native models: FreeCAD 1.1.4 on macOS Apple Silicon.",
+        "DXF drawings: managed container; Docker required.",
+        "AutoCAD is optional for DWG and live desktop work."
       ],
       "qualifiedBundlePlatforms": [
         "darwin-arm64"
@@ -179,14 +164,6 @@
       "enabledByDefault": true,
       "packId": "pcb-pack",
       "resourcePath": "skills/pcb-design"
-    },
-    {
-      "id": "cuda.kernel.optimize",
-      "domain": "cuda",
-      "title": "Optimize CUDA kernels with remote MCP",
-      "enabledByDefault": true,
-      "packId": "cuda-pack",
-      "resourcePath": "skills/cuda-kernel-optimize"
     }
   ],
   "capabilities": [
