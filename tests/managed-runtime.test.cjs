@@ -34,6 +34,38 @@ test('DXF fixture distinguishes diameter failure and non-world-XY circles',()=>{
 test('DXF invalid expectation collections cannot silently remove requested checks',()=>{
   for(const expect of [{units:'mm',counts:null},{units:'mm',circles:null},{tolerance:0.01}])assert.throws(()=>validate({file:'drawing.dxf',expect},'verify'));
 });
+test('DXF sources reject hidden, dependency and evidence storage at every path depth',()=>{
+  for(const file of ['.drawing.dxf','.harness/drawing.dxf','drawings/.cache/drawing.dxf',
+    'cad-output/drawing.dxf','drawings/cad-output/drawing.dxf','node_modules/drawing.dxf',
+    'drawings/__pycache__/drawing.dxf','runtime-identity/drawing.dxf']) {
+    assert.throws(()=>validate({file,expect:{units:'mm'}},'verify'),/ordinary visible/);
+  }
+  assert.doesNotThrow(()=>validate({file:'drawings/plate.v2.dxf',expect:{units:'mm'}},'verify'));
+  assert.doesNotThrow(()=>validate({file:'nested/'.repeat(12)+'plate.dxf',expect:{units:'mm'}},'verify'));
+  assert.throws(()=>validate({file:'nested/'.repeat(13)+'plate.dxf',expect:{units:'mm'}},'verify'),/12 directory levels/);
+});
+test('CAD domain inventory tracks DXF independently and rejects symlink or oversized source sets',()=>{
+  const fs=require('node:fs'),os=require('node:os'),path=require('node:path');
+  const {inspectInputs}=require('../packs/freecad/runtime/index.cjs');
+  const project=fs.mkdtempSync(path.join(os.tmpdir(),'cad-input-boundary-'));
+  try {
+    fs.writeFileSync(path.join(project,'harness.tasks.json'),JSON.stringify({schemaVersion:'1',tasks:{},workspace:{ignore:['drawings']}}));
+    fs.mkdirSync(path.join(project,'drawings'));
+    fs.writeFileSync(path.join(project,'drawings/plate.dxf'),'original');
+    const first=inspectInputs(project).inputHashes;
+    assert.equal(first['drawings/plate.dxf'],hash('original'));
+    fs.writeFileSync(path.join(project,'drawings/plate.dxf'),'changed');
+    assert.notEqual(inspectInputs(project).inputHashes['drawings/plate.dxf'],first['drawings/plate.dxf']);
+    fs.symlinkSync('plate.dxf',path.join(project,'drawings/link.dxf'));
+    assert.throws(()=>inspectInputs(project),/symlinks/);
+    fs.unlinkSync(path.join(project,'drawings/link.dxf'));
+    for(let n=0;n<100;n++)fs.writeFileSync(path.join(project,'drawings',n+'.dxf'),'x');
+    assert.throws(()=>inspectInputs(project),/inventory limit/);
+    fs.rmSync(path.join(project,'drawings'),{recursive:true});
+    const large=fs.openSync(path.join(project,'large.dxf'),'w');fs.ftruncateSync(large,64*1024*1024+1);fs.closeSync(large);
+    assert.throws(()=>inspectInputs(project),/inventory limit/);
+  } finally {fs.rmSync(project,{recursive:true,force:true});}
+});
 function chipContext(){
  const native={action:'rtl.simulate',status:'PASS',summary:'Native simulation finished'};
  const report={action:'rtl.simulate',nativeVerification:native,nativeSteps:[{action:'rtl.lint',status:'SUCCESS'},{action:'rtl.simulate',status:'SUCCESS'}]};

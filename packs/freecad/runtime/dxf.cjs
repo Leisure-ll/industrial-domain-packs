@@ -59,6 +59,9 @@ function verify({ result, artifacts, readArtifact, action }) {
 function validate(inputs, operation) {
   if (!inputs || typeof inputs !== 'object' || Array.isArray(inputs) || Object.keys(inputs).some(k => !['file', 'expectedSha256', 'recipe', 'expect'].includes(k))) throw Error('Invalid DXF input fields.');
   if (typeof inputs.file !== 'string' || !/^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*\.dxf$/i.test(inputs.file) || inputs.file.split('/').some(p => p === '..' || p === '.')) throw Error('Use a bounded project-relative .dxf path.');
+  if (inputs.file.split('/').some(part => part.startsWith('.') || ['node_modules','__pycache__','cad-output','runtime-identity'].includes(part)))
+    throw Error('DXF sources must use ordinary visible project paths outside dependency and runtime/evidence storage.');
+  if (inputs.file.split('/').length > 13) throw Error('DXF sources support at most 12 directory levels.');
   if (operation === 'create' && (inputs.expectedSha256 !== null && !/^[a-f0-9]{64}$/.test(inputs.expectedSha256 || ''))) throw Error('Supply expectedSha256:null for a new drawing, or the current SHA-256 before replacement.');
   if (operation !== 'create' && (inputs.recipe !== undefined || inputs.expectedSha256 !== undefined)) throw Error('Inspection and verification accept file and expect only.');
   if (operation === 'create' && (!inputs.recipe || JSON.stringify(inputs.recipe).length > 512 * 1024)) throw Error('Supply a bounded drawing recipe.');
@@ -73,7 +76,7 @@ function validate(inputs, operation) {
   if (e.circles !== undefined && (!Array.isArray(e.circles) || e.circles.length > 2000 || e.circles.some(c => !c || Object.keys(c).some(k => !['center','diameter','layer'].includes(k)) || !Array.isArray(c.center) || c.center.length !== 2 || c.center.some(v => !Number.isFinite(v)) || !Number.isFinite(c.diameter) || c.diameter <= 0 || (c.layer !== undefined && typeof c.layer !== 'string')))) throw Error('Invalid expected circles.');
   if (e.units === undefined && e.entityCount === undefined && !Object.keys(e.counts || {}).length && !e.circles?.length) throw Error('Supply at least one measurable DXF expectation.');
 }
-function createDxfPlugin({ environment, runtimeApi }) {
+function createDxfPlugin({ environment, runtimeApi, inspectInputs }) {
   return { capabilities: [capability], verifiers: { 'cad.dxf.geometry.v1': verify },
     tools: definitions.map(definition => ({
       descriptor: { schemaVersion: '1', id: definition.id, version: VERSION, risk: definition.risk, verification: definition.verification, ...(definition.name === 'dxf_create' ? { effect: 'inputs' } : {}) },
@@ -87,6 +90,9 @@ function createDxfPlugin({ environment, runtimeApi }) {
         const source = api.projectFile(projectDir, inputs.file);
         const exists = fs.existsSync(source);
         const before = exists ? hash(api.readBytes(source, 16 * 1024 * 1024)) : null;
+        if (typeof inspectInputs !== 'function') throw Error('Managed DXF requires the CAD source inventory.');
+        const sourceHashes = inspectInputs(projectDir).inputHashes;
+        if (exists && sourceHashes[inputs.file] !== before) throw Error('DXF source is outside the current CAD input inventory or changed during inspection.');
         if (operation === 'create' && before !== inputs.expectedSha256) throw Error('Drawing changed; refresh its SHA-256 before replacement.');
         const directory = api.runDirectory(projectDir, action.id), input = path.join(directory, 'input'), work = path.join(directory, 'work');
         fs.mkdirSync(input); fs.mkdirSync(work);
@@ -103,7 +109,16 @@ function createDxfPlugin({ environment, runtimeApi }) {
           readbackInputSha256 = drawing ? hash(drawing) : before;
           readbackReportSha256 = hash(reportBytes);
           if (!reportIsValid(observed) || observed.sourceSha256 !== readbackInputSha256) throw Error('DXF native readback is malformed or does not describe the saved input.');
-          if (operation === 'create') api.applyFiles(projectDir, [{ path: inputs.file, expectedSha256: before, content: drawing.toString('utf8') }]);
+          if (operation === 'create') {
+            const files = Object.keys(inspectInputs(projectDir).inputHashes);
+            const priorBytes = files.reduce((size, name) => size + fs.statSync(api.projectFile(projectDir, name)).size, 0);
+            const nextBytes = priorBytes - (exists ? fs.statSync(source).size : 0) + drawing.length;
+            if (files.length + (exists ? 0 : 1) > 100 || nextBytes > 64 * 1024 * 1024)
+              throw Error('Saved drawing would exceed the CAD source inventory budget.');
+            api.applyFiles(projectDir, [{ path: inputs.file, expectedSha256: before, content: drawing.toString('utf8') }]);
+            if (inspectInputs(projectDir).inputHashes[inputs.file] !== readbackInputSha256)
+              throw Error('Saved DXF is not bound to the current CAD source inventory.');
+          }
         }
         if (operation !== 'create' && hash(api.readBytes(source, 16 * 1024 * 1024)) !== before) succeeded = false;
         const artifacts = Object.entries({ 'readback.json':'report.cad.dxf', 'drawing.dxf':'model.cad.dxf', 'tool.log':'log.tool' }).filter(([name]) => fs.lstatSync(path.join(work,name),{throwIfNoEntry:false})?.isFile()).map(([name,kind]) => {const file=path.join(work,name),stat=fs.lstatSync(file);if(stat.isSymbolicLink()||stat.nlink!==1||stat.size>16*1024*1024)throw Error('Unsafe DXF output.');return {localId:name,file:path.relative(projectDir,file).split(path.sep).join('/'),kind,sha256:hash(api.readBytes(file,16*1024*1024))};});

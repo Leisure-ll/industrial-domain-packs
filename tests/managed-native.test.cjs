@@ -31,12 +31,39 @@ test('managed CAD/Chip use real containers and canonical evidence', {
     return runtime.execute({toolId,inputs,expectedStateId:state.id},{approval:true,ownerId:'native-qualification',scope:{domain:enabled,projectId:state.projectId,stateId:state.id,tools:[toolId]}});
   }
   if (enabled === 'cad') {
+    for (const file of ['cad-output/hidden.dxf', 'drawings/.cache/hidden.dxf', 'node_modules/hidden.dxf']) {
+      const rejected = await call('cad.dxf.create',{file,expectedSha256:null,recipe:{units:'mm',entities:[{type:'circle',center:[10,10],radius:3}]}});
+      assert.equal(rejected.action.status,'failed',JSON.stringify(rejected));
+      assert.notEqual(rejected.verification.status,'passed');
+      assert.equal(fs.existsSync(path.join(projectDir,file)),false);
+    }
     const created = await call('cad.dxf.create',{file:'plate.dxf',expectedSha256:null,recipe:{units:'mm',entities:[{type:'circle',center:[10,10],radius:3}]},expect:{units:'mm',circles:[{center:[10,10],diameter:6}]}});
     assert.equal(created.action.status,'completed', JSON.stringify(created)); assert.equal(created.verification.status,'passed');
     const bad = await call('cad.dxf.verify',{file:'plate.dxf',expect:{circles:[{center:[10,10],diameter:7}]}});
     assert.equal(bad.action.status,'completed'); assert.equal(bad.verification.status,'failed');
     const fixed = await call('cad.dxf.verify',{file:'plate.dxf',expect:{circles:[{center:[10,10],diameter:6}]}});
     assert.equal(fixed.verification.status,'passed');
+    fs.writeFileSync(path.join(projectDir,'harness.tasks.json'),JSON.stringify({schemaVersion:'1',tasks:{},workspace:{ignore:['drawings'],inputs:['harness.tasks.json']}}));
+    const drawing = await call('cad.dxf.create',{file:'drawings/plate.dxf',expectedSha256:null,recipe:{units:'mm',entities:[{type:'circle',center:[10,10],radius:3}]},expect:{units:'mm',circles:[{center:[10,10],diameter:6}]}});
+    assert.equal(drawing.verification.status,'passed',JSON.stringify(drawing));
+    const tracked = await call('cad.dxf.verify',{file:'drawings/plate.dxf',expect:{units:'mm',circles:[{center:[10,10],diameter:6}]}});
+    assert.equal(tracked.verification.status,'passed',JSON.stringify(tracked));
+    assert.equal(tracked.state.status,'verified');
+    assert.ok(tracked.state.inputHashes['drawings/plate.dxf'],'Domain inputs must survive generic workspace ignore/inputs rules');
+    fs.appendFileSync(path.join(projectDir,'drawings/plate.dxf'),'\n');
+    const stale = await runtime.inspect();
+    assert.equal(stale.status,'stale');
+    assert.notEqual(stale.id,tracked.state.id);
+    assert.notEqual(stale.inputHashes['drawings/plate.dxf'],tracked.state.inputHashes['drawings/plate.dxf']);
+    fs.symlinkSync('plate.dxf',path.join(projectDir,'drawings/link.dxf'));
+    const symlink = await call('cad.dxf.verify',{file:'drawings/link.dxf',expect:{units:'mm'}});
+    assert.equal(symlink.action.status,'failed');
+    assert.notEqual(symlink.verification.status,'passed');
+    const badInventory = await call('cad.dxf.verify',{file:'drawings/plate.dxf',expect:{units:'mm'}});
+    assert.equal(badInventory.action.status,'failed','Inventory failure must not fall back to generic input rules and create acceptance');
+    assert.notEqual(badInventory.verification.status,'passed');
+    fs.unlinkSync(path.join(projectDir,'drawings/link.dxf'));
+    assert.equal((await call('cad.dxf.verify',{file:'drawings/plate.dxf',expect:{units:'mm'}})).verification.status,'passed');
   } else {
     const described = await call('chip.project.describe',{}); assert.equal(described.action.status,'completed',JSON.stringify(described));
     const verified = await call('chip.rtl.verify',{}); assert.equal(verified.verification.status,'passed',JSON.stringify(verified));

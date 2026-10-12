@@ -51,11 +51,11 @@ function inspectInputs(projectDir) {
         continue;
       const file = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) {
-        if (/\.(fcstd|step|stp)$/i.test(file)) throw Error('CAD sources cannot be symlinks.');
+        if (/\.(fcstd|step|stp|dxf)$/i.test(file)) throw Error('CAD sources cannot be symlinks.');
         continue;
       }
       if (entry.isDirectory()) visit(file, depth + 1);
-      else if (/\.(fcstd|step|stp)$/i.test(file)) {
+      else if (/\.(fcstd|step|stp|dxf)$/i.test(file)) {
         size += fs.statSync(file).size;
         if (Object.keys(inputHashes).length >= 100 || size > 64 * 1024 * 1024)
           throw Error('CAD source inventory limit exceeded.');
@@ -415,7 +415,7 @@ function createRuntimePlugin({ environment = process.env, managed = false, runti
     })),
     verifiers: { 'cad.freecad.geometry': verify },
   };
-  const dxf = require('./dxf.cjs').createDxfPlugin({ environment, runtimeApi });
+  const dxf = require('./dxf.cjs').createDxfPlugin({ environment, runtimeApi, inspectInputs });
   return { ...plugin, tools: [...plugin.tools, ...dxf.tools],
     verifiers: { ...plugin.verifiers, ...dxf.verifiers }, capabilities: dxf.capabilities };
 }
