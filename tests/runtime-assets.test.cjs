@@ -90,3 +90,29 @@ test("PCB design installation pins its Harbor image and complete prebuilt gatewa
   assert.equal(asset.imagePlatform, "linux/amd64");
   assert.ok(asset.size > 0 && asset.installedSize > 0);
 });
+
+test('every installed native or container runtime uses a verified own-source distribution', () => {
+  const fs = require('node:fs');
+  const crypto = require('node:crypto');
+  const distribution = require('../provenance/runtime-distribution.json');
+  const assets = owner.hostPacks().flatMap(pack => pack.runtimeAssets || []);
+  assert.ok(assets.length >= 6);
+  for (const asset of assets) {
+    const locator = asset.image || asset.url;
+    assert.match(locator, /^(?:https:\/\/)?harbor\.pvg2\.zhiman\.tech\//);
+    const published = distribution.assets.find(row => (row.image || row.url) === locator);
+    assert.ok(published, 'Missing verified distribution: ' + asset.id);
+    assert.ok(published.evidence, 'Missing download evidence: ' + asset.id);
+    assert.ok(fs.existsSync(path.join(__dirname, '..', published.evidence)));
+    assert.equal(asset.size, published.downloadSize || published.size);
+    assert.equal(asset.installedSize, published.installedSize);
+    if (asset.type === 'docker-image') {
+      assert.equal(asset.imageId, published.imageConfigDigest);
+      assert.equal(asset.sha256, published.imageConfigDigest.slice(7));
+      assert.equal(asset.imagePlatform, published.imagePlatform);
+    } else assert.equal(asset.sha256, published.sha256);
+    if (published.entrySource) {
+      assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname, '..', published.entrySource))).digest('hex'), published.entrySourceSha256);
+    }
+  }
+});
