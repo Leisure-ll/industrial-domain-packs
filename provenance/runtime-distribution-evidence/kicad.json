@@ -1,0 +1,9 @@
+{
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/kicad/blobs/sha256:ef4dcd4278c46d3efcd28c8db273d5957d68efda028f6bf79b4811fc5302dc68",
+  "sha256": "ef4dcd4278c46d3efcd28c8db273d5957d68efda028f6bf79b4811fc5302dc68",
+  "size": 1404303659,
+  "seconds": 765.5,
+  "verifiedAt": "2026-10-12T02:56:14Z",
+  "anonymous": true,
+  "method": "ordered-complete-range-get"
+}

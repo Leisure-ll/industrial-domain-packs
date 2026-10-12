@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T02:59:40Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-pcb-gateway/manifests/sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "size": 2670,
+    "configDigest": "sha256:c231ae82f7d6941bb5df53cfd855a1fe8ed741151eaa9bf7598e3f1f5c5d7e87",
+    "downloadSize": 1277963958,
+    "layerCount": 12
+  },
+  "blobs": [
+    {
+      "digest": "sha256:c231ae82f7d6941bb5df53cfd855a1fe8ed741151eaa9bf7598e3f1f5c5d7e87",
+      "size": 6357,
+      "seconds": 0.393
+    },
+    {
+      "digest": "sha256:edd1ed89f0d443580bd42e5a10cd8736aba5a3438b2a0645c2ebb50119bb0eba",
+      "size": 29764116,
+      "seconds": 96.544
+    },
+    {
+      "digest": "sha256:b9d9e52d340b5986ad721184ded8f21d9742c7e877227a7294bee6961f7d524a",
+      "size": 1470,
+      "seconds": 0.186
+    },
+    {
+      "digest": "sha256:7921526968c63d4c761f0464e6f8982136cf3aa3c93a349d5e5ebe40d27f3114",
+      "size": 277,
+      "seconds": 0.859
+    },
+    {
+      "digest": "sha256:8cf0e23167b4833714e380566c54d69d49c33b9aa43814a2d60b4bfe09b7894d",
+      "size": 1079742147,
+      "seconds": 624.618
+    },
+    {
+      "digest": "sha256:993def581e44e6f5e565e12c112e0a06389aac8adbc93f19dad87f8b7979b3ec",
+      "size": 517812,
+      "seconds": 1.325
+    },
+    {
+      "digest": "sha256:e114cc344c87c43904fddaf9f55ea2ae44d3c8472f2f4d10b31cde264b1f894d",
+      "size": 37480,
+      "seconds": 0.228
+    },
+    {
+      "digest": "sha256:227ecd38582d2b38556ae795b2a9560a5df6ed670c2a592b34175b2abb98486e",
+      "size": 62937508,
+      "seconds": 54.615
+    },
+    {
+      "digest": "sha256:81630c5811301c159b6aae57f85c548796e3f3419c70777d39673a0025d49d09",
+      "size": 59552134,
+      "seconds": 39.282
+    },
+    {
+      "digest": "sha256:38ad442cfcc69bd937e813b2fbe979aa2f013efae606e884a4589246b9d45975",
+      "size": 99,
+      "seconds": 0.378
+    },
+    {
+      "digest": "sha256:21035019d1291a2f9e48f6f846b004943499ef6a3eb0544998e13f8e7fd03730",
+      "size": 44543495,
+      "seconds": 60.998
+    },
+    {
+      "digest": "sha256:d4258bd0e5e27bd29dc072dfb46a2d42c9d0412cc672b9b87b1a8bb032ee6d67",
+      "size": 13675,
+      "seconds": 0.364
+    },
+    {
+      "digest": "sha256:bb71735bad1e67e799ed0cd5cb5c564546d8126844083ba1be9573286fa5a27b",
+      "size": 847388,
+      "seconds": 0.94
+    }
+  ]
+}

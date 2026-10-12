@@ -1,0 +1,25 @@
+# Maintainer-only build over the reviewed tool base; users pull the final digest.
+ARG CHIP_BASE=eda-harness-tools:cli-fix-20261003@sha256:3ec494165c53b52b8fed0cf0686e04798ad648bd8282730b5be7d43a9bdb78fe
+FROM ${CHIP_BASE} AS clean
+USER 0
+RUN rm -rf /OpenROAD-flow-scripts/flow/platforms /OpenROAD-flow-scripts/flow/designs \
+    /OpenROAD-flow-scripts/flow/reports /OpenROAD-flow-scripts/flow/results \
+    /OpenROAD-flow-scripts/flow/logs /OpenROAD-flow-scripts/flow/objects \
+    /OpenROAD-flow-scripts/.git /tmp/* /root/.cache /work/* /opt/eda-tools-smoke
+COPY python /opt/chip-python
+COPY src /opt/domain-packs/packs/chip/eda-harness/src
+COPY managed-native.py /opt/domain-packs/packs/chip/runtime/managed-native.py
+COPY requirements.txt /opt/domain-packs/chip-python-requirements.txt
+RUN /opt/chip-python/bin/python3 -I -c 'import yaml,pydantic; import sys; assert sys.version_info[:3]==(3,13,12)' \
+    && test ! -e /OpenROAD-flow-scripts/flow/platforms
+# Only the cleaned final filesystem is distributed: deleted technology content
+# must not remain recoverable from inherited OCI layers.
+FROM scratch
+COPY --from=clean / /
+ENV PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    HOME=/tmp PYTHONDONTWRITEBYTECODE=1 CCACHE_DISABLE=1
+WORKDIR /work
+ENTRYPOINT ["/opt/chip-python/bin/python3", "-I", "/opt/domain-packs/packs/chip/runtime/managed-native.py"]
+LABEL org.opencontainers.image.title="Industrial Chip Tools Runtime" \
+      org.opencontainers.image.source="https://github.com/Zhiman-BJ/industrial-domain-packs" \
+      tech.zhiman.chip.technology-libraries="excluded"

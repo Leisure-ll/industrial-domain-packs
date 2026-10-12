@@ -1,0 +1,4 @@
+harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway@sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b: Pulling from industrial-runtime-assets/industrial-pcb-gateway
+Digest: sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b
+Status: Image is up to date for harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway@sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b
+harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway@sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b

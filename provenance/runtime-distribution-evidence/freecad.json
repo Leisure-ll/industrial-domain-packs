@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T02:59:52Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/freecad/blobs/sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+    "size": 649760538,
+    "seconds": 444.814
+  },
+  "blobs": [
+    {
+      "digest": "sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+      "size": 649760538,
+      "seconds": 444.814
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Maintainer build context prepared by scripts/build-pcb-gateway-image.py.
+ARG PCB_BASE=harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-runtime@sha256:d923643d0283640c084a70237c5353f3b6041ece181c7d26dc751a156ae59e7f
+FROM ${PCB_BASE}
+COPY python /opt/pcb-gateway
+COPY uv.lock pyproject.toml /opt/pcb-gateway-lock/
+RUN /opt/pcb-gateway/bin/python3 -I -c 'import sys,importlib.metadata; assert sys.version_info[:3] == (3,13,12); assert importlib.metadata.version("mcp")=="1.29.1"; assert importlib.metadata.version("jsonschema")=="4.26.0"' \
+    && test "$(kicad-cli version)" = 10.0.6
+LABEL org.opencontainers.image.title="Industrial PCB Runtime" \
+      org.opencontainers.image.source="https://github.com/Zhiman-BJ/industrial-domain-packs" \
+      tech.zhiman.pcb.source-commit="8c35250e32392f75920570e9e34839b06ad401c4" \
+      tech.zhiman.pcb.gateway-python="3.13.12" \
+      tech.zhiman.pcb.gateway-mcp="1.29.1"

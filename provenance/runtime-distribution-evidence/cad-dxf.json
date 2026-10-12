@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T03:14:45Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-cad-dxf/manifests/sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "size": 2075,
+    "configDigest": "sha256:9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+    "downloadSize": 75805851,
+    "layerCount": 9
+  },
+  "blobs": [
+    {
+      "digest": "sha256:9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+      "size": 7613,
+      "seconds": 0.282
+    },
+    {
+      "digest": "sha256:da539b6761059a0a114c6671f1267b57445e3a54da023db5c28be019e40f0284",
+      "size": 28236332,
+      "seconds": 3.342
+    },
+    {
+      "digest": "sha256:35ade6973e87c7a996978364cbfbae6f92581167bdf6a3bf54b4dc4549f40afa",
+      "size": 3517382,
+      "seconds": 1.065
+    },
+    {
+      "digest": "sha256:af650bea6b21577b4b85c68a0d827914840295c2b3fce5a7f4c2c8223a6f3425",
+      "size": 12478151,
+      "seconds": 1.654
+    },
+    {
+      "digest": "sha256:251fa4afca5fc2d7040789882e09a87df8ee39142886da6be499f5c047824efa",
+      "size": 248,
+      "seconds": 0.259
+    },
+    {
+      "digest": "sha256:3aa4d356c09fd3ff45302285bad1fe00e0b8f00408375eccad2fc665fac12212",
+      "size": 27845619,
+      "seconds": 2.788
+    },
+    {
+      "digest": "sha256:9eea5190b46d01548cc9626ea18c73bef6a4b7f7f7c3ea7a75d136eb4487488e",
+      "size": 2127,
+      "seconds": 0.315
+    },
+    {
+      "digest": "sha256:4ef825b64957dc080f515a59c13bfc44bf243ca95e8b2c9b0925f116dff29503",
+      "size": 6260,
+      "seconds": 0.298
+    },
+    {
+      "digest": "sha256:8c416e98c2a1f7364764e03e7292ae800a90529a47fad366ad4156c15ff4ecde",
+      "size": 3712025,
+      "seconds": 0.998
+    },
+    {
+      "digest": "sha256:800e6d57c05c6040c30d3174f7c28d1af38725ccfbb50391189b3c6fbc8d4e1b",
+      "size": 94,
+      "seconds": 0.395
+    }
+  ]
+}

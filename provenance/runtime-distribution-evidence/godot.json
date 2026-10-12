@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T02:52:26Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/godot/blobs/sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+    "size": 170622178,
+    "seconds": 117.85
+  },
+  "blobs": [
+    {
+      "digest": "sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+      "size": 170622178,
+      "seconds": 117.85
+    }
+  ]
+}

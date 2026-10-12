@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "registry": "harbor.pvg2.zhiman.tech",
+  "publicProject": "industrial-runtime-assets",
+  "assets": [
+    {
+      "id": "freecad",
+      "version": "1.1.4",
+      "platform": "darwin-arm64",
+      "type": "native-installer",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/freecad/blobs/sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+      "sha256": "071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+      "size": 649760538,
+      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg",
+      "evidence": "provenance/runtime-distribution-evidence/freecad.json",
+      "installedSize": 2625114576
+    },
+    {
+      "id": "godot",
+      "version": "4.7.2",
+      "platform": "darwin-arm64",
+      "type": "native-installer",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/godot/blobs/sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+      "sha256": "c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+      "size": 170622178,
+      "upstreamUrl": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip",
+      "evidence": "provenance/runtime-distribution-evidence/godot.json",
+      "installedSize": 353682925
+    },
+    {
+      "id": "kicad",
+      "version": "10.0.6",
+      "platform": "darwin-arm64",
+      "type": "native-installer",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/kicad/blobs/sha256:ef4dcd4278c46d3efcd28c8db273d5957d68efda028f6bf79b4811fc5302dc68",
+      "sha256": "ef4dcd4278c46d3efcd28c8db273d5957d68efda028f6bf79b4811fc5302dc68",
+      "size": 1404303659,
+      "upstreamUrl": "https://github.com/KiCad/kicad-source-mirror/releases/download/10.0.6/kicad-unified-universal-10.0.6.dmg",
+      "evidence": "provenance/runtime-distribution-evidence/kicad.json",
+      "installedSize": 5104942382
+    },
+    {
+      "id": "pcb-runtime",
+      "version": "pcbbench-8c35250e-kicad10.0.6-mcp1.29.1-20261012",
+      "type": "docker-image",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway@sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+      "imageDigest": "sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+      "imageConfigDigest": "sha256:c231ae82f7d6941bb5df53cfd855a1fe8ed741151eaa9bf7598e3f1f5c5d7e87",
+      "imagePlatform": "linux/amd64",
+      "downloadSize": 1277963958,
+      "unpackedSize": 5603819520,
+      "recommendedDiskBudget": 6881783478,
+      "gatewayPython": "/opt/pcb-gateway/bin/python3",
+      "controllerPython": "/usr/bin/python3",
+      "sourceRepository": "https://github.com/Zhiman-BJ/PCB-bench",
+      "sourceCommit": "8c35250e32392f75920570e9e34839b06ad401c4",
+      "actorSourceLock": "packs/pcb/runtime/bench-upstream.json",
+      "toolSchemaSha256": "c8d4bf0ad502419c07ab0dc99d0daec62e2f58eec455675ae31314d2302c7eb6",
+      "kicadVersion": "10.0.6",
+      "pythonVersion": "3.13.12",
+      "mcpVersion": "1.29.1",
+      "pythonDependencyLock": "packs/pcb/uv.lock",
+      "evidence": "provenance/runtime-distribution-evidence/pcb-gateway.json",
+      "installedSize": 5603819520
+    },
+    {
+      "id": "cad-dxf-runtime",
+      "version": "ezdxf1.4.3-python3.13.12-20261012-r2",
+      "type": "docker-image",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-cad-dxf@sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+      "imageDigest": "sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+      "imageConfigDigest": "sha256:9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+      "imagePlatform": "linux/amd64",
+      "downloadSize": 75805851,
+      "unpackedSize": 253382656,
+      "recommendedDiskBudget": 329188507,
+      "pythonVersion": "3.13.12",
+      "ezdxfVersion": "1.4.3",
+      "command": [
+        "python3",
+        "-I",
+        "/opt/cad/dxf-native.py"
+      ],
+      "entrySource": "packs/freecad/runtime/dxf-native.py",
+      "entrySourceSha256": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
+      "pythonDependencyLock": "packs/freecad/images/dxf-requirements.txt",
+      "evidence": "provenance/runtime-distribution-evidence/cad-dxf.json",
+      "installedSize": 253382656
+    }
+  ]
+}

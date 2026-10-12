@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "34869ab33c2af1479da25f426eaca0ac7bd9afa5ea0545318aa4e79fdd565dbc",
+  "contentSha256": "264efaddebeb366324cda6bdf3aaa338f6da63857f37b6689daf851fcc7cb4a5",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "3c48b8d78c38261e130a1829e5389f13391e0db2d2d037f714c107ad282ae5df",
@@ -102,6 +102,7 @@
     "packs/chip/examples/rtl/counter_tb.sv": "30574b9c02ac10965a0db9959c8619c6f80140a1dc7f989a9ab5e009c693075a",
     "packs/chip/examples/rtl/eda.yaml": "824ccce8d12446492fd89dc12989d874bf91d5fc89cb1387f9c71beeb4a3ae96",
     "packs/chip/harness-pack.json": "3e227eeabee50ec48158ab8e935932ba66acead2c77af81501a12a75920ec1de",
+    "packs/chip/images/Dockerfile.managed": "8d7834524155cf4f501bb99f5ac774e8ffb702bf2430b28eafc46b37e4ec525d",
     "packs/chip/images/Dockerfile.rtl-cpu": "96f5d25b8b2f4672ec9667ff5ee02cb4fdeb798a06c1d008ac0333ba5d4ac3b1",
     "packs/chip/legacy-harness-pack.json": "a70d7c973b490ebbfd7a0a12ffb460ed1a827f48cf621b816510dcf8f19b262b",
     "packs/chip/linux-bootstrap.sh": "8006af4b130d81febd9b5835e594566b09fc80b64dd30c5a60a34010b7855e7b",
@@ -156,6 +157,8 @@
     "packs/freecad/PROVENANCE.md": "417e92b1c3a929ed3eadb7b1e5810a398edb5deef5893261601f9dc2d82df925",
     "packs/freecad/README.md": "0f804a5bb45f4c7685b2348a2a1a4b16f7d3a249ab8580e5a9233dccdade7e22",
     "packs/freecad/harness-pack.json": "f7486ce6f66e017d78dbd325dff94d040f54bc7e5cff456c84d5caad49c2e1fc",
+    "packs/freecad/images/Dockerfile.dxf": "b8f45a97b037a4163135220e380d65994556a11b4dc51f88101698496826e48a",
+    "packs/freecad/images/dxf-requirements.txt": "e8cf2353d18145fa1517a0b248f5be2600247a573cd3920f1218f06f89e2476f",
     "packs/freecad/pack.json": "e94dfe29bae01888c4149f88ba78b7f6b68f0667c02850d5d7eb98e44571b1bf",
     "packs/freecad/runtime/dxf-native.py": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
     "packs/freecad/runtime/dxf.cjs": "301551256ba3b45cc5ef4082b200ff645821919ef1efb564715d1cd27627190f",
