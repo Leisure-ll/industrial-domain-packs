@@ -86,6 +86,55 @@
       "pythonDependencyLock": "packs/freecad/images/dxf-requirements.txt",
       "evidence": "provenance/runtime-distribution-evidence/cad-dxf.json",
       "installedSize": 253382656
+    },
+    {
+      "id": "chip-runtime",
+      "version": "tools-python3.13.12-no-pdk-20261012",
+      "type": "docker-image",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746",
+      "imageDigest": "sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746",
+      "imageConfigDigest": "sha256:2f78970ee36f3b6b16386fe2d2669a1c567610a7e8ba9b037accdc232fc38e64",
+      "imagePlatform": "linux/amd64",
+      "downloadSize": 1248461941,
+      "installedSize": 4162985984,
+      "unpackedSize": 4162985984,
+      "recommendedDiskBudget": 5411447925,
+      "pythonVersion": "3.13.12",
+      "command": [
+        "/opt/chip-python/bin/python3",
+        "-I",
+        "/opt/domain-packs/packs/chip/runtime/managed-native.py"
+      ],
+      "entrySource": "packs/chip/runtime/managed-native.py",
+      "entrySourceSha256": "b65605085b476b52b6f0a18032f63632cd41fe22f1b4ef26e4cf2caced430dff",
+      "pythonDependencyLock": "packs/chip/eda-harness/uv.lock",
+      "maintainerBaseImage": "sha256:3ec494165c53b52b8fed0cf0686e04798ad648bd8282730b5be7d43a9bdb78fe",
+      "excludedFromFinalRootfs": [
+        "/OpenROAD-flow-scripts/flow/platforms",
+        "/OpenROAD-flow-scripts/flow/designs",
+        "/OpenROAD-flow-scripts/flow/reports",
+        "/OpenROAD-flow-scripts/flow/results",
+        "/OpenROAD-flow-scripts/flow/logs",
+        "/OpenROAD-flow-scripts/flow/objects",
+        "/OpenROAD-flow-scripts/.git"
+      ],
+      "flattened": true,
+      "tools": {
+        "verilator": "5.026",
+        "yosys": "0.68",
+        "openroad": "26Q3-1867-g84e3ff1eb2",
+        "klayout": "0.30.7",
+        "magic": "8.3.105",
+        "netgen": "1.5.133",
+        "gtkwave": "3.3.104",
+        "graphviz": "2.43.0"
+      },
+      "qualificationScope": [
+        "RTL lint",
+        "RTL simulation with assertions and VCD",
+        "Yosys synthesis with hierarchy/connectivity checks"
+      ],
+      "evidence": "provenance/runtime-distribution-evidence/chip-managed.json"
     }
   ]
 }

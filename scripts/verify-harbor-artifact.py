@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify public Harbor bytes without Docker credentials or cached image layers."""
+"""Verify Harbor bytes without cached image layers; public access is the default."""
 import argparse
 import base64
 import os
@@ -24,11 +24,12 @@ def validate_digest(digest):
 
 
 class PublicRegistry:
-    def __init__(self, host, repository, credentials=None):
+    def __init__(self, host, repository, credentials=None, jobs=8):
         self.host = host.rstrip('/')
         self.repository = repository
         self.token = None
         self.credentials = credentials
+        self.jobs = jobs
         self.results = []
 
     def request(self, kind, reference, extra_headers=None):
@@ -45,7 +46,7 @@ class PublicRegistry:
             challenge = error.headers.get('WWW-Authenticate', '')
             values = dict(re.findall(r'(\w+)="([^"]*)"', challenge))
             realm = values.get('realm', '')
-            if urllib.parse.urlparse(realm).netloc != urllib.parse.urlparse(self.host).netloc:
+            if urllib.parse.urlparse(realm).scheme != 'https' or urllib.parse.urlparse(realm).netloc != urllib.parse.urlparse(self.host).netloc:
                 raise ValueError('Registry token realm must remain on the configured Harbor host')
             query = urllib.parse.urlencode({'service': values.get('service', 'harbor-registry'), 'scope': f'repository:{self.repository}:pull'})
             token_headers = {}
@@ -81,9 +82,9 @@ class PublicRegistry:
             first = read_range(0)
             h.update(first)
             count += len(first)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-                for batch in range(step, size, 8 * step):
-                    for data in pool.map(read_range, range(batch, min(size, batch + 8 * step), step)):
+            with concurrent.futures.ThreadPoolExecutor(max_workers=self.jobs) as pool:
+                for batch in range(step, size, self.jobs * step):
+                    for data in pool.map(read_range, range(batch, min(size, batch + self.jobs * step), step)):
                         h.update(data)
                         count += len(data)
         else:
@@ -141,6 +142,7 @@ def main():
     parser.add_argument('url', help='Public /v2/<repository>/blobs/<digest> or /manifests/<digest> URL')
     parser.add_argument('--size', type=int)
     parser.add_argument('--platform', default='linux/amd64')
+    parser.add_argument('--jobs', type=int, choices=range(1, 33), default=8, metavar='1..32', help='Bounded parallel range reads for large blobs')
     parser.add_argument('--output')
     parser.add_argument('--docker-credentials', action='store_true', help='Authenticate a private image using existing Docker credentials; never emit credentials')
     args = parser.parse_args()
@@ -150,7 +152,7 @@ def main():
         parser.error('Expected an HTTPS Harbor registry URL without credentials or query')
     repo, kind, reference = match.groups()
     validate_digest(reference)
-    registry = PublicRegistry(f'{url.scheme}://{url.netloc}', repo, docker_credentials(url.netloc) if args.docker_credentials else None)
+    registry = PublicRegistry(f'{url.scheme}://{url.netloc}', repo, docker_credentials(url.netloc) if args.docker_credentials else None, args.jobs)
     identity = registry.blob(reference, args.size) if kind == 'blobs' else registry.manifest(reference, args.platform)
     evidence = {'schemaVersion': 1, 'verifiedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'url': args.url, 'authentication': 'docker-registry-bearer' if args.docker_credentials else 'anonymous-bearer', 'identity': identity, 'blobs': registry.results}
     encoded = json.dumps(evidence, indent=2) + '\n'

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T03:24:16Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-chip-rtl/manifests/sha256:ba6a3ccb431d95e01e29a0e363b8a8b4f077f7d2d08cc6f6c6e23277fb2e202b",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:ba6a3ccb431d95e01e29a0e363b8a8b4f077f7d2d08cc6f6c6e23277fb2e202b",
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "size": 856,
+    "platformManifest": {
+      "digest": "sha256:93bc511857d9aa62247efd449fbcb8549e267a2a65ea7d7f7a7dde6518ae86cc",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 2385,
+      "configDigest": "sha256:46d168f96119a8f90b6dc72f45d31304cca6b3755ff49bb7ec84a5d0884f9c68",
+      "downloadSize": 254807411,
+      "layerCount": 11
+    }
+  },
+  "blobs": [
+    {
+      "digest": "sha256:46d168f96119a8f90b6dc72f45d31304cca6b3755ff49bb7ec84a5d0884f9c68",
+      "size": 4951,
+      "seconds": 1.643
+    },
+    {
+      "digest": "sha256:edd1ed89f0d443580bd42e5a10cd8736aba5a3438b2a0645c2ebb50119bb0eba",
+      "size": 29764116,
+      "seconds": 11.777
+    },
+    {
+      "digest": "sha256:75f0158dfc940c70ec924e25e6c2d5640004ab3a1d237a8f5dd8cc6e750bb912",
+      "size": 123317610,
+      "seconds": 15.179
+    },
+    {
+      "digest": "sha256:033036d3a828d46d13c63205b0e05bae1dbae92d204e7cb8e416a5c75a46bc00",
+      "size": 1153,
+      "seconds": 1.145
+    },
+    {
+      "digest": "sha256:5dbdacd00fc011c619bc56bf750aefbd127414572d83f803ef0c55909a3434c4",
+      "size": 83695791,
+      "seconds": 9.45
+    },
+    {
+      "digest": "sha256:b99cee79bbaaf47f3ef9f8f067e648aba44e1697c3ee8f4a91fba8645559c6b8",
+      "size": 17000,
+      "seconds": 1.028
+    },
+    {
+      "digest": "sha256:50f0f9f81ac8a0aa84fb5c69c4135807fa191178c47031ab96723f311a04b42a",
+      "size": 17709694,
+      "seconds": 4.177
+    },
+    {
+      "digest": "sha256:23ca99106338a36805bf283075173663235dfe2995ac5383d851a3ea9d999bcd",
+      "size": 7657,
+      "seconds": 0.984
+    },
+    {
+      "digest": "sha256:f80e189899b9408434d9643fcf6c1e02b26ecf982c76b294f45d05d7e7f6b15a",
+      "size": 2605,
+      "seconds": 1.005
+    },
+    {
+      "digest": "sha256:b13698925f53f48ab8fe6f70f98436626482fdb734792e05074632a4ffa087f2",
+      "size": 286597,
+      "seconds": 1.186
+    },
+    {
+      "digest": "sha256:e840a0aeb806abdd6ebe5e303f944506115bf927f6b77a6038f620676df6525b",
+      "size": 143,
+      "seconds": 0.866
+    },
+    {
+      "digest": "sha256:e34aea0fa199d9fb28ef7710beedd274c75c9eaea3075dffc143f1ce30f74eca",
+      "size": 94,
+      "seconds": 0.939
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746: Pulling from industrial-runtime-assets/industrial-chip-managed
+Digest: sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746
+Status: Image is up to date for harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746
+harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-chip-managed@sha256:7dbe66feb880ed98caaf3e5f57c9f7e7a4dc0d85ed80469b66c07b64099b5746

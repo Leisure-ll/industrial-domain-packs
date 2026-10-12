@@ -1,0 +1,72 @@
+{
+  "verifiedAt": "2026-10-12T03:26:04Z",
+  "checks": [
+    {
+      "id": "freecad",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/freecad/blobs/sha256:071343b4abb70492b75c973f41eaf1d2528f9b9c7ea018d22a4f46ae14d27ac0",
+      "anonymous": true,
+      "ranges": [
+        {
+          "contentRange": "bytes 0-1023/649760538",
+          "sha256": "afa00501e18c6d4f0e1444e9898cbe34565b9acb8ffd0606228079e3b2ba44ba"
+        },
+        {
+          "contentRange": "bytes 649759514-649760537/649760538",
+          "sha256": "d4600f22def2145bca3beb9896835ea0ba97359880f30c714e66d8e297ad9270"
+        }
+      ]
+    },
+    {
+      "id": "godot",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/godot/blobs/sha256:c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+      "anonymous": true,
+      "ranges": [
+        {
+          "contentRange": "bytes 0-1023/170622178",
+          "sha256": "cdfcb77c967e6deb9af031ac00d7c8416fc72c0394479a0656f518dbc963d6b1"
+        },
+        {
+          "contentRange": "bytes 170621154-170622177/170622178",
+          "sha256": "500823fa301ccb689e43894e96ae2136f454fe8820f234272af2c5be0608832d"
+        }
+      ]
+    },
+    {
+      "id": "kicad",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/kicad/blobs/sha256:ef4dcd4278c46d3efcd28c8db273d5957d68efda028f6bf79b4811fc5302dc68",
+      "anonymous": true,
+      "ranges": [
+        {
+          "contentRange": "bytes 0-1023/1404303659",
+          "sha256": "16afc7f51afb8329dc4ec161480c5d0801428cbb09f91a4ac7928baf9cafe3dc"
+        },
+        {
+          "contentRange": "bytes 1404302635-1404303658/1404303659",
+          "sha256": "ba7e32892e4e9e0b953addb02cf77031200966a17bba5b6107febb38ee4f6d34"
+        }
+      ]
+    },
+    {
+      "id": "pcb-runtime",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-pcb-gateway@sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+      "anonymous": true,
+      "manifestDigest": "sha256:5170d4755fa0c9ccefd0f8a9127f13339b9e922227ffa38319a5dcb35881819b",
+      "config": {
+        "digest": "sha256:c231ae82f7d6941bb5df53cfd855a1fe8ed741151eaa9bf7598e3f1f5c5d7e87",
+        "size": 6357,
+        "seconds": 0.307
+      }
+    },
+    {
+      "id": "cad-dxf-runtime",
+      "image": "harbor.pvg2.zhiman.tech/industrial-runtime-assets/industrial-cad-dxf@sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+      "anonymous": true,
+      "manifestDigest": "sha256:150d1240eddd4cfbb71d8dfc57b262ec7121fd1f5b2efc20ce4af8ca483fae99",
+      "config": {
+        "digest": "sha256:9be49aa68af9568a69a38fa75732eb2c99186b29b7b680fdf05f93fdcc23e5d0",
+        "size": 7613,
+        "seconds": 0.283
+      }
+    }
+  ]
+}
