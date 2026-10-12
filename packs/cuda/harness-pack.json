@@ -206,7 +206,37 @@
       "description": "Requires administrator-prepared authenticated paired services with the pinned allocation; client installation does not establish remote readiness.",
       "executionPlatforms": [
         "linux-x64"
-      ]
+      ],
+      "connection": {
+        "kind": "runtime-managed",
+        "environment": [
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_COMPILER_MCP_URL",
+            "type": "endpoint"
+          },
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_COMPILER_MCP_TOKEN",
+            "type": "secret"
+          },
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_COMPILER_MCP_IDENTITY",
+            "type": "sha256"
+          },
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_EVALUATOR_MCP_URL",
+            "type": "endpoint"
+          },
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_EVALUATOR_MCP_TOKEN",
+            "type": "secret"
+          },
+          {
+            "name": "INDUSTRIAL_HARNESS_CUDA_EVALUATOR_MCP_IDENTITY",
+            "type": "sha256"
+          }
+        ],
+        "verification": "runtime-handshake"
+      }
     }
   ]
 }

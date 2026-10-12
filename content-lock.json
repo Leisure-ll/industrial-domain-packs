@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "c1b70a69d6378783c1f7d4977f66f79c9b8d2e93074c18282080f0c9be66a505",
+  "contentSha256": "98edfba5c7442b1abd2125f3a65c8cf5b06bb73bb3618beda7384b605692c17a",
   "files": {
     "lib/consumer.cjs": "c465941f404d750d000b0457faae3203272dbef2aadb1381a80c44415182a86c",
-    "lib/consumer.json": "2cba01ce7951d843933263910acb003efb8475da29577675f42be686e2c173a7",
+    "lib/consumer.json": "d791db6cf684689512daa426b137ea6c8e3d8d786ec1f35b7a683bd5c692cf8c",
     "lib/container.cjs": "d77ba68d399bbc6add9129dd9d4f338f9aedce66bd6385062531dc1880dfe819",
     "lib/distribution.cjs": "859d9dd3b83e7cbd40f38f8b4b16cda109c90ee61ce4aaab4b68d44a340a46a2",
     "lib/index.cjs": "8a74cbe453f67dc9f0b26def96b70285baa7e32ed115e27a6024cbeca2cfc9f4",
@@ -144,7 +144,7 @@
     "packs/cuda/examples/square/kernels/square_binding.cpp": "0eb740cf2ebe2d5c9da464b16314d3f1aa57482ec12677cc0eab06deb120cb24",
     "packs/cuda/examples/square/model.py": "0d8bf49b3e5a41922a1b12e19b613c00725605e4b5a7920adaafebcff9a79032",
     "packs/cuda/examples/square/model_new.py": "5bfafc345f7279fdf364ea3e3fc30e816b5bcba3790c7495cc3cfe8dffa94f09",
-    "packs/cuda/harness-pack.json": "b3f4d90e5ed758be1ec0fefb6ca0517b232913a4382922c413033cc950c6a47b",
+    "packs/cuda/harness-pack.json": "37fb16bb5407c8de04002422d0d3d449ca8412b0aad4962af386f4517c8bdd6a",
     "packs/cuda/locks/rtx4090-image.json": "cca7222767f24d83a799297410fe849f4ad2b76bc5765725be9786ff76c1f5af",
     "packs/cuda/locks/runtime-distribution.json": "1316f810531048fbe711daff0c379010da8209d13ba4ce254679b4c79a8147bc",
     "packs/cuda/locks/upstream.json": "4c88d9f18fb6d328d973b4e047f42a11ff7fabb783a11a732ec9245ad905842f",

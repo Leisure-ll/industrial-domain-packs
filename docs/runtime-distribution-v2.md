@@ -29,7 +29,17 @@ cover exercised macOS ARM64/Linux x64 RTL and synthesis; native detection is
 explicitly unqualified with no executable tools. Physical EDA flows are not newly
 qualified. CUDA declares only the existing paired remote RTX 4090 service profile;
 its `platforms` list describes exercised clients (macOS ARM64);
-`executionPlatforms` separately describes the Linux x64 service. Remote readiness requires
+`executionPlatforms` separately describes the Linux x64 service. CUDA `connection.kind: runtime-managed` declares the existing paired-service
+environment variable names and validation types (`endpoint`, `secret`, `sha256`),
+plus `verification: runtime-handshake`. It retains the local canonical Runtime
+with remote MCP workers; generic coordinator RemoteSettings is a separate protocol.
+Presence and format checks establish only `configured`/executable status, never
+remote readiness. The existing plugin validates both service identities and
+Verifier bindings before engineering calls. Existing configured clients may select
+their unique runtime-managed profile implicitly during migration; explicit UI
+binding persists only the profile and a local configuration fingerprint, never
+credentials. Secret-derived fingerprints must remain local and must not appear
+in public catalogs, traces or source artifacts. Remote readiness requires
 existing authenticated service configuration and checks, never local detection.
 CAD guidance remains a source/Skill pack without a fabricated runtime provider.
 

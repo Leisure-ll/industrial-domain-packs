@@ -104,3 +104,15 @@ with tempfile.TemporaryDirectory() as tmp:
  else:raise AssertionError('substitution accepted')
 `], { cwd: root });
 });
+test('CUDA paired service profile preserves the existing canonical runtime protocol without publishing credentials', () => {
+ const profile=require('../packs/cuda/harness-pack.json').executionProfiles.find(p=>p.kind==='remote');
+ assert.equal(profile.connection.kind,'runtime-managed');
+ assert.equal(profile.connection.verification,'runtime-handshake');
+ assert.deepEqual(profile.connection.environment.map(x=>x.type),['endpoint','secret','sha256','endpoint','secret','sha256']);
+ assert.equal(new Set(profile.connection.environment.map(x=>x.name)).size,6);
+ for(const variable of profile.connection.environment)assert.deepEqual(Object.keys(variable).sort(),['name','type']);
+ const domains=require('../lib/consumer.json').domains;
+ assert.ok(domains.find(x=>x.id==='cad').prerequisites.some(x=>x.includes('native FreeCAD does not require Docker')));
+ assert.ok(domains.find(x=>x.id==='cuda').prerequisites.some(x=>x.includes('different remote protocol')));
+ assert.ok(!domains.some(x=>x.prerequisites.some(p=>p.includes('automatically'))));
+});
