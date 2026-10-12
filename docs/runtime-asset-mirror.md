@@ -72,6 +72,6 @@ release 资产）。上游撤档或国内直连不可达都会让用户在"域�
 2. 换新仓库重传（绕开僵尸）：blob 上传会话真实执行，最终 `PUT …/blobs/uploads/<id>?digest=…` 返回 **201 Created**（registry 协议此时已完成服务端内容摘要校验），数分钟后同一 blob HEAD 又变 404；
 3. 同尺寸/相近尺寸的合成随机文件（1.2GiB 与 1.31GiB）在同一实例上传后均字节级校验通过；godot（177MB）/freecad（624MB）资产正常。
 
-结论：大体积真实文件 PUT 验证通过后服务端丢失内容——指向该 Harbor 实例的存储后端（磁盘空间/S3 multipart/GC）或前置代理问题，与客户端无关。修复前 KiCad 资产暂留 GitHub 上游 URL（#18 已拆分：godot/freecad 切 Harbor，kicad 待修后切换）。
+结论（2026-10-12 复核修正）：**实例级存储故障，与文件内容无关**——隔夜重推失败、推进已验证健康的仓库也失败、且昨天验证通过的同尺寸随机文件今天同样被截断（1.31GiB 仅存 382MiB）；手工分块 PATCH（8 块全 202）最终 PUT 仍 400。时间线与"磁盘写满"完全吻合：先写入的 godot/freecad/两个大合成文件全部成功，此后所有 ~1.2GiB+ 写入开始静默截断/丢失；删除仓库不释放 blob 空间（未 GC 的测试残留约 5.2GiB 仍占盘）。已上线的 godot/freecad 复核完好。**处置：Harbor 管理员检查数据卷剩余空间并执行一次垃圾回收（回收已删除仓库的 blob），或扩容后重传 kicad 即可**（复推命令见上）。修复前 KiCad 资产暂留 GitHub 上游 URL（#18 已拆分：godot/freecad 切 Harbor，kicad 待修后切换）。
 
 **Plan B（如 Harbor 短期难修）**：同一 nginx 上加一个静态目录 location（如 `/assets/`）直接伺服 DMG 文件——pack-manager 对纯 https 直链本就无需 token 握手。
