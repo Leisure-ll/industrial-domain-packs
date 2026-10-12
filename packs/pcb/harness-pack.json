@@ -2974,7 +2974,12 @@
       "versionText": "10.0.6",
       "environmentExecutables": {
         "INDUSTRIAL_HARNESS_KICAD_PYTHON": "Contents/Frameworks/Python.framework/Versions/3.9/bin/python3.9"
-      }
+      },
+      "discoveryPaths": [
+        "/Applications/KiCad.app",
+        "~/Applications/KiCad.app"
+      ],
+      "installUrl": "https://www.kicad.org/download/"
     },
     {
       "id": "pcb-design-runtime",
@@ -2989,6 +2994,126 @@
       "size": 1277963958,
       "installedSize": 5603819520,
       "environment": "INDUSTRIAL_HARNESS_PCB_RUNTIME_IMAGE"
+    }
+  ],
+  "executionProfiles": [
+    {
+      "id": "kicad-bounded-native",
+      "label": "Bounded KiCad board operations",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "pcb.kicad.edit",
+        "pcb.kicad.verify"
+      ],
+      "assetIds": [
+        "kicad"
+      ]
+    },
+    {
+      "id": "pcb-design-container",
+      "label": "PCB design environment",
+      "kind": "container",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "pcb.design.project_status",
+        "pcb.design.new_project",
+        "pcb.design.add_component",
+        "pcb.design.remove_component",
+        "pcb.design.add_net",
+        "pcb.design.remove_net",
+        "pcb.design.rename_net",
+        "pcb.design.connect_pin",
+        "pcb.design.disconnect_pin",
+        "pcb.design.add_no_connect",
+        "pcb.design.set_component_value",
+        "pcb.design.assign_footprint",
+        "pcb.design.add_power_symbol",
+        "pcb.design.set_net_rule",
+        "pcb.design.set_requirements",
+        "pcb.design.generate_schematic",
+        "pcb.design.view_design",
+        "pcb.design.inspect_schematic",
+        "pcb.design.place_schematic_component",
+        "pcb.design.set_schematic_field",
+        "pcb.design.set_schematic_wire",
+        "pcb.design.remove_schematic_item",
+        "pcb.design.set_schematic_label",
+        "pcb.design.verify_schematic",
+        "pcb.design.generate_pcb",
+        "pcb.design.update_pcb",
+        "pcb.design.inspect_board",
+        "pcb.design.configure_component",
+        "pcb.design.lookup_component",
+        "pcb.design.prepare_component",
+        "pcb.design.bind_model",
+        "pcb.design.qualify_component",
+        "pcb.design.install_component",
+        "pcb.design.create_symbol",
+        "pcb.design.add_symbol_pin",
+        "pcb.design.create_footprint",
+        "pcb.design.add_footprint_pad",
+        "pcb.design.update_symbol_pin",
+        "pcb.design.remove_symbol_pin",
+        "pcb.design.update_footprint_pad",
+        "pcb.design.remove_footprint_pad",
+        "pcb.design.discover_artifacts",
+        "pcb.design.fetch_artifact",
+        "pcb.design.read_datasheet",
+        "pcb.design.run_analysis",
+        "pcb.design.inspect_tool",
+        "pcb.design.list_references",
+        "pcb.design.read_reference",
+        "pcb.design.add_track",
+        "pcb.design.add_arc",
+        "pcb.design.add_via",
+        "pcb.design.unroute",
+        "pcb.design.place_component",
+        "pcb.design.lock_component",
+        "pcb.design.remove_board_item",
+        "pcb.design.set_track_width",
+        "pcb.design.set_pad_zone_connection",
+        "pcb.design.set_component_text",
+        "pcb.design.set_board_outline",
+        "pcb.design.set_layer_count",
+        "pcb.design.add_zone",
+        "pcb.design.add_keepout",
+        "pcb.design.add_text",
+        "pcb.design.fill_zones",
+        "pcb.design.route_differential_pair",
+        "pcb.design.tune_length",
+        "pcb.design.route_board",
+        "pcb.design.checkout_board",
+        "pcb.design.run_drc",
+        "pcb.design.run_erc",
+        "pcb.design.export_netlist",
+        "pcb.design.compare_schematic_pcb",
+        "pcb.design.check_component_datasheet",
+        "pcb.design.check_power_tree",
+        "pcb.design.check_interface",
+        "pcb.design.check_footprints",
+        "pcb.design.add_sheet",
+        "pcb.design.remove_sheet",
+        "pcb.design.assign_sheet",
+        "pcb.design.set_sheet_port",
+        "pcb.design.verify_design",
+        "pcb.design.export_project",
+        "pcb.design.save_project_copy",
+        "pcb.design.prepare_3d_model",
+        "pcb.design.export_3d",
+        "pcb.design.search_components",
+        "pcb.design.inspect_symbol",
+        "pcb.design.run_python"
+      ],
+      "assetIds": [
+        "pcb-design-runtime"
+      ]
     }
   ]
 }

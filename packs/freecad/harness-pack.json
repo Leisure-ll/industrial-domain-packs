@@ -247,7 +247,12 @@
         "FREECAD_USER_TEMP": "temp"
       },
       "installedSize": 2625114576,
-      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg"
+      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg",
+      "discoveryPaths": [
+        "/Applications/FreeCAD.app",
+        "~/Applications/FreeCAD.app"
+      ],
+      "installUrl": "https://www.freecad.org/downloads.php"
     },
     {
       "id": "cad-dxf",
@@ -262,6 +267,43 @@
       "size": 75805851,
       "installedSize": 253382656,
       "environment": "INDUSTRIAL_HARNESS_DXF_IMAGE"
+    }
+  ],
+  "executionProfiles": [
+    {
+      "id": "freecad-native",
+      "label": "FreeCAD parametric solids",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cad.freecad.build",
+        "cad.freecad.inspect",
+        "cad.freecad.export",
+        "cad.freecad.edit"
+      ],
+      "assetIds": [
+        "freecad"
+      ]
+    },
+    {
+      "id": "dxf-container",
+      "label": "Bounded DXF drawings",
+      "kind": "container",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cad.dxf.create",
+        "cad.dxf.inspect",
+        "cad.dxf.verify"
+      ],
+      "assetIds": [
+        "cad-dxf"
+      ]
     }
   ]
 }

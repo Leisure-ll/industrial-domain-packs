@@ -6,6 +6,10 @@ Development boundary: [accepted architecture contract IH-ARCH-001](docs/architec
 
 Maintained public source for Industrial Harness domains. Local and remote consumers pin this repository by an exact Git commit; domain execution, Skills, dependency locks, tool definitions, Verifiers and image recipes are developed here.
 
+## Runtime distribution v2 (0.7.0)
+
+Execution profiles now bind native, container and remote tool subsets to existing assets and qualified platforms. Native applications declare read-only discovery candidates and official manual installation entries. Generated source, Skill and MCP bridge archives ship separately from software payloads; tools and Verifiers retain their existing implementations. See [distribution v2](docs/runtime-distribution-v2.md) for release generation, qualification scope and compatibility. A separately published Go component performs fixed native environment probes; domain MCP migration remains a later stage.
+
 ## Managed product release 0.6.0
 
 A compatible Harness prepares native applications and prebuilt tool runtimes from the project Harbor. Normal design projects use domain Skills, tools and runtime without benchmark task seeds or scoring workflows. Docker and administrator-provided GPU service access remain explicit prerequisites. See [managed qualification](docs/managed-domain-runtime-validation.md), [PCB validation](docs/pcb-product-validation.md), [CUDA qualification](packs/cuda/QUALIFICATION.md) and [distribution identities](provenance/runtime-distribution.json). Earlier version notes below are historical; deployed consumers must pin this release to adopt it.

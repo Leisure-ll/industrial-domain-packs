@@ -6,6 +6,10 @@
 
 领域实现统一维护在这个公开仓库。本地与远端通过完整 Git commit 固定同一版本，包含执行代码、MCP、Skills、依赖锁、工具定义、验证器和镜像配方。
 
+## Runtime 分发 v2（0.7.0）
+
+执行 Profile 将本机、容器与远程工具子集绑定到现有资产及已验证平台。本机应用声明只读检测候选路径和官方手动安装入口。源码、Skill 与 MCP 桥接组件由同一份现有清单生成独立归档，与软件安装包分离；工具及 Verifier 实现保持复用。发布生成、验证范围与兼容关系见 [分发 v2](docs/runtime-distribution-v2.md)。独立发布的 Go 平台组件执行固定的本机环境检测；领域 MCP 迁移属于后续阶段。
+
 ## 托管产品发行 0.6.0
 
 兼容的 Harness 从自有 Harbor 自动准备原生应用和预构建工具环境。日常设计项目直接使用领域 Skills、工具和 Runtime，无需 benchmark 任务种子或评分流程。Docker 及管理员提供的远程 GPU 服务访问仍为明确前提。验收见[托管领域记录](docs/managed-domain-runtime-validation.md)、[PCB 记录](docs/pcb-product-validation.md)、[CUDA 记录](packs/cuda/QUALIFICATION.md)与[分发身份](provenance/runtime-distribution.json)。下方旧版本说明为历史记录，实际消费端需固定本次发行提交后才会获得新能力。

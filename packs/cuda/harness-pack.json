@@ -115,9 +115,9 @@
         "kernel",
         "axpby",
         "torch.compile",
-        "CUDA优化",
-        "算子优化",
-        "性能评测"
+        "CUDA\u4f18\u5316",
+        "\u7b97\u5b50\u4f18\u5316",
+        "\u6027\u80fd\u8bc4\u6d4b"
       ],
       "skills": [
         {
@@ -184,5 +184,29 @@
     "ignore": [
       ".cuda"
     ]
-  }
+  },
+  "executionProfiles": [
+    {
+      "id": "cuda-rtx4090-remote",
+      "label": "Paired CUDA compiler and RTX 4090 evaluator",
+      "kind": "remote",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cuda.compiler.check",
+        "cuda.candidate.compile",
+        "cuda.evaluator.check",
+        "cuda.baseline.profile",
+        "cuda.candidate.verify",
+        "cuda.candidate.profile"
+      ],
+      "assetIds": [],
+      "description": "Requires administrator-prepared authenticated paired services with the pinned allocation; client installation does not establish remote readiness.",
+      "executionPlatforms": [
+        "linux-x64"
+      ]
+    }
+  ]
 }

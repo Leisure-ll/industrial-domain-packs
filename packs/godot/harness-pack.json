@@ -126,7 +126,30 @@
         "--version"
       ],
       "versionText": "4.7.2.stable.official.",
-      "upstreamUrl": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip"
+      "upstreamUrl": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip",
+      "discoveryPaths": [
+        "/Applications/Godot.app",
+        "~/Applications/Godot.app"
+      ],
+      "installUrl": "https://godotengine.org/download/"
+    }
+  ],
+  "executionProfiles": [
+    {
+      "id": "godot-structural-native",
+      "label": "Godot structural scenes",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "godot.scene.edit",
+        "godot.scene.verify"
+      ],
+      "assetIds": [
+        "godot"
+      ]
     }
   ]
 }
