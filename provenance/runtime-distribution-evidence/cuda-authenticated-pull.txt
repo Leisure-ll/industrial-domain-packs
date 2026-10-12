@@ -1,0 +1,4 @@
+harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d: Pulling from shared/industrial-cuda-base
+Digest: sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d
+Status: Image is up to date for harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d
+harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d

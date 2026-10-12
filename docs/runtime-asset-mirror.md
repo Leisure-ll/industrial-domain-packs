@@ -130,3 +130,8 @@ CAD DXF image 包含 Python 3.13.12、ezdxf 1.4.3 和
 Chip 通用工具 image 从工具基底清除工艺库、示例设计、构建结果及缓存，再通过
 `FROM scratch` 只复制清理后的文件系统，确保被移除内容不留在历史 OCI layers。
 维护方构建时可以使用上游软件源，最终用户安装及运行不访问上游软件源。
+
+CUDA base 的最终固定入口、私有访问前提和精确占用在 distribution metadata 中。
+本次 10,099,942,854 字节全量验收由 Mac 的独立认证会话完成（47 layers + config）；
+GPU 主机另外执行 immutable Docker pull 与 owner prepareProject，已有 layers 不声明冷缓存。
+普通远程客户端不获取 registry 登录信息。

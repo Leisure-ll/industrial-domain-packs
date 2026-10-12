@@ -135,6 +135,28 @@
         "Yosys synthesis with hierarchy/connectivity checks"
       ],
       "evidence": "provenance/runtime-distribution-evidence/chip-managed.json"
+    },
+    {
+      "id": "cuda-worker-base",
+      "version": "payload-701883cc6e55-cuda13.2-py310-20261012",
+      "type": "docker-image",
+      "access": "private-administrator-authenticated",
+      "image": "harbor.pvg2.zhiman.tech/shared/industrial-cuda-base@sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+      "imageDigest": "sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+      "imageConfigDigest": "sha256:f40cdcaaa64645e95e7896eedbcb1b8e13c2fcb4830a8000ff37fed44dfdf1be",
+      "imagePlatform": "linux/amd64",
+      "downloadSize": 10099942854,
+      "installedSize": 13502414848,
+      "unpackedSize": 13502414848,
+      "recommendedDiskBudget": 23602357702,
+      "embeddedBuildCommit": "473025c8af7878e928525138b5cb327d6bcdf9dd",
+      "runtimePayloadSha256": "701883cc6e550213f1c369355bbec78f45fc7a3428b2b15db57d8bf030b8869c",
+      "embeddedBuildLock": "packs/cuda/locks/rtx4090-image.json",
+      "sourceProvenance": "packs/cuda/PROVENANCE.md",
+      "accessPrerequisite": "Existing authorized administrator Docker login to private shared project; remote clients do not receive registry credentials.",
+      "qualificationScope": "Prebuilt worker base for administrator-managed project runtime derivation. Embedded build provenance does not replace the maintained reviewed source lock or project verification.",
+      "evidence": "provenance/runtime-distribution-evidence/cuda-base.json"
     }
-  ]
+  ],
+  "privateProject": "shared"
 }

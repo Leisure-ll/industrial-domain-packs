@@ -1,0 +1,15 @@
+{
+  "verifiedAt": "2026-10-12T03:44:50Z",
+  "imageDigest": "sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+  "manifestSize": 10146,
+  "config": {
+    "digest": "sha256:f40cdcaaa64645e95e7896eedbcb1b8e13c2fcb4830a8000ff37fed44dfdf1be",
+    "size": 33159,
+    "seconds": 5.914
+  },
+  "layerCount": 47,
+  "downloadSize": 10099942854,
+  "authentication": "docker-registry-bearer",
+  "anonymousAccess": "denied",
+  "anonymousStatus": 401
+}

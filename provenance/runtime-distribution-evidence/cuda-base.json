@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T03:55:19Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/shared/industrial-cuda-base/manifests/sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+  "authentication": "docker-registry-bearer",
+  "identity": {
+    "digest": "sha256:30e516a773a1c4740f8c60ad66ae91ea3e585932b63bbc366cf5c656f8b8814d",
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "size": 10146,
+    "configDigest": "sha256:f40cdcaaa64645e95e7896eedbcb1b8e13c2fcb4830a8000ff37fed44dfdf1be",
+    "downloadSize": 10099942854,
+    "layerCount": 47
+  },
+  "blobs": [
+    {
+      "digest": "sha256:f40cdcaaa64645e95e7896eedbcb1b8e13c2fcb4830a8000ff37fed44dfdf1be",
+      "size": 33159,
+      "seconds": 0.383
+    },
+    {
+      "digest": "sha256:d45e3714a306a8c3d8043ac2f45a9bdea70e74845be9f270b8acd40d0c0d70ed",
+      "size": 30448878,
+      "seconds": 2.787
+    },
+    {
+      "digest": "sha256:7b06ede74a5979a5424944354d8be295b6eb363c058b735f0bff1151e5f0221b",
+      "size": 4638770,
+      "seconds": 0.979
+    },
+    {
+      "digest": "sha256:24f3dd54d620621bb18e75997755da679b715a9aa9e85c7d6b157e20f770fec7",
+      "size": 150033488,
+      "seconds": 8.692
+    },
+    {
+      "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+      "size": 32,
+      "seconds": 0.276
+    },
+    {
+      "digest": "sha256:4d0b0b91b0b765b0f28f270c1c3c38399eded2627462594dc0c035f0fefb75eb",
+      "size": 185,
+      "seconds": 0.275
+    },
+    {
+      "digest": "sha256:314a2f652b6c57ef43d846c3955366e8b68310c72e1e9d5e724257b7c5637358",
+      "size": 6885,
+      "seconds": 0.285
+    },
+    {
+      "digest": "sha256:503d567de1b77de7a52468c862d215ad93eab2d1f3a2548b26c2c823f5193878",
+      "size": 1268658453,
+      "seconds": 58.728
+    },
+    {
+      "digest": "sha256:c087025d439543c12a093faa30caf06847ec2cadff7f5eb5512cddbf998a7b7d",
+      "size": 63876,
+      "seconds": 0.368
+    },
+    {
+      "digest": "sha256:253b47eba3e331060196665f664a8f1be1c9703ac61dd93a4adbea6f8a16e237",
+      "size": 1683,
+      "seconds": 0.285
+    },
+    {
+      "digest": "sha256:b3e69efc4f44477ce3d4d605e80e9a575f543055058c88c891509d86e3e9c6f0",
+      "size": 1521,
+      "seconds": 0.298
+    },
+    {
+      "digest": "sha256:d9e4c737d800b75080bf381365c3c1a9a83e64ab0a2650c8f7bdef62fd05ce25",
+      "size": 2145272183,
+      "seconds": 89.152
+    },
+    {
+      "digest": "sha256:7dff48ad87ebf2b6779cbf5f2071e057735aa92ecfe16cccea0fee8ba6441277",
+      "size": 221,
+      "seconds": 0.285
+    },
+    {
+      "digest": "sha256:68705c81ccf1bf757f7018735ac3d6179b2194d71eca4de403700e0008c17066",
+      "size": 89134,
+      "seconds": 0.422
+    },
+    {
+      "digest": "sha256:21cbb53ce8699ee70dfb400f6e9de10f7d6508327162770e93122536e721bdf2",
+      "size": 12608257,
+      "seconds": 1.315
+    },
+    {
+      "digest": "sha256:03346ba69a860deee9934cb5bf06da06a1ace4de0abe27b49cdbaf8c50b0ecb6",
+      "size": 679078924,
+      "seconds": 27.791
+    },
+    {
+      "digest": "sha256:8b9f0b62989b449083f7e9fbcc7b9fa81f9be0dd87d499480e693c6323beafec",
+      "size": 2726843942,
+      "seconds": 218.632
+    },
+    {
+      "digest": "sha256:fa2a3b80f2b3726549abad6f6ac5a25291d83ac8d11e9b3b3ee87f17821529a9",
+      "size": 1180,
+      "seconds": 0.299
+    },
+    {
+      "digest": "sha256:109fb8fd2839ddff9d007f8c22930e23d5f0d2ea8d64787785f14318d4f4f10e",
+      "size": 2773076686,
+      "seconds": 121.944
+    },
+    {
+      "digest": "sha256:be78c28be8934cc8d0f2513b157ad9e0638994a737e1dc354e6bc0f013f57f4a",
+      "size": 93707531,
+      "seconds": 6.125
+    },
+    {
+      "digest": "sha256:72d9318fe17baaffb24214f995c614be1ab2323a78efe2f15947d2e08c735235",
+      "size": 183311375,
+      "seconds": 9.88
+    },
+    {
+      "digest": "sha256:3bb2e10e1e77b66b4381b92ab21702387f960d801a5d12ef480af749f403e8a8",
+      "size": 206,
+      "seconds": 0.396
+    },
+    {
+      "digest": "sha256:db88e64a197ba58683eadb2d7182c3961069e6bf7dafde25d6636f3032638788",
+      "size": 2521,
+      "seconds": 0.598
+    },
+    {
+      "digest": "sha256:37c510862afc8c2997cd3b27af3dc7e4309f1456833b292fb0c3d04a3f1e3cc2",
+      "size": 1876,
+      "seconds": 0.298
+    },
+    {
+      "digest": "sha256:5328cee0c9a76c3ca9df25a452ac67040a19c0d16c10a67386d480d4747a537d",
+      "size": 852,
+      "seconds": 0.279
+    },
+    {
+      "digest": "sha256:71827f52c9120ace56eaac2b4859ea5fb702f15be904414fc218d0ed1a61e859",
+      "size": 1923,
+      "seconds": 0.297
+    },
+    {
+      "digest": "sha256:37d927ebeb552482202293c0e9f3f9ba2d940d1fdddeb14a41b73a59708a073a",
+      "size": 558,
+      "seconds": 0.307
+    },
+    {
+      "digest": "sha256:392d173e0c54a7a8489f637ffc0ea2a0a0c7e305f290365b5499559ca9fe4565",
+      "size": 10345,
+      "seconds": 0.264
+    },
+    {
+      "digest": "sha256:17328ead3f14a9d3598b0502c9d42402366f3d9667e053bc1decea284feb5684",
+      "size": 10382,
+      "seconds": 0.296
+    },
+    {
+      "digest": "sha256:2311617cd94439f7f2b231c7584d1d4cb379016cc7c8e85bb11409a1dd5bb307",
+      "size": 2543,
+      "seconds": 0.272
+    },
+    {
+      "digest": "sha256:4bf467b44310f0b82217df30e40b2a4b8cb573cca2bc553e12b4904b7560288f",
+      "size": 6578,
+      "seconds": 0.284
+    },
+    {
+      "digest": "sha256:ff88117fca8db42109b4c2ad66e09102c9b0034e100884c4504e0e82be6e3ac4",
+      "size": 5266,
+      "seconds": 0.273
+    },
+    {
+      "digest": "sha256:1ccc2ca3552fb9d8e4b9bc4c422f5314d03d42a64f804106302df9004e9cc711",
+      "size": 15947,
+      "seconds": 0.301
+    },
+    {
+      "digest": "sha256:defe52f804b758ca5bfadf2daa415ef21a65796129097610745a33b06e89bd35",
+      "size": 1687,
+      "seconds": 0.31
+    },
+    {
+      "digest": "sha256:dd9cbb439e5a3a062609b9a232e92e7ff00cc1c266adb554f5fceee8baf74a75",
+      "size": 644,
+      "seconds": 0.292
+    },
+    {
+      "digest": "sha256:f004064133f3ca3c16670fb8c09364a94fed245d7fbc668535fec13c38b1decc",
+      "size": 3172,
+      "seconds": 0.267
+    },
+    {
+      "digest": "sha256:745764069d4dace567a579ff2e954519315bcaa4717e9c4b3dab00f5bc5f66aa",
+      "size": 3313,
+      "seconds": 0.249
+    },
+    {
+      "digest": "sha256:bfb90da0456cbf8247309404ffc49086e1a2adcc0a4554838f147c87707518d8",
+      "size": 1316,
+      "seconds": 0.314
+    },
+    {
+      "digest": "sha256:9c2cc47ff0e0384c10a9f8156b3b9cbbafe5c717011d9de021616e0b82201e85",
+      "size": 1174,
+      "seconds": 0.317
+    },
+    {
+      "digest": "sha256:cad7063fa0511108db9915adb4f74f1d94add299644e1ef3ddeedbb323ba502a",
+      "size": 2304,
+      "seconds": 0.271
+    },
+    {
+      "digest": "sha256:1d372a958a0d1105d62083552a6c70f5b5a61aa1183da84152a182fda9ffce11",
+      "size": 272,
+      "seconds": 0.24
+    },
+    {
+      "digest": "sha256:bb25ef30c89fae20b475eddad27a3d40111ee19e39a7b9d7a3cf0a4fede81807",
+      "size": 6198,
+      "seconds": 0.303
+    },
+    {
+      "digest": "sha256:db32e42f48a03cf0593303982cbe28bfd14ea01a574a539c128216686fb8d45e",
+      "size": 361,
+      "seconds": 0.277
+    },
+    {
+      "digest": "sha256:4588b5394405d4a757ad7dd598658c38a3919636160636dbd159566bb06d2bad",
+      "size": 2260,
+      "seconds": 0.291
+    },
+    {
+      "digest": "sha256:003dc0038a66a5fd038310caee5d519f730503bbb0d4ae37472d9ba8fb4ca211",
+      "size": 19382,
+      "seconds": 0.357
+    },
+    {
+      "digest": "sha256:a0226e14f8172961c9f260a3c81350f0ad72cce1a83d656de7bcf15fdacdeb08",
+      "size": 2492,
+      "seconds": 0.27
+    },
+    {
+      "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+      "size": 32,
+      "seconds": 0.28
+    },
+    {
+      "digest": "sha256:24c13dc7b80fa8425a8300ea69f7ad2adc353ded735e9b6a51c67f841c05b8a1",
+      "size": 31962887,
+      "seconds": 2.927
+    }
+  ]
+}
