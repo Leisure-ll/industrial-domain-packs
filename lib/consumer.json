@@ -31,8 +31,8 @@
       "id": "godot",
       "label": "Godot",
       "emoji": "\ud83c\udfae",
-      "version": "0.2.2",
-      "summary": "Scene transforms, BoxMesh geometry and independent Godot structural verification",
+      "version": "0.3.0",
+      "summary": "Scene transforms, BoxMesh geometry, independent Godot structural verification and vendored GDScript/game-systems skills",
       "prerequisites": [
         "Godot 4.7.2 is prepared automatically by a compatible Harness on Apple Silicon; export templates are separate and not needed for the qualified structural task"
       ],
