@@ -31,3 +31,11 @@ Consumers must use one immutable 0.5.1 commit and matching lockfile integrity ac
 Godot distribution 0.2.2 combines the managed native recipe with the typed scene-edit validation and guide fixes from owner main `8f00a3fd12211bfce3b91a69d0bea2406b6695a6`. Its consumer domain, host/provider and Pack distribution versions agree. The Runtime tool version remains 0.2.1 because those execution sources are unchanged from that reviewed main commit; the distribution version identifies the combined source and installation metadata.
 
 FreeCAD 1.1.4-pack.7, PCB 0.1.0-kicad.2, Chip and CUDA retain their previous Pack bytes and versions. No platform qualification or dependency archive changes. Consumers must pin the new full commit and archive integrity together; old 0.5.1 and Godot 0.2.1 content is not republished under its former identity.
+
+## Automatic consumer pin bump CD (2026-10-13)
+
+`.github/workflows/harness-pin-bump.yml` is the release CD from this repository to the industrial-agent-harness consumer. On every push to main (and on manual dispatch) it compares the consumer's `@zhiman-bj/industrial-domain-packs` tarball pin with the pushed commit. When the pin is behind, the workflow repins `package.json`, refreshes `pnpm-lock.yaml` with `pnpm install --lockfile-only`, force-pushes the single branch `chore/pack-pin-auto` in the consumer repository, closes any superseded auto bump pull request and opens a fresh one. The pull request body lists the Domain Packs commits since the old pin and a file-level tarball content diff, replacing the manual diff-before-bump check.
+
+The CD never merges or auto-merges the bump pull request; the coordinated consumer-merge rule from [release identity](release-format.md) is unchanged. The consumer's frozen-lockfile CI remains the acceptance gate.
+
+Setup requirement: a fine-grained personal access token with repository `Contents: read/write` and `Pull requests: read/write` on `Zhiman-BJ/industrial-agent-harness`, stored as the `PACK_BUMP_PAT` secret in this repository. Both repositories are public, so tarball downloads in the workflow need no credentials. If the secret is missing the workflow fails closed (no pull request is opened) and a manual pin bump remains possible at any time.
