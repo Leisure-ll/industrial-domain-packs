@@ -1,0 +1,177 @@
+name: Harness pin bump
+
+# Release CD: when Domain Packs main moves, open a pull request in the
+# consumer repository (industrial-agent-harness) that repins the
+# @zhiman-bj/industrial-domain-packs tarball dependency to the new commit.
+# The pull request is never merged automatically; consumers keep the
+# coordinated-merge rule from docs/release-format.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: harness-pin-bump
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  HARNESS_REPO: Zhiman-BJ/industrial-agent-harness
+  PACK_NAME: '@zhiman-bj/industrial-domain-packs'
+  BUMP_BRANCH: chore/pack-pin-auto
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare consumer pin with this commit
+        id: pin
+        run: |
+          set -euo pipefail
+          target_sha="${GITHUB_SHA}"
+          current=$(curl -fsSL \
+            "https://raw.githubusercontent.com/${HARNESS_REPO}/main/package.json" \
+            | jq -r --arg name "$PACK_NAME" '.dependencies[$name]')
+          if [ -z "$current" ] || [ "$current" = "null" ]; then
+            echo "Consumer dependency not found; skipping." >&2
+            echo "update=skip" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          if printf '%s' "$current" | grep -q "$target_sha"; then
+            echo "Consumer pin already at ${target_sha}; nothing to do." >&2
+            echo "update=skip" >> "$GITHUB_OUTPUT"
+          else
+            echo "update=needed" >> "$GITHUB_OUTPUT"
+            echo "target=$target_sha" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout consumer repository
+        if: steps.pin.outputs.update == 'needed'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.HARNESS_REPO }}
+          token: ${{ secrets.PACK_BUMP_PAT }}
+          path: harness
+
+      - name: Repin tarball dependency
+        if: steps.pin.outputs.update == 'needed'
+        working-directory: harness
+        env:
+          OLD_URL: ${{ steps.pin.outputs.current }}
+          NEW_URL: https://codeload.github.com/${{ github.repository }}/tar.gz/${{ steps.pin.outputs.target }}
+        run: |
+          set -euo pipefail
+          node - <<'EOF'
+          const fs = require('node:fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const name = process.env.PACK_NAME;
+          const oldUrl = process.env.OLD_URL;
+          const newUrl = process.env.NEW_URL;
+          if (!pkg.dependencies || pkg.dependencies[name] !== oldUrl) {
+            throw new Error(`unexpected pin value for ${name}`);
+          }
+          pkg.dependencies[name] = newUrl;
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          EOF
+
+      - name: Set up pnpm and Node for the consumer workspace
+        if: steps.pin.outputs.update == 'needed'
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        if: steps.pin.outputs.update == 'needed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Refresh lockfile
+        if: steps.pin.outputs.update == 'needed'
+        working-directory: harness
+        run: |
+          set -euo pipefail
+          pnpm install --lockfile-only
+          if git diff --quiet; then
+            echo "Lockfile did not change after repin; aborting." >&2
+            exit 1
+          fi
+
+      - name: Build tarball diff summary
+        if: steps.pin.outputs.update == 'needed'
+        env:
+          OLD_URL: ${{ steps.pin.outputs.current }}
+          NEW_URL: https://codeload.github.com/${{ github.repository }}/tar.gz/${{ steps.pin.outputs.target }}
+        run: |
+          set -euo pipefail
+          old=$(mktemp)
+          new=$(mktemp)
+          curl -fsSL "$OLD_URL" | tar -tzf - | sed 's|^[^/]*/||' | sort > "$old"
+          curl -fsSL "$NEW_URL" | tar -tzf - | sed 's|^[^/]*/||' | sort > "$new"
+          {
+            echo '## Tarball content diff vs current pin'
+            echo
+            echo '```diff'
+            diff -u "$old" "$new" | head -400 || true
+            echo '```'
+          } > /tmp/tarball-diff.md
+
+      - name: Commit and push bump branch
+        if: steps.pin.outputs.update == 'needed'
+        working-directory: harness
+        run: |
+          set -euo pipefail
+          short=$(printf '%s' '${{ steps.pin.outputs.target }}' | cut -c1-12)
+          git config user.name "pack-pin-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -B "$BUMP_BRANCH"
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore(packs): pin industrial-domain-packs @ ${short}"
+          git push --force origin "$BUMP_BRANCH"
+
+      - name: Replace open bump PRs with a fresh one
+        if: steps.pin.outputs.update == 'needed'
+        env:
+          GH_TOKEN: ${{ secrets.PACK_BUMP_PAT }}
+          TARGET: ${{ steps.pin.outputs.target }}
+          OLD_URL: ${{ steps.pin.outputs.current }}
+        run: |
+          set -euo pipefail
+          short=$(printf '%s' "$TARGET" | cut -c1-12)
+          old_sha=$(basename "$OLD_URL")
+          old_short=$(printf '%s' "$old_sha" | cut -c1-12)
+          # Close stale auto bump PRs so at most one is pending at a time.
+          gh pr list -R "$HARNESS_REPO" --state open --head "$BUMP_BRANCH" \
+            --json number --jq '.[].number' | while read -r n; do
+              gh pr close -R "$HARNESS_REPO" "$n" \
+                --comment "Superseded by a newer Domain Packs release (${short})."
+          done
+          body=$(mktemp)
+          {
+            echo '## Harness pack pin refresh'
+            echo
+            echo "Repins \`$PACK_NAME\` from \`${old_short}\` to \`${short}\`."
+            echo
+            echo '**Domain Packs commits since the current pin:**'
+            echo
+            echo '```'
+            gh api "repos/${GITHUB_REPOSITORY}/compare/${old_sha}...${TARGET}" \
+              --jq '.commits[] | .commit.message | split("\n")[0]' | head -60 || true
+            echo '```'
+            echo
+            cat /tmp/tarball-diff.md
+            echo
+            echo '---'
+            echo
+            echo 'Opened automatically by the Domain Packs release CD'
+            echo '(`.github/workflows/harness-pin-bump.yml`). Never merged'
+            echo 'automatically. Manual verification before merge: consumer CI'
+            echo 'must pass and the tarball diff above must match the'
+            echo 'coordinated change plan.'
+          } > "$body"
+          gh pr create -R "$HARNESS_REPO" \
+            --base main --head "$BUMP_BRANCH" \
+            --title "chore(packs): pin industrial-domain-packs @ ${short}" \
+            --body-file "$body"
