@@ -189,5 +189,40 @@
         "linux-x64"
       ]
     }
+  ],
+  "executionProfiles": [
+    {
+      "id": "chip-managed-container",
+      "label": "Managed RTL and synthesis",
+      "kind": "container",
+      "platforms": [
+        "darwin-arm64",
+        "linux-x64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "chip.rtl.verify",
+        "chip.environment.check",
+        "chip.project.describe",
+        "chip.eda.execute"
+      ],
+      "assetIds": [
+        "chip-eda"
+      ],
+      "description": "Qualified managed RTL/assertions/VCD and synthesis only; physical implementation requires project-owned technology inputs and separate qualification."
+    },
+    {
+      "id": "chip-native-detection",
+      "label": "Native EDA detection only",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64",
+        "linux-x64"
+      ],
+      "qualified": false,
+      "toolIds": [],
+      "assetIds": [],
+      "description": "Native software detection is not a qualified execution profile."
+    }
   ]
 }

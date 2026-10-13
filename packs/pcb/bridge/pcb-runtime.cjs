@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
-const { resourceDirectory } = require("../../../lib/resources.cjs");
+const { resourceDirectory } = require("./resources.cjs");
 
 function pcbRuntime(provider, environment = process.env) {
   const sourceDir = resourceDirectory(provider, environment);

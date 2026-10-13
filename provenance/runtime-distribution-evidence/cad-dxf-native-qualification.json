@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "platform": "darwin-arm64",
+  "runtimeSha256": "10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+  "domainEntrySha256": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
+  "versionText": "Harness DXF 1.0.1; ezdxf 1.4.3; Python 3.13.13",
+  "qualification": "Real execution through the Harness canonical executeTask local sandbox and workspace-files API",
+  "test": "tests/dxf-native.test.cjs",
+  "checks": {
+    "relocatedPrivateInterpreterWithHostilePythonEnvironment": "passed",
+    "noDockerOrHostPythonInTaskPATH": "passed",
+    "createSavedDrawingAndReadback": "passed",
+    "inspectSavedSource": "passed",
+    "correctGeometricExpectations": "passed",
+    "wrongDiameterVerifierFailure": "passed",
+    "negativeRadiusNativeFailureInsufficientEvidence": "passed",
+    "inFlightCancellationInsufficientEvidence": "passed",
+    "failedAndCancelledInputHashPreserved": "passed",
+    "recoveryVerification": "passed",
+    "independentCleanBuildSameArchiveSha256": "passed"
+  },
+  "scope": "ezdxf syntax/audit and measured geometry only; no independent CAD engine or manufacturing qualification"
+}

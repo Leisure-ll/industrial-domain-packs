@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-12T13:16:37Z",
+  "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-cad-dxf-native/manifests/sha256:eac0487b5b6a58a5081d08a9d5a7055610caba38db3a048129865b4e7718be12",
+  "authentication": "anonymous-bearer",
+  "identity": {
+    "digest": "sha256:eac0487b5b6a58a5081d08a9d5a7055610caba38db3a048129865b4e7718be12",
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 734,
+    "configDigest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "downloadSize": 30141463,
+    "layerCount": 1
+  },
+  "blobs": [
+    {
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "seconds": 0.239
+    },
+    {
+      "digest": "sha256:10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+      "size": 30141461,
+      "seconds": 8.917
+    }
+  ]
+}

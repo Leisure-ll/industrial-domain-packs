@@ -3,9 +3,10 @@
 The installed Pack runs `chip.rtl.verify`, `chip.environment.check`,
 `chip.project.describe` and `chip.eda.execute` through the trusted Harness backend.
 The managed profile is qualified on macOS ARM64 and Linux x64 with a Docker
-linux/amd64 container. A compatible Pack Manager pulls the immutable EDA image from Harbor and verifies
-its identity. Docker must be available; users do not prepare host Python, a virtual
-environment, Verilator or a local tool image. No benchmark task is required.
+linux/amd64 container. Install Docker separately, then explicitly prepare the
+pinned EDA image in Harness or provide it locally. Harness verifies its identity;
+Domain Pack installation alone never pulls images or prepares dependencies. Drawing/EDA execution requires no host
+Python, virtual environment or Verilator installation. No benchmark task is required.
 
 A project declares `eda.yaml`, source files and typed action parameters. Describe
 the supported operations before executing a declared action. The outer Harness

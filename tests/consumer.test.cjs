@@ -11,7 +11,6 @@ test("host consumers resolve canonical Pack identities and verified maintained r
   assert.deepEqual(metadata.domains.map((item) => item.id).sort(), [
     "cad",
     "chip",
-    "cuda",
     "godot",
     "pcb",
   ]);
@@ -40,7 +39,7 @@ test("host consumers resolve canonical Pack identities and verified maintained r
     metadata.domains.find((item) => item.id === "chip").version,
     "0.7.0",
   );
-  assert.equal(freecad.version, "1.1.4-pack.10");
+  assert.equal(freecad.version, "1.1.4-pack.11");
   assert.equal(freecad.version, packs.getPack(freecad.id).releaseVersion);
   assert.equal(
     freecad.version,
@@ -89,4 +88,17 @@ test("gateway transport implementations belong to the pinned owner release", () 
         pack.provider.sourceSha256,
       );
   }
+});
+
+test("CUDA stays standalone and is absent from the product catalog", () => {
+  assert.deepEqual(packs.consumerMetadata().withdrawnDomains, ["cuda"]);
+  const metadata = packs.consumerMetadata();
+  metadata.withdrawnDomains.length = 0;
+  assert.deepEqual(packs.consumerMetadata().withdrawnDomains, ["cuda"]);
+  assert.ok(!packs.consumerMetadata().domains.some(item => packs.consumerMetadata().withdrawnDomains.includes(item.id)));
+  assert.ok(packs.getPack("cuda-pack"));
+  assert.ok(fs.statSync(packs.sourceDirectory("cuda-pack")).isDirectory());
+  assert.ok(!packs.hostPacks().some(item => item.domain === "cuda"));
+  assert.ok(!packs.consumerMetadata().skills.some(item => item.domain === "cuda"));
+  assert.throws(() => packs.skillResource("cuda.kernel.optimize"));
 });

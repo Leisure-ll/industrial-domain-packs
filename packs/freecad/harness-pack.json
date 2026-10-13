@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "id": "freecad-pack",
   "domain": "cad",
-  "version": "1.1.4-pack.10",
+  "version": "1.1.4-pack.11",
   "provider": {
     "id": "freecad-local.runtime",
     "title": "CAD design runtime · FreeCAD and DXF",
     "domain": "cad",
-    "version": "1.1.4-pack.10",
+    "version": "1.1.4-pack.11",
     "transport": "runtime",
     "packDirectory": "freecad",
-    "sourceSha256": "363bbf2b7084d6694c194a4b261d42fd8938472fa1e25db08e7015ced5c7c820",
+    "sourceSha256": "e219122544e8d97e6ac961c813142b9413f8dde118c56242ef9068149daee74f",
     "tools": [
       {
         "id": "cad.freecad.build",
@@ -79,8 +79,8 @@
     ],
     "sourceFiles": {
       "runtime/dxf-native.py": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
-      "runtime/dxf.cjs": "fc286437f4e16f83a6d13b98033220f2a944dc5e14f85550144eed446c9d235b",
-      "runtime/index.cjs": "5cec4d2fea81d74c1ee671e7af9b2fc2fd5b31038c99e0dd95eeac4b1a23a99e",
+      "runtime/dxf.cjs": "a7ba80ff7fe50c0b76570fcc27adacd9ce8a4e6af65715132b94873fb26914dc",
+      "runtime/index.cjs": "47bd9f360b8f34fc6c7b6b885f113ecf364e2d7658db435e8180350f8e06e3ba",
       "runtime/native.py": "c9da3e181617403384cdeb2135480dd3f7b0bf6b238771c81898f69ba559d9dc",
       "runtime/presentation.cjs": "767c4e97d61d19b3980765c91a4d50ef3e7d4e61684d19cecf1415013facb77e",
       "runtime/recipe.cjs": "8d0f0dc69776359a590561c65c9ca51289bdb417294dddf99317438d080670f3"
@@ -247,7 +247,12 @@
         "FREECAD_USER_TEMP": "temp"
       },
       "installedSize": 2625114576,
-      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg"
+      "upstreamUrl": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-macOS-arm64-py311.dmg",
+      "discoveryPaths": [
+        "/Applications/FreeCAD.app",
+        "~/Applications/FreeCAD.app"
+      ],
+      "installUrl": "https://www.freecad.org/downloads.php"
     },
     {
       "id": "cad-dxf",
@@ -262,6 +267,78 @@
       "size": 75805851,
       "installedSize": 253382656,
       "environment": "INDUSTRIAL_HARNESS_DXF_IMAGE"
+    },
+    {
+      "id": "cad-dxf-native",
+      "label": "DXF native runtime",
+      "version": "1.0.1",
+      "type": "native-runtime-zip",
+      "platform": "darwin-arm64",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-cad-dxf-native/blobs/sha256:10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+      "sha256": "10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+      "size": 30141461,
+      "installedSize": 98195614,
+      "directory": "dxf-runtime",
+      "executable": "bin/harness-dxf",
+      "environment": "INDUSTRIAL_HARNESS_DXF_EXECUTABLE",
+      "probeId": "version",
+      "versionText": "Harness DXF 1.0.1; ezdxf 1.4.3; Python 3.13.13",
+      "discoveryPaths": [],
+      "installUrl": "https://github.com/Zhiman-BJ/industrial-domain-packs#manual-native-dxf-preparation"
+    }
+  ],
+  "executionProfiles": [
+    {
+      "id": "freecad-native",
+      "label": "FreeCAD parametric solids",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cad.freecad.build",
+        "cad.freecad.inspect",
+        "cad.freecad.export",
+        "cad.freecad.edit"
+      ],
+      "assetIds": [
+        "freecad"
+      ]
+    },
+    {
+      "id": "dxf-native",
+      "label": "Native DXF drawings",
+      "kind": "native",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cad.dxf.create",
+        "cad.dxf.inspect",
+        "cad.dxf.verify"
+      ],
+      "assetIds": [
+        "cad-dxf-native"
+      ]
+    },
+    {
+      "id": "dxf-container",
+      "label": "Bounded DXF drawings",
+      "kind": "container",
+      "platforms": [
+        "darwin-arm64"
+      ],
+      "qualified": true,
+      "toolIds": [
+        "cad.dxf.create",
+        "cad.dxf.inspect",
+        "cad.dxf.verify"
+      ],
+      "assetIds": [
+        "cad-dxf"
+      ]
     }
   ]
 }

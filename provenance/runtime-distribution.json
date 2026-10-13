@@ -169,6 +169,21 @@
       "accessPrerequisite": "Existing authorized administrator Docker login to private shared project; remote clients do not receive registry credentials.",
       "qualificationScope": "Prebuilt worker base for administrator-managed project runtime derivation. Embedded build provenance does not replace the maintained reviewed source lock or project verification.",
       "evidence": "provenance/runtime-distribution-evidence/cuda-base.json"
+    },
+    {
+      "id": "cad-dxf-native",
+      "version": "1.0.1",
+      "platform": "darwin-arm64",
+      "type": "native-runtime-zip",
+      "url": "https://harbor.pvg2.zhiman.tech/v2/industrial-runtime-assets/industrial-cad-dxf-native/blobs/sha256:10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+      "sha256": "10ff2481aea0661f6315c803bd14407634f240f77fdcadf80bf1cc709cf07318",
+      "size": 30141461,
+      "installedSize": 98195614,
+      "evidence": "provenance/runtime-distribution-evidence/cad-dxf-native.json",
+      "qualificationEvidence": "provenance/runtime-distribution-evidence/cad-dxf-native-qualification.json",
+      "entrySource": "packs/freecad/runtime/dxf-native.py",
+      "entrySourceSha256": "1c1f89739e3790a0c53031b3e331bbac0f4a85b5e4643a31ec741450c7a650f0",
+      "buildRecipe": "scripts/build-dxf-native-runtime.py"
     }
   ],
   "privateProject": "shared"

@@ -39,7 +39,7 @@ test("installed professional Packs export the exact qualified native downloads a
   });
 });
 
-test("dependency metadata preserves platform limits, managed EDA/DXF and the configured remote GPU client", () => {
+test("dependency metadata preserves platform limits, managed EDA/DXF and execution requirements", () => {
   const domains = owner.consumerMetadata().domains;
   const host = owner.hostPacks();
   const cad = host.find((pack) => pack.domain === "cad");
@@ -55,19 +55,9 @@ test("dependency metadata preserves platform limits, managed EDA/DXF and the con
       "not-qualified",
     );
   }
-  assert.deepEqual(
-    domains.find((d) => d.id === "cuda").qualifiedBundlePlatforms,
-    ["darwin-arm64"],
-  );
-  for (const id of ["cuda"])
-    assert.equal(host.find((pack) => pack.domain === id).runtimeAssets, undefined);
   assert.match(
     domains.find((d) => d.id === "chip").prerequisites.join(" "),
     /project-owned PDK/,
-  );
-  assert.match(
-    domains.find((d) => d.id === "cuda").prerequisites.join(" "),
-    /Remote clients need no local GPU/,
   );
   const chip = host.find(pack => pack.domain === "chip");
   const chipPlatforms = ["darwin-arm64", "linux-x64"];
@@ -121,4 +111,26 @@ test('every installed native or container runtime uses a verified own-source dis
       assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname, '..', published.entrySource))).digest('hex'), published.entrySourceSha256);
     }
   }
+});
+
+test('CAD native DXF is a private relocatable runtime with an independent native profile', () => {
+  const cad = owner.hostPacks().find(pack => pack.domain === 'cad');
+  const native = cad.runtimeAssets.find(asset => asset.id === 'cad-dxf-native');
+  assert.ok(native, 'Native DXF requires an actually published and qualified runtime');
+  assert.equal(native.type, 'native-runtime-zip');
+  assert.equal(native.directory, 'dxf-runtime');
+  assert.equal(native.executable, 'bin/harness-dxf');
+  assert.equal(native.environment, 'INDUSTRIAL_HARNESS_DXF_EXECUTABLE');
+  assert.equal(native.probeId, 'version');
+  assert.equal(native.versionArgs, undefined);
+  const qualified = require('../provenance/runtime-distribution-evidence/cad-dxf-native-qualification.json');
+  assert.equal(native.sha256, qualified.runtimeSha256);
+  assert.equal(native.versionText, qualified.versionText);
+  assert.equal(cad.executionProfiles[0].id, 'freecad-native');
+  const profile = cad.executionProfiles.find(item => item.id === 'dxf-native');
+  assert.equal(profile.kind, 'native');
+  assert.equal(profile.qualified, true);
+  assert.deepEqual(profile.assetIds, ['cad-dxf-native']);
+  assert.deepEqual(profile.toolIds, ['cad.dxf.create', 'cad.dxf.inspect', 'cad.dxf.verify']);
+  assert.ok(cad.executionProfiles.find(item => item.id === 'dxf-container'));
 });

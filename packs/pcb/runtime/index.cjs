@@ -20,7 +20,7 @@ const {
 } = s;
 const { ID, verify } = require("./verifier.cjs");
 const benchSnapshot = require("./bench-upstream.json");
-const VERSION = "0.3.0";
+const VERSION = "0.3.1";
 const { productTools, DERIVED_INPUTS } = require("./product.cjs");
 const RUNTIME_PROFILE =
   "Uses the managed, immutable PCB design environment installed by Harness. " +

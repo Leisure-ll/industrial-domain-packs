@@ -78,3 +78,7 @@ The new runtime/, typed tools, Verifiers and examples are original public MIT co
 - 过程/容器生命周期移交 Harness `runtimeApi.openToolSession`；Pack 准备域命令和受控挂载，gateway 在已分配容器内调用 controller。保留原生版本/Schema/资源校验、身份隔离、排他租约、观测守卫与失败恢复。
 - KiCad 与预构建 gateway 镜像从自有 Harbor 的哈希/digest 资源分发。官方来源仍为原生工具的上游来源；维护者构建与镜像发布不会成为终端用户的安装步骤。derived 镜像仅增加锁定 gateway Python/MCP 依赖，原 actor 字节未变。
 - 单个 operation 的 canonical receipt Verifier 继续如实返回 `not_run`；各类 ERC/DRC/parity/适用仿真的原生报告分别报告真实结论，不把执行成功提升为工程验收。
+
+## PCB 安装布局修复（2026-10-12）
+
+- `bridge/resources.cjs` 在 PCB Pack 内维护固定资源库存校验，来源为本仓库 `lib/resources.cjs`（MIT）。产品 gateway 与独立 bridge 均只引用包内模块，安装后的 hpack 无需仓库根目录 `lib/`。保留路径约束、逐级符号链接拒绝、文件数量／大小边界、完整库存与 SHA-256 校验；该检查只验证受信资源，不授予执行或工程验收。

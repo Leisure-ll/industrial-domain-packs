@@ -2,7 +2,13 @@
 
 The product capability is PCB design: create a project, inspect and edit KiCad schematics and boards, prepare sourced components, route copper, run native checks and applicable analyses, and retain CAD, reports and views. Existing projects and empty workspaces are both valid inputs. Ordinary users need no benchmark task, seed board, evaluator or submission.
 
-A compatible Harness Pack Manager installs KiCad 10.0.6 and the prebuilt PCB design environment from `harbor.pvg2.zhiman.tech`. It verifies the declared archive hash or immutable OCI digest. Users do not build an image, prepare Python, run dependency synchronization or download from official KiCad sources. Docker is required for the design container; Harness reports a missing Docker installation before execution. The optional native mounting-board profile uses the managed KiCad app on macOS Apple Silicon. Other desktop platforms and remote execution remain unqualified.
+Harness downloads the Domain Pack. Install KiCad 10.0.6 from its official site
+and detect or associate it. Install Docker separately, then explicitly prepare
+the pinned PCB design image in Harness or provide it locally. Pack installation
+does not implicitly pull images or install KiCad or host Python. Archive URLs and immutable image identities in
+`harness-pack.json` are compatibility and maintainer records. The optional native
+mounting-board profile uses the externally installed KiCad app on macOS Apple
+Silicon. Other desktop platforms and remote execution remain unqualified.
 
 ## Product and reused implementation
 

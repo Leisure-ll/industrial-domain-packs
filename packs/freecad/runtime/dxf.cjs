@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const definitions = ['create', 'inspect', 'verify'].map(operation => ({
   id: `cad.dxf.${operation}`, name: `dxf_${operation}`,
@@ -84,8 +84,10 @@ function createDxfPlugin({ environment, runtimeApi, inspectInputs }) {
       execute: async ({ projectDir, inputs, action, signal }) => {
         const operation = definition.name.slice(4); validate(inputs, operation);
         if (!runtimeApi?.executeTask || !runtimeApi?.runtimeFiles) throw Error('Managed DXF tools require the trusted Harness Runtime.');
+        const executable = environment.INDUSTRIAL_HARNESS_DXF_EXECUTABLE;
+        const native = typeof executable === 'string' && path.isAbsolute(executable);
         const image = environment.INDUSTRIAL_HARNESS_DXF_IMAGE;
-        if (!image || !/@sha256:[a-f0-9]{64}$/.test(image)) throw Error('DXF runtime is not prepared. Repair CAD in Settings → Domains.');
+        if (!native && (!image || !/@sha256:[a-f0-9]{64}$/.test(image))) throw Error('DXF runtime is not prepared. Repair CAD in Settings → Domains.');
         const api = runtimeApi.runtimeFiles;
         const source = api.projectFile(projectDir, inputs.file);
         const exists = fs.existsSync(source);
@@ -97,8 +99,8 @@ function createDxfPlugin({ environment, runtimeApi, inspectInputs }) {
         const directory = api.runDirectory(projectDir, action.id), input = path.join(directory, 'input'), work = path.join(directory, 'work');
         fs.mkdirSync(input); fs.mkdirSync(work);
         if (operation !== 'create') fs.writeFileSync(path.join(input, 'source.dxf'), api.readBytes(source, 16 * 1024 * 1024));
-        fs.writeFileSync(path.join(input, 'request.json'), JSON.stringify({ operation, ...(operation === 'create' ? { recipe: inputs.recipe } : { source: '/inputs/source.dxf' }) }));
-        const executed = await runtimeApi.executeTask({ command: ['python3', '/opt/cad/dxf-native.py', '{input}/request.json', '{output}'], timeoutMs: 60000, runtime: { kind: 'docker', image, cpus: 1, memoryMb: 512, pids: 64 } }, { directory, input, work, actionId: action.id, environment, signal });
+        fs.writeFileSync(path.join(input, 'request.json'), JSON.stringify({ operation, ...(operation === 'create' ? { recipe: inputs.recipe } : { source: native ? path.join(input, 'source.dxf') : '/inputs/source.dxf' }) }));
+        const executed = await runtimeApi.executeTask({ command: native ? [executable, '{input}/request.json', '{output}'] : ['python3', '/opt/cad/dxf-native.py', '{input}/request.json', '{output}'], timeoutMs: 60000, runtime: native ? { kind: 'local' } : { kind: 'docker', image, cpus: 1, memoryMb: 512, pids: 64 } }, { directory, input, work, actionId: action.id, environment, signal });
         fs.writeFileSync(path.join(work, 'tool.log'), executed.log || '');
         let succeeded = executed.status === 'COMPLETED' && !signal?.aborted;
         let readbackInputSha256, readbackReportSha256;
