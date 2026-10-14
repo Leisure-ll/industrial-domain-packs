@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "75173ba8d2c3d3a81304f93a424726d87c0f1075550aa3b4e59a397883496306",
+  "contentSha256": "aa95bf5536c59d1963904c2b539ca35bfff7af011aad2f8e0c52b3cd8ac9dc49",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "963e7308cfb4f9e36f1aa55fbcba53878d70d433107cbd5ab56811ddb914c7a4",
@@ -97,7 +97,7 @@
     "packs/chip/eda-harness/uv.lock": "5db5ea00eb8ee1889bd1f482744c189c6764b227d10539382239f8c0324858d1",
     "packs/chip/examples/rtl/counter.sv": "640cbbdd634cb6c91c133922aa17a363bf76be9288a7565452842347622b6893",
     "packs/chip/examples/rtl/counter_tb.sv": "30574b9c02ac10965a0db9959c8619c6f80140a1dc7f989a9ab5e009c693075a",
-    "packs/chip/examples/rtl/eda.yaml": "824ccce8d12446492fd89dc12989d874bf91d5fc89cb1387f9c71beeb4a3ae96",
+    "packs/chip/examples/rtl/eda.yaml": "b719caddf125a742e94d5ea914b7cafe039602dacef6bcebdce4223293002f18",
     "packs/chip/harness-pack.json": "6917dcb2efa7956b23dd51846dd6c6d45541d77c9877fe45c8b033cd903b0245",
     "packs/chip/images/Dockerfile.rtl-cpu": "b145a0925b5109663783ce46c3b2ed986de1e1caf6077014ebea76726c74c605",
     "packs/chip/linux-bootstrap.sh": "8006af4b130d81febd9b5835e594566b09fc80b64dd30c5a60a34010b7855e7b",
@@ -105,7 +105,7 @@
     "packs/chip/pack.json": "9b0dd565306b2e47d9fb211b38e270c225c01f1ba249dc76dacb010cc998268f",
     "packs/chip/runtime/bridge.py": "3e627610b810042dd4e5ff082d91738f267ab36cab313b8fc2c4ff1b320b13ae",
     "packs/chip/runtime/export.py": "715f33bd0658eda7bf0bacd716e7b9881fbf45cec30f5d1c7838790f7a579369",
-    "packs/chip/runtime/index.cjs": "e978c7ee4713b753110d21eea9710409dfdb149ba252aed4844e73eaf645476b",
+    "packs/chip/runtime/index.cjs": "78c7ed963bd46fb09f2ed4121c52b88a531a4ef6e080b8834ff7eb339409d4db",
     "packs/chip/runtime/native-profile.py": "72a581ffc3e9ea28add739a3b6ff435985ed0e03dfcf38c10694916332c776f1",
     "packs/chip/runtime/verifier.cjs": "d8b94be8d0da62862da4b1a3de75f08e73a7120312a73876c5d66b09377c1e5b",
     "packs/chip/scripts/mcp-smoke.py": "18e64b1ba3d105b02a8e8c08a0d689d68b0bcb0d44154c15a7a85e1f7bd818d9",
