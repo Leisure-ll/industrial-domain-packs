@@ -1,6 +1,6 @@
-# PCB bench runtime recipe: built for linux/amd64 both locally and by the
+# PCB runtime recipe: built for linux/amd64 both locally and by the
 # release workflow (docs/release-runbook.md). It is not the upstream
-# PCB-bench qualification record; that identity stays in runtime/bench-upstream.json.
+# qualification record; that identity stays in runtime/upstream-snapshot.json.
 # Base layers are digest-pinned; bump deliberately and record why.
 FROM eclipse-temurin:25-jre@sha256:fd4b1c02c64eef378212e23656fc0b0caa41a357876fa0b60e51ceda94a3db64 AS java
 FROM ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
