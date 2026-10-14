@@ -177,7 +177,7 @@ jobs:
         id: rtl_build
         uses: docker/build-push-action@v6
         with:
-          context: packs/chip
+          context: .
           file: packs/chip/images/Dockerfile.rtl-cpu
           platforms: linux/amd64
           push: true
