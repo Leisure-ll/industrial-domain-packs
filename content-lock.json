@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentSha256": "c5d22c195bd5a62c0781ca278edf62347a0482f25065162d65e99abe903ff86b",
+  "contentSha256": "be3990aec53144cac5c302aad5914213a34c2f87e86396d4480939b01f933c97",
   "files": {
     "lib/consumer.cjs": "4d670732dbf3d5a3da33cac41007573e1f47b514a7165ac1df1748c9c2f960ab",
     "lib/consumer.json": "43458eb74bbae7199da8a47bb878e3f5c89ca327bf6dc3dc18b36f26ac576f76",
@@ -433,7 +433,7 @@
     "packs/godot/skills/state-machine/references/hierarchical-and-parallel.md": "4a21b680490e763ec76e5a908cde9ba6c2236dbd4b9c6cd99a4d660b4a7a938b",
     "packs/godot/src/inspect_scene.gd": "89a4fc583b90af71d697692a87c32c1daff635a4453b6cd354740c9414575201",
     "packs/godot/src/runtime.cjs": "e6977d490ac5ac85753693a8af4db42fc58ce20f976259fa0d9ff8e220032074",
-    "packs/pcb/Dockerfile.local-dev": "74b64fd22298bf2907d99edf4e7cfd5a1d91f17146453860f9c1c52d599a8efb",
+    "packs/pcb/Dockerfile.local-dev": "6f4f3f29f8c56ea311c7f172bbaba134b5c1b5133d6e9939fff1f59723a18d5e",
     "packs/pcb/PROVENANCE.md": "c7fd0219c093dd884dd2eb8519666b554ef32d96cfe31107c1bac10867336d93",
     "packs/pcb/README.md": "a8d458283b18bf2d2a05c3e4cc94deb5661cd09f6092ecb566cf53351c7c7869",
     "packs/pcb/bridge/pcb-controller.py": "e7571ef15f9d71685938aa0ec46cf9c921edf0d1fa75acf6b259bb5686198e84",
