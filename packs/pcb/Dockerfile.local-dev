@@ -1,7 +1,9 @@
 # Diagnostic local runtime. It is not the qualified PCB-bench release image.
 # Build with the pinned PCB-bench checkout as the Docker context.
-FROM eclipse-temurin:25-jre AS java
-FROM ubuntu:24.04
+# Base layers pinned to manifest-list digests; apt versions and the
+# freerouting jar sha256 below make the whole build input-reproducible.
+FROM eclipse-temurin:25-jre@sha256:fd4b1c02c64eef378212e23656fc0b0caa41a357876fa0b60e51ceda94a3db64 AS java
+FROM ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG PCB_DEV_INSECURE_APT_TLS=0
