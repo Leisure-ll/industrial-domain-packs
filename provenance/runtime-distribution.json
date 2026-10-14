@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "policy": "Container images are published from this repository's digest-pinned recipes to ghcr.io (lowercase namespace) and attached to the matching GitHub Release as compressed oci-archive tarballs. Anonymous pull and download are the default; the org Harbor stays internal-only. Entries are updated only by scripts/update-runtime-distribution.py from a release workflow run; never hand-edit a digest.",
+  "policy": "Container images are published from this repository's digest-pinned recipes to ghcr.io (lowercase namespace) and attached to the matching GitHub Release as compressed oci-archive tarballs. Release assets are the anonymous consumer channel (download, verify, docker load); ghcr.io anonymous pull activates once org package policy allows public packages - visibility is UI-administered and has no API. The org Harbor stays internal-only. Entries are updated only by scripts/update-runtime-distribution.py from a release workflow run; never hand-edit a digest.",
   "registry": "ghcr.io",
   "imageNamespace": "zhiman-bj",
   "releaseAssetUrlTemplate": "https://github.com/Zhiman-BJ/industrial-domain-packs/releases/download/{tag}/{archive}",
