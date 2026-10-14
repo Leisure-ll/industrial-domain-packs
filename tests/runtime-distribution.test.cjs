@@ -55,7 +55,11 @@ test('distribution lock keeps a valid transport-agnostic schema', () => {
 test('update-runtime-distribution records identities and rejects malformed ones', () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'industrial-distribution-'));
   const staged = path.join(directory, 'runtime-distribution.json');
-  fs.copyFileSync(lockPath, staged);
+  // Stage the repo lock but reset release state: the untouched-entry assertion
+  // below must not depend on whether the repository has already shipped a release.
+  const fixture = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
+  for (const image of fixture.images) image.current = null;
+  fs.writeFileSync(staged, JSON.stringify(fixture, null, 2) + '\n');
   const update = path.join(root, 'scripts', 'update-runtime-distribution.py');
   const run = args => spawnSync('python3', [update, '--lock', staged, ...args], { encoding: 'utf8' });
 
