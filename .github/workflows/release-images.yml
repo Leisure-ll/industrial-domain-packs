@@ -112,11 +112,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          encoded="${NAMESPACE}%2F${IMAGE}"
-          if gh api -X PATCH "/orgs/${GITHUB_REPOSITORY_OWNER}/packages/container/${encoded}/visibility" -f state=public >/dev/null 2>&1; then
+          # Org package names are the bare image name (ghcr.io/<org>/<image> -> <image>).
+          if gh api -X PATCH "/orgs/${GITHUB_REPOSITORY_OWNER}/packages/container/${IMAGE}/visibility" -f state=public >/dev/null 2>&1; then
             echo "Package visibility set to public."
-          elif gh api -X PATCH "/user/packages/container/${encoded}/visibility" -f state=public >/dev/null 2>&1; then
-            echo "Package visibility set to public (user namespace)."
           else
             echo "::warning::Could not set ghcr.io/${NAMESPACE}/${IMAGE} to public via the API. If the anonymous verify below fails, flip visibility in the GitHub UI (Packages -> industrial-* -> Package settings -> Change visibility) and re-run this workflow."
           fi
@@ -202,8 +200,8 @@ jobs:
         run: |
           set -euo pipefail
           for image in industrial-chip-tools industrial-chip-rtl; do
-            encoded="${NAMESPACE}%2F${image}"
-            if gh api -X PATCH "/orgs/${GITHUB_REPOSITORY_OWNER}/packages/container/${encoded}/visibility" -f state=public >/dev/null 2>&1; then
+            # Org package names are the bare image name (ghcr.io/<org>/<image> -> <image>).
+            if gh api -X PATCH "/orgs/${GITHUB_REPOSITORY_OWNER}/packages/container/${image}/visibility" -f state=public >/dev/null 2>&1; then
               echo "$image: visibility set to public."
             else
               echo "::warning::Could not set ghcr.io/${NAMESPACE}/${image} to public via the API; flip it in the GitHub UI if the anonymous verify below fails."
