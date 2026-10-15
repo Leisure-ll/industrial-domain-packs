@@ -14,7 +14,16 @@
       "context": "packs/pcb",
       "platform": "linux/amd64",
       "tagPattern": "pcb-v*",
-      "current": null
+      "current": {
+        "tag": "pcb-v0.1.0",
+        "imageDigest": "sha256:fc43bd6471a41270346d0217f29c4eb64d6a8fb5dcd9a0421c7f08aa03cd611a",
+        "configDigest": "sha256:1ceac40dcb7ed1c8eae093f26d311636539e16aee0dcb1e359d53ea3e83aa0ea",
+        "ociArchive": "industrial-pcb-runtime-pcb-v0.1.0.tar",
+        "ociArchiveSha256": "d2ce08e13e12407162e17f7c92c7285e3349062183b83abb58ac5b7c608d612c",
+        "ociArchiveBytes": 1232038400,
+        "sourceCommit": "f55fa00ddefffdbe534f29a726fa8b845cd3788c",
+        "releasedAt": "2026-10-15T00:44:01Z"
+      }
     },
     {
       "id": "industrial-chip-tools",
