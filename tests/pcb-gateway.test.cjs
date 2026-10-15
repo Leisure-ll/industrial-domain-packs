@@ -12,6 +12,7 @@ const snapshot = JSON.parse(
 );
 const {
   bridgeProvider,
+  gatewaySession,
   sessionDirectory,
   GatewaySession,
   GATEWAY_MCP_VERSION,
@@ -147,7 +148,9 @@ test("real container dispatch when the container environment is provided", async
     (tool) => tool.descriptor.id === "pcb.design.project_status",
   );
   const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "pcb-design-live-"));
+  let session;
   try {
+    session = await gatewaySession({ projectDir: scratch, environment: process.env });
     const result = await status.execute({
       projectDir: scratch,
       inputs: {},
@@ -158,6 +161,7 @@ test("real container dispatch when the container environment is provided", async
     const payload = JSON.parse(result.diagnostics[0]);
     assert.equal(payload.toolId, "pcb.design.project_status");
   } finally {
+    session?.close();
     fs.rmSync(scratch, { recursive: true, force: true });
   }
 });
