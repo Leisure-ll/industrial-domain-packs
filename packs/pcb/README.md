@@ -1,5 +1,39 @@
 # PCB Domain Runtime Pack
 
+## Container release and local validation
+
+The `pcb-v*` release channel publishes `industrial-pcb-runtime` as a compressed-layer
+OCI archive plus SHA-256. Its identity is generated in the repository's
+`provenance/runtime-distribution.json`; a compatible Harness installer downloads,
+checks and loads it into a running Linux Docker engine (including Docker Desktop
+on macOS). Installing a tarball creates an image; a container starts when a tool
+or validation task runs. The host gateway Python remains a separate prerequisite.
+
+The recipe keeps KiCad 10.0.6, its symbols, footprints and 3D libraries pinned to
+official historical Launchpad builds in `runtime/kicad-packages.json`. Rolling PPA
+indexes no longer retain this version. Every downloaded package is checked against
+the size and SHA-256 in the official build's `.changes` file. Base images, requested
+Ubuntu packages and Freerouting 2.4.1 are also pinned; TLS verification stays enabled.
+
+Build with this pack directory as the context, then validate a real board:
+
+```sh
+docker build --platform linux/amd64 -f Dockerfile.local-dev -t industrial-pcb-runtime:local .
+./validate.sh examples/mounting-board/board.kicad_pcb --image industrial-pcb-runtime:local
+./validate.sh examples/mounting-board/board.kicad_pcb --image industrial-pcb-runtime:local --output /tmp/pcb-result
+INDUSTRIAL_PCB_VALIDATION_IMAGE=industrial-pcb-runtime:local node scripts/test-image.cjs
+```
+
+Each validation uses one disposable Linux AMD64 container: no network, read-only
+input/root filesystem, caller UID/GID, dropped capabilities, 2 CPUs, 2 GiB memory,
+128 PIDs, 256 MiB tmpfs and a 120-second timeout. The default output directory is
+unique and printed; explicit output must be empty. `result.json` records the exit
+status, saved board and optional `workload.log`. KiCad saves the board, a separate
+native process reads it back, and DRC must report no errors or unconnected items.
+Warnings remain visible in `drc.json`; the supplied mounting-board fixture has two
+library warnings. This smoke checks image usability, not complete board engineering
+acceptance. The original upstream qualification identity remains unchanged.
+
 The public profile is macOS Apple Silicon only, exercised with KiCad 10.0.6 and Godot 4.7.2 official stable. Windows, Linux, Intel macOS and remote execution remain unqualified. Native executables are external dependencies, not bundled Pack resources. The dependency preparation scripts verify exact official archive SHA-256 values without requiring administrator rights, Apple Developer credentials or installer publication.
 
 Harness injects its generic trusted `runtimeApi` (`executeTask`, `runtimeFiles`) into the installed plugin factory. The Pack does not resolve Core through a development checkout. Harness owns canonical Run, Action, Artifact, State, Verification and Checkpoint persistence, scoped authorization, protected execution and cancellation. The owner Pack owns source observation, typed edits, native command preparation, report interpretation and versioned Verifiers. Kimi Code stays pinned at 2.1.1 and retains its native loop, sessions, compaction and subtasks.
